@@ -1,8 +1,18 @@
 """ HackHolyoke 2017
 checkmAIt
+
+Given a starting coordinate pair
+and an ending coordinate pair,
+outputs commands to navigate the
+arm to that place, grab the piece,
+navigate the board, and release the
+piece.
+
+Requires: networkx, numpy 
 """
 import networkx as nx
 import numpy as np
+#import serial
 
 class MotionPlanner(object):
 	""" Contains a graph of spaces on a
@@ -14,8 +24,9 @@ class MotionPlanner(object):
 		self.start_board()
 
 		# Create some repetative strings
-		self.grab_str = 'U \n\n'
-		self.release_str = 'D \n\n'
+		self.grab_str = str.encode('U \n\n')
+		self.release_str = str.encode('D \n\n')
+		#self.ser = serial.Serial('/dev/tty.usbserial', 9600)
 
 	def create_board_graph(self, piece_place):
 		""" Given the coordinates of the piece
@@ -115,12 +126,14 @@ class MotionPlanner(object):
 			['M %f %f \n\n', 'U \n\n' ... 'D \n\n']
 		"""
 		start_coord, end_coord = self.parse_string(mv_str)
+		self.occupied_spaces -= {start_coord}
 		path = self.find_path(start_coord, end_coord)
 		instruction_list = [self.move_string(start_coord), self.grab_str]
 		for node in path:
 			instruction_list.append(self.move_string(node))
 
 		instruction_list.append(self.release_str)
+		self.occupied_spaces.add(end_coord)
 		return instruction_list
 
 	def move_string(self, coord):
@@ -128,10 +141,21 @@ class MotionPlanner(object):
 		returns a string that fits the format
 		'M float float'
 		"""
-		return 'M ' + str(coord[0]) + ' ' + str(coord[1]) + ' \n\n'
+		return str.encode('M ' + str(coord[0]) + ' ' + str(coord[1]) + ' \n\n')
+
+	def run(self, mv_str):
+		""" Waits to receive a string.
+		when the string is received,
+		creates a list of commands to
+		pass onward.
+		"""
+		mv_string = mv_str #get string
+		instruction_list = self.make_command_strings(mv_str)
+		for instruction in instruction_list:
+			print(instruction)
+			#self.ser.write(instruction)
+
 
 if __name__ == '__main__':
 	mp = MotionPlanner()
-	strings = mp.make_command_strings("2.0 4.0 -> 6.0 4.0 \n\n")
-	for command in strings:
-		print(command)
+	strings = mp.run("2.0 4.0 -> 6.0 4.0 \n\n")
