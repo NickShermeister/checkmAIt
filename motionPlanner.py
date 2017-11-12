@@ -26,6 +26,9 @@ class MotionPlanner(object):
 		# Create some repetative strings
 		self.grab_str = str.encode('U \n\n')
 		self.release_str = str.encode('D \n\n')
+		self.made_way_flag = False
+		self.made_way_coord = tuple()
+		self.contested_space = tuple()
 		#self.ser = serial.Serial('/dev/tty.usbserial', 9600)
 
 	def create_board_graph(self, piece_place):
@@ -92,6 +95,8 @@ class MotionPlanner(object):
 			self.occupied_spaces.add(space)
 		for space in zip(np.arange(0.0, 8.0), [1.0]*8):
 			self.occupied_spaces.add(space)
+		for space in zip(np.arange(0.0, 8.0), [2.0]*8):
+			self.occupied_spaces.add(space)
 
 		# Second player side taken out
 		for space in zip(np.arange(0.0, 8.0), [7.0]*8):
@@ -129,12 +134,19 @@ class MotionPlanner(object):
 		start_coord, end_coord = self.parse_string(mv_str)
 		self.occupied_spaces -= {start_coord}
 		path = self.find_path(start_coord, end_coord)
+		last_node = start_coord
 		instruction_list = [self.move_string(start_coord), self.grab_str]
-		for node in path:
+		for node in path[1:]:
+			if node in self.occupied_spaces:
+				instruction_list = self.make_way(last_node, node, path, instruction_list)
 			instruction_list.append(self.move_string(node))
+			last_node = node
 
 		instruction_list.append(self.release_str)
 		self.occupied_spaces.add(end_coord)
+		if self.made_way_flag:
+			instruction_list = self.return_moved(instruction_list)
+
 		return instruction_list
 
 	def move_string(self, coord):
@@ -143,6 +155,37 @@ class MotionPlanner(object):
 		'M float float'
 		"""
 		return str.encode('M ' + str(coord[0]) + ' ' + str(coord[1]) + ' \n\n')
+
+	def make_way(self, start_coord, in_way_coord, path_list, instruction_list):
+		""" Given a coordinate, moves the piece there
+		to an unoccupied space nearby that is not in
+		the path_list. Appends necessary commands to
+		instruction_list
+		"""
+		self.contested_space = in_way_coord
+		instruction_list.append(self.release_str)
+		for space in self.board.neighbors(in_way_coord):
+			if space not in self.occupied_spaces and space not in path_list:
+				temp_mv_str = str(in_way_coord[0]) + ' ' + str(in_way_coord[1]) + ' -> ' + str(space[0]) + ' ' + str(space[1]) + ' \n\n'
+				temp_list = self.make_command_strings(temp_mv_str)
+				self.made_way_coord = space
+				print(self.made_way_coord)
+				break
+
+		for instruction in temp_list:
+			instruction_list.append(instruction)
+		instruction_list.append(self.move_string(start_coord))
+		self.made_way_flag = True
+		return instruction_list
+
+	def return_moved(self, instruction_list):
+		self.made_way_flag = False
+		#print(str(self.made_way_coord))
+		command = str(self.made_way_coord[0]) + ' ' + str(self.made_way_coord[1]) + ' -> ' + str(self.contested_space[0]) + ' ' + str(self.contested_space[1]) + ' \n\n'
+			
+		for instruction in self.make_command_strings(command):
+			instruction_list.append(instruction)
+		return instruction_list
 
 	def run(self, mv_str):
 		""" Waits to receive a string.
@@ -159,4 +202,4 @@ class MotionPlanner(object):
 
 if __name__ == '__main__':
 	mp = MotionPlanner()
-	strings = mp.run("2.0 4.0 -> 6.0 4.0 \n\n")
+	strings = mp.run("2.0 1.0 -> 3.0 4.0 \n\n")
