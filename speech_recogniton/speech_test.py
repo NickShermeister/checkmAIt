@@ -171,7 +171,7 @@ def attempt_command_string(feed):
         command_string += make_string(feed_list[-1],rows, cols)
   
     if len(command_string) not in [3, 5]:
-        print("Try again, merd.")
+        print("Try again, nerd.")
         return    
 
     print(command_string)
