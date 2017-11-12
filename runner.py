@@ -56,6 +56,7 @@ class ChessGame():
             # print("Good2")
             if piece2:
                 print("Good3")
+                self.graveyardMove(loc2, False)
                 self.blackLocations[piece2].remove(loc2)
                 self.blackGraveyard[piece2].append(self.blackGraves)
                 self.blackGraves+=1
@@ -65,9 +66,14 @@ class ChessGame():
             self.blackLocations[piece1].remove(loc1)
             self.blackLocations[piece1].append(loc2)
             if piece2:
+                self.graveyardMove(loc2, True)
                 self.whiteLocations[piece2].remove(loc2)
                 self.whiteGraveyard[piece2].append(self.whiteGraves)
                 self.whiteGraves+=1
+
+    def graveyardMove(self, loc, color): #false for black, true for white
+
+        pass
 
     def printLocations(self):
         print("White locations")
@@ -105,6 +111,7 @@ class ChessGame():
         #TODO: ROUTE TO MOVE PIECES BACK
 
 
+
         self.whiteLocations[''] = ['a2', 'b2', 'c2', 'd2', 'e2', 'f2', 'g2', 'h2']
         self.whiteLocations['R'] = ['a1', 'h1']
         self.whiteLocations['N'] = ['b1', 'g1']
@@ -132,7 +139,7 @@ class ChessGame():
             count += 1
             if x in "abcdefgh":
                 final_string += str(ord(x) - 96)+".0 "
-            elif x in "0123456789":
+            elif x in "12345678":
                 final_string += str(x)+".0 "
             if count == 2:
                 final_string += "-> "
