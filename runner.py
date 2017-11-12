@@ -4,6 +4,7 @@ in order to import chess, run:
 pip3 install python-chess
 """
 import chess
+import chess.uci
 
 class ChessGame():
     """docstring for ChessGame."""
@@ -12,6 +13,8 @@ class ChessGame():
         self.running = True
         self.turn = True    #True means player makes first move; else AI makes first move.
         #first player is always white
+        self.engine = chess.uci.popen_engine('stockfish-8-linux/Linux/stockfish_8_x64')
+        self.engine.uci()
         self.first = self.turn
         self.whiteGraveyard = {'':[], 'R':[], 'N':[], 'B':[], 'K':[], 'Q':[]} #empty string = pawn
         self.blackGraveyard = {'':[], 'r':[], 'n':[], 'b':[], 'k':[], 'q':[]}
@@ -30,6 +33,7 @@ class ChessGame():
 
         except:
             print("Invalid command.")
+            print(self.board)
             self.turn = not self.turn
             return
         stripped_command = ''.join(l for l in hi.uci() if l in '12345678abcdefgh')
@@ -147,8 +151,15 @@ class ChessGame():
         print(final_string)
 
     def aiMove(self):
-        #TODO: IMPLEMENT AI AND HAVE IT TAKE A TURN
-        return
+        self.engine.position(self.board)
+        test = self.engine.go(movetime=300)
+        hi = str(test[0])
+        print(hi)
+        Nf3 = chess.Move.from_uci(hi)
+        self.board.push(Nf3)
+
+        # self.movePiece(hi)
+        self.turn = not self.turn
 
     def gameOver(self):
         #TODO: what happens when the gamae ends
@@ -212,7 +223,6 @@ class ChessGame():
 
             else: #AI turn=
                 self.aiMove()
-                self.playerTurn()
 
             if self.checkGameOver():
                 self.gameOver()
