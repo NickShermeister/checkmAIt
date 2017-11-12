@@ -23,8 +23,8 @@ class MotionPlanner(object):
 
 	def __init__(self):
 
-		self.file_range = np.arange(-1.0, 9.0)
-		self.column_range = np.arange(-2.0,10.0)
+		self.column_range = np.arange(-1.0, 9.0)
+		self.file_range = np.arange(-2.0,10.0)
 		self.start_board()
 
 		# Create some repetative strings
