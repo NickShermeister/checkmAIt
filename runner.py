@@ -22,9 +22,23 @@ class ChessGame:
         self.first = self.turn
         self.whiteLocations = {'': [], 'R': [], 'N': [], 'B': [], 'K': [], 'Q': []}
         self.blackLocations = {'': [], 'r': [], 'n': [], 'b': [], 'k': [], 'q': []}
+        self.whiteLocations[''] = ['a2', 'b2', 'c2', 'd2', 'e2', 'f2', 'g2', 'h2']
+        self.whiteLocations['R'] = ['a1', 'h1']
+        self.whiteLocations['N'] = ['b1', 'g1']
+        self.whiteLocations['B'] = ['c1', 'f1']
+        self.whiteLocations['K'] = ['e1']
+        self.whiteLocations['Q'] = ['d1']
+
+        # Black pieces
+        self.blackLocations[''] = ['a7', 'b7', 'c7', 'd7', 'e7', 'f7', 'g7', 'h7']
+        self.blackLocations['r'] = ['a8', 'h8']
+        self.blackLocations['n'] = ['b8', 'g8']
+        self.blackLocations['b'] = ['c8', 'f8']
+        self.blackLocations['k'] = ['e8']
+        self.blackLocations['q'] = ['d8']
         self.graveyard = Graveyard()
 
-        self.resetBoard()
+        # self.resetBoard()
 
         self.gameLoop()
 
@@ -51,6 +65,8 @@ class ChessGame:
         # print("Loc 1: %s" % loc2)
         piece1 = self.findLocPiece(loc1)
         piece2 = self.findLocPiece(loc2)
+        print(piece1)
+        print(piece2)
         # print("Good1")
         # print("Piece1 : %s " % piece1)
         # print("Piece2 : %s " % piece2)
@@ -94,13 +110,14 @@ class ChessGame:
 
         is_white = piece.isupper()
         source = self.graveyard.retrievePiece(is_white, piece)
-        assert(source is not None, "Tried to revive piece not in graveyard")
+        assert source is not None, "Tried to revive piece not in graveyard"
 
         if piece.lower() == 'p':
             piece = ''
 
         (self.whiteLocations if is_white else self.blackLocations)[piece].append(dest)
 
+        print("The source is %s" % str(source))
         self.output_move(source, self.pairToLocation(dest))
 
 
@@ -115,7 +132,8 @@ class ChessGame:
         Takes in a 2 letter/number string thatgives a square (e.g. a1, h8, etc.)
         returns P for white pawn, p for black pawn.
         """
-        # print(location)
+        print(self.whiteLocations)
+        print(location)
         for x in self.whiteLocations:
             if location in self.whiteLocations[x]:
                 return x
@@ -132,7 +150,7 @@ class ChessGame:
         toRevive = dict()
 
         # White pieces
-        toRevive['P'] = ['a2', 'b2', 'c2', 'd2', 'e2', 'f2', 'g2', 'h2']
+        toRevive[''] = ['a2', 'b2', 'c2', 'd2', 'e2', 'f2', 'g2', 'h2']
         toRevive['R'] = ['a1', 'h1']
         toRevive['N'] = ['b1', 'g1']
         toRevive['B'] = ['c1', 'f1']
@@ -140,16 +158,16 @@ class ChessGame:
         toRevive['Q'] = ['d1']
 
         # Black pieces
-        toRevive['p'] = ['a7', 'b7', 'c7', 'd7', 'e7', 'f7', 'g7', 'h7']
+        toRevive[''] = ['a7', 'b7', 'c7', 'd7', 'e7', 'f7', 'g7', 'h7']
         toRevive['r'] = ['a8', 'h8']
         toRevive['n'] = ['b8', 'g8']
         toRevive['b'] = ['c8', 'f8']
         toRevive['k'] = ['e8']
         toRevive['q'] = ['d8']
 
-        for piece, locs in toRevive:
-            for loc in locs:
-                self.reviveFromGraveyard(loc, piece)
+        for piece in toRevive:
+            for locs in toRevive[piece]:
+                self.reviveFromGraveyard(locs, piece)
 
         self.board.reset()
         self.printBoard()
@@ -170,6 +188,8 @@ class ChessGame:
 
     @staticmethod
     def pairToLocation(pair):
+        print(pair)
+        print(len(pair))
         assert(len(pair) == 2)
 
         # Converts a 2-character UCI coordinate to a tuple
@@ -193,8 +213,12 @@ class ChessGame:
         test = self.engine.go(movetime=300)
         hi = str(test[0])
         print(hi)
-        Nf3 = chess.Move.from_uci(hi)
-        self.board.push(Nf3)
+        # self.movePiece(hi)
+        hi1 = self.findLocPiece(hi[0:2])
+        print(hi1)
+        hi2 = hi1+hi
+        self.movePiece(hi2)
+        # self.board.push(Nf3)
 
         # self.movePiece(hi)
         self.turn = not self.turn
@@ -231,7 +255,7 @@ class ChessGame:
         elif move == "r":  # fast reset of board
             self.resetBoard()
         elif move == "g":
-            self.graveyard.print()
+            self.graveyard.printHi()
         elif move == "pl":
             self.printLocations()
         elif move == "cm":  # a very easy checkmate, for endgame testing
@@ -323,7 +347,7 @@ class Graveyard(object):
 
         return self.stored[(color, kind)].pop()
 
-    def print(self):
+    def printHi(self):
         for k, v in self.stored:
             if len(v) == 0:
                 continue
