@@ -70,7 +70,7 @@ class MotionPlanner(object):
 
 		for space in self.occupied_spaces - {piece_place}:
 			for edge in self.board.edges(space):
-				self.board[edge[0]][edge[1]]['weight'] += 5
+				self.board[edge[0]][edge[1]]['weight'] += 2
 
 	def find_path(self, start, end):
 		""" Given the starting and ending
@@ -154,6 +154,7 @@ class MotionPlanner(object):
 			self.occupied_spaces -= {start_coord}
 			path = self.find_path(start_coord, end_coord)
 			last_node = start_coord
+			instruction_list.append(self.release_str)
 			instruction_list.append(self.move_string(start_coord))
 			instruction_list.append(self.grab_str)
 			for node in path[1:]:
@@ -224,11 +225,14 @@ class MotionPlanner(object):
 		for instruction in instruction_list:
 			print("Sending Command: ", instruction)
 			out = self.controller.stdin.write(instruction)
+			self.controller.stdin.flush()
+			print("Command sent, got", out)
 			#self.ser.write(instruction)
-		return instruction_list
+		#return instruction_list
 
 
 if __name__ == '__main__':
 	mp = MotionPlanner()
 	strings = mp.run("2.0 1.0 -> 3.0 4.0 \n\n")
 	print(strings)
+	# time.sleep(10)

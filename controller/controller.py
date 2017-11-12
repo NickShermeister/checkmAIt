@@ -53,7 +53,7 @@ class Mechanism(object):
         return sh_angle / self.sh_gear, el_angle / self.el_gear
 
 
-robot = Mechanism(16.0, 3.7, (0, 0))
+robot = Mechanism(16.0, 3.7, (3.5, 3.5))
 
 
 class Position(object):
@@ -103,6 +103,8 @@ class Connection(object):
         else:
             print "NO BRICK CONNECTED"
 
+        time.sleep(2)
+
     def send_mag_up(self):
         if self.has_brick:
             s = 'U\n'
@@ -111,7 +113,7 @@ class Connection(object):
         else:
             print "NO BRICK CONNECTED: Mag up"
 
-        time.sleep(.5)
+        time.sleep(1)
 
     def send_mag_down(self):
         if self.has_brick:
@@ -146,7 +148,7 @@ class Connection(object):
                 local_box, message = self.brick.message_read(box, box, True)
                 print local_box, message
 
-        self.send_target_raw(0, 0)
+        # self.send_target_raw(0, 0)
 
         self.send_mag_down()
 
