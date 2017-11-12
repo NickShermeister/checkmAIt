@@ -1,4 +1,5 @@
 #!/usr/bin/env python2
+import struct
 
 import nxt
 import numpy as np
@@ -48,11 +49,13 @@ class Position(object):
 
 
 class Connection(object):
-    TARGET_BOX = 0
-    MAG_BOX = 1
+    SHOULDER_BOX = 0
+    ELBOW_BOX = 1
+    MAG_BOX = 2
 
     def __init__(self):
         self.brick = nxt.find_one_brick()
+        print "Initialized!"
 
     def send_target(self, pos):
         """
@@ -61,31 +64,34 @@ class Connection(object):
         self.send_target_raw(*pos.as_joints())
 
     def send_target_raw(self, shoulder, elbow):
-        s = 'T {} {}'.format(shoulder, elbow)
-        self.brick.message_write(self.TARGET_BOX, s)
+        self.brick.message_write(self.SHOULDER_BOX, struct.pack('f', shoulder))
+        self.brick.message_write(self.ELBOW_BOX, struct.pack('f', elbow))
 
     def send_mag_up(self):
         s = 'U'
-        self.brick.message_write(self.MAG_BOX, s)
+        # self.brick.message_write(self.MAG_BOX, s)
         self.brick.play_tone_and_wait(2000, 500)
 
     def send_mag_down(self):
         s = 'D'
-        self.brick.message_write(self.MAG_BOX, s)
+        # self.brick.message_write(self.MAG_BOX, s)
         self.brick.play_tone_and_wait(1000, 500)
 
     def run_test(self):
-        for box in range(10):
+        for box in range(5, 10):
             self.brick.message_write(box, 'message test %d' % box)
-        for box in range(10):
+        for box in range(5, 10):
             local_box, message = self.brick.message_read(box, box, True)
             print local_box, message
 
         while True:
-            self.send_mag_up()
-            time.sleep(1.5)
-            self.send_mag_down()
-            time.sleep(1.5)
+            t = time.time()
+            angle = (t % 10)*50
+            self.send_target_raw(angle, -angle)
+            # self.send_mag_up()
+            time.sleep(.1)
+            # self.send_mag_down()
+            # time.sleep(1.5)
 
 
 if __name__ == '__main__':
