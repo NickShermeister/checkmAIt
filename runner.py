@@ -4,7 +4,10 @@ in order to import chess, run:
 pip3 install python-chess
 """
 import chess
+import chess.uci
+from motionPlanner import *
 from collections import defaultdict
+#from speech_recogniton.speech_test import main
 
 
 class ChessGame:
@@ -14,14 +17,31 @@ class ChessGame:
 
         self.board = chess.Board()
         self.running = True
-        self.turn = True  # True means player makes first move; else AI makes first move.
-        # first player is always white
+        self.turn = True    #True means player makes first move; else AI makes first move.
+        #first player is always white
+        self.engine = chess.uci.popen_engine('stockfish-8-linux/Linux/stockfish_8_x64')
+        self.engine.uci()
         self.first = self.turn
         self.whiteLocations = {'': [], 'R': [], 'N': [], 'B': [], 'K': [], 'Q': []}
         self.blackLocations = {'': [], 'r': [], 'n': [], 'b': [], 'k': [], 'q': []}
-        self.graveyard = Graveyard()
+        self.whiteLocations[''] = ['a2', 'b2', 'c2', 'd2', 'e2', 'f2', 'g2', 'h2']
+        self.whiteLocations['R'] = ['a1', 'h1']
+        self.whiteLocations['N'] = ['b1', 'g1']
+        self.whiteLocations['B'] = ['c1', 'f1']
+        self.whiteLocations['K'] = ['e1']
+        self.whiteLocations['Q'] = ['d1']
 
-        self.resetBoard()
+        # Black pieces
+        self.blackLocations[''] = ['a7', 'b7', 'c7', 'd7', 'e7', 'f7', 'g7', 'h7']
+        self.blackLocations['r'] = ['a8', 'h8']
+        self.blackLocations['n'] = ['b8', 'g8']
+        self.blackLocations['b'] = ['c8', 'f8']
+        self.blackLocations['k'] = ['e8']
+        self.blackLocations['q'] = ['d8']
+        self.graveyard = Graveyard()
+        self.mp = MotionPlanner()
+
+        # self.resetBoard()
 
         self.gameLoop()
 
@@ -32,6 +52,7 @@ class ChessGame:
 
         except:
             print("Invalid command.")
+            print(self.board)
             self.turn = not self.turn
             return
         stripped_command = ''.join(l for l in hi.uci() if l in '12345678abcdefgh')
@@ -40,17 +61,40 @@ class ChessGame:
         self.updateLocations(loc1, loc2)
         assert (len(hi.uci()) == 4)
         src, dest = self.uciToLocations(hi.uci())
-        self.output_move(src, dest)
+        self.mp.run(self.output_move(src, dest))
 
     def updateLocations(self, loc1, loc2):
         # print("Loc 1: %s" % loc1)
         # print("Loc 1: %s" % loc2)
         piece1 = self.findLocPiece(loc1)
         piece2 = self.findLocPiece(loc2)
+        if piece1 == piece2:
+            piece2 = None
+        # print(piece1)
+        # print(piece2)
         # print("Good1")
         # print("Piece1 : %s " % piece1)
         # print("Piece2 : %s " % piece2)
-        if self.turn:
+
+        if piece2 is not None: #Need to run this first because of pathing
+            hi = loc1+loc2
+            src, dest = self.uciToLocations(hi)
+            temp = self.mp.capture(self.output_move(src, dest))
+            temp = self.convertBack(temp)
+            if self.convertBack(loc1) != temp:
+                print(loc1, loc2, temp)
+                self.updateLocations(loc1, temp)
+
+            if(self.turn == self.first):
+                #white takes black, so false
+                self.graveyardMove(loc2, False)
+            else:
+                #black takes white, so true
+                self.graveyardMove(loc2, True)
+
+            self.updateLocations(temp, loc2)
+
+        elif self.turn:
             # print(self.whiteLocations[piece1])
             self.whiteLocations[piece1].remove(loc1)
             self.whiteLocations[piece1].append(loc2)
@@ -59,17 +103,26 @@ class ChessGame:
             self.blackLocations[piece1].remove(loc1)
             self.blackLocations[piece1].append(loc2)
 
-        if piece2:
-            self.graveyardMove(loc2)
 
-    def graveyardMove(self, loc):
+    def convertBack(self, numerals):
+        part1 = str(chr(int(numerals[0]+97)))
+        part2 = str(int(numerals[1]+1))
+        return part1+part2
+
+
+    def graveyardMove(self, loc, iswhite = None):
         """
         Sends a piece to the graveyard, and removes it from the record of the board
         :param loc: two-character string representing location on board
         :return:
         """
         piece = self.findLocPiece(loc)
-        is_white = piece.isupper()
+        print("Piece:",piece, "at", loc)
+        if iswhite:
+            is_white = iswhite
+        else:
+            is_white = piece.isupper()
+        print("White Piece?",is_white)
 
         # Remove the piece from its current square
         (self.whiteLocations if is_white else self.blackLocations)[piece].remove(loc)
@@ -78,7 +131,10 @@ class ChessGame:
         dest = self.graveyard.storePiece(is_white, piece)
 
         print("Sending piece {} at {} to graveyard {}".format(piece, loc, dest))
-        self.output_move(loc, dest)
+        # print(self.output_move(loc,dest))
+        # temp = self.pairToLocation(loc)
+        # print(temp)
+        self.mp.run(self.output_move(self.pairToLocation(loc), dest))
 
     def reviveFromGraveyard(self, dest, piece):
         """
@@ -90,14 +146,15 @@ class ChessGame:
 
         is_white = piece.isupper()
         source = self.graveyard.retrievePiece(is_white, piece)
-        assert(source is not None, "Tried to revive piece not in graveyard")
+        assert source is not None, "Tried to revive piece not in graveyard"
 
         if piece.lower() == 'p':
             piece = ''
 
         (self.whiteLocations if is_white else self.blackLocations)[piece].append(dest)
 
-        self.output_move(source, self.pairToLocation(dest))
+        print("The source is %s" % str(source))
+        self.mp.run(self.output_move(source, self.pairToLocation(dest)))
 
 
     def printLocations(self):
@@ -111,6 +168,7 @@ class ChessGame:
         Takes in a 2 letter/number string thatgives a square (e.g. a1, h8, etc.)
         returns P for white pawn, p for black pawn.
         """
+        # print(self.whiteLocations)
         # print(location)
         for x in self.whiteLocations:
             if location in self.whiteLocations[x]:
@@ -128,7 +186,7 @@ class ChessGame:
         toRevive = dict()
 
         # White pieces
-        toRevive['P'] = ['a2', 'b2', 'c2', 'd2', 'e2', 'f2', 'g2', 'h2']
+        toRevive[''] = ['a2', 'b2', 'c2', 'd2', 'e2', 'f2', 'g2', 'h2']
         toRevive['R'] = ['a1', 'h1']
         toRevive['N'] = ['b1', 'g1']
         toRevive['B'] = ['c1', 'f1']
@@ -136,16 +194,16 @@ class ChessGame:
         toRevive['Q'] = ['d1']
 
         # Black pieces
-        toRevive['p'] = ['a7', 'b7', 'c7', 'd7', 'e7', 'f7', 'g7', 'h7']
+        toRevive[''] = ['a7', 'b7', 'c7', 'd7', 'e7', 'f7', 'g7', 'h7']
         toRevive['r'] = ['a8', 'h8']
         toRevive['n'] = ['b8', 'g8']
         toRevive['b'] = ['c8', 'f8']
         toRevive['k'] = ['e8']
         toRevive['q'] = ['d8']
 
-        for piece, locs in toRevive:
-            for loc in locs:
-                self.reviveFromGraveyard(loc, piece)
+        for piece in toRevive:
+            for locs in toRevive[piece]:
+                self.reviveFromGraveyard(locs, piece)
 
         self.board.reset()
         self.printBoard()
@@ -160,16 +218,20 @@ class ChessGame:
 
         string = '{} {} -> {} {} \n'.format(*source, *dest)
 
-        print("OUTPUT: \n\t", string)
+        # print("OUTPUT: \n\t", string)
+
 
         return string
 
     @staticmethod
     def pairToLocation(pair):
+        # print(pair)
+        # print(len(pair))
         assert(len(pair) == 2)
 
         # Converts a 2-character UCI coordinate to a tuple
-        loc = (float(ord(pair[0]) - 96), float(pair[1]))
+        loc = (float(ord(pair[0]) - 97), float(pair[1])-1)
+        print(loc)
         assert (0. <= loc[0] < 8 and 0. <= loc[1] < 8)
         return loc
 
@@ -185,8 +247,18 @@ class ChessGame:
         return self.pairToLocation(command[:2]), self.pairToLocation(command[2:])
 
     def aiMove(self):
-        # TODO: IMPLEMENT AI AND HAVE IT TAKE A TURN
-        return
+        self.engine.position(self.board)
+        test = self.engine.go(movetime=300)
+        hi = str(test[0])
+        # self.movePiece(hi)
+        hi1 = self.findLocPiece(hi[0:2])
+        hi2 = hi1.upper() +hi
+        print("Being passed into movePiece: %s " % hi2)
+        self.movePiece(hi2)
+        # self.board.push(Nf3)
+
+        # self.movePiece(hi)
+        self.turn = not self.turn
 
     def gameOver(self):
         # TODO: what happens when the game ends
@@ -210,6 +282,7 @@ class ChessGame:
             return False
 
     def playerTurn(self):
+        # move = main()
         move = input('Move: ')
         if move == "p":
             self.printBoard()
@@ -220,7 +293,7 @@ class ChessGame:
         elif move == "r":  # fast reset of board
             self.resetBoard()
         elif move == "g":
-            self.graveyard.print()
+            self.graveyard.printHi()
         elif move == "pl":
             self.printLocations()
         elif move == "cm":  # a very easy checkmate, for endgame testing
@@ -249,7 +322,6 @@ class ChessGame:
 
             else:  # AI turn=
                 self.aiMove()
-                self.playerTurn()
 
             if self.checkGameOver():
                 self.gameOver()
@@ -268,7 +340,7 @@ class Graveyard(object):
         # White spaces
         for i in [-3, -2, 9, 10]:
             for j in range(0, 8):
-                self.empty.append((i < 0, (i, j)))
+                self.empty.append((i < 0, (j, i)))
 
         self.empty.sort(key=lambda x: self._earliness(x[1]))
 
@@ -280,7 +352,7 @@ class Graveyard(object):
         :return:
         """
         x, y = coord
-        return 2.1 * abs(x) - abs(y)
+        return 2.1 * abs(y) - abs(x)
 
     def storePiece(self, color, kind):
         """
@@ -313,7 +385,7 @@ class Graveyard(object):
 
         return self.stored[(color, kind)].pop()
 
-    def print(self):
+    def printHi(self):
         for k, v in self.stored:
             if len(v) == 0:
                 continue

@@ -8,7 +8,8 @@ arm to that place, grab the piece,
 navigate the board, and release the
 piece.
 
-Requires: networkx, numpy 
+Requires: networkx, numpy
+to install: pip3 install networkx
 """
 import networkx as nx
 import numpy as np
@@ -22,8 +23,8 @@ class MotionPlanner(object):
 
 	def __init__(self):
 
-		self.file_range = np.arange(-1.0, 9.0)
-		self.column_range = np.arange(-2.0,10.0)
+		self.column_range = np.arange(-1.0, 9.0)
+		self.file_range = np.arange(-2.0,10.0)
 		self.start_board()
 
 		# Create some repetative strings
@@ -32,6 +33,7 @@ class MotionPlanner(object):
 		self.made_way_flag = False
 		self.made_way_coord = tuple()
 		self.contested_space = tuple()
+		self.loop_count = 0
 		#self.ser = serial.Serial('/dev/tty.usbserial', 9600)
 
 	def create_board_graph(self, piece_place):
@@ -75,7 +77,7 @@ class MotionPlanner(object):
 
 	def start_board(self):
 		""" Sets all the spaces that are occupied
-		at game start as occupied, all 
+		at game start as occupied, all
 		"""
 		self.occupied_spaces = set()
 		extended_columns = np.arange(self.column_range[0]-1, self.column_range[0]+2)
@@ -112,7 +114,7 @@ class MotionPlanner(object):
 		starting and ending coordinates,
 		returns the starting and ending
 		coordinates as tuples
-		mv_str = 
+		mv_str =
 		'startcolumn startfile -> endcolumn endfile \n\n'
 
 		returns: start_coord, end_coord
@@ -128,27 +130,31 @@ class MotionPlanner(object):
 		starting and ending coordinates, returns
 		a list of strings detailing the moves
 		that the arm must make.
-		mv_str = 
+		mv_str =
 		'startcolumn startfile -> endcolumn endfile \n\n'
-		
+
 		returns: list of strings formatted as:
 			['M %f %f \n\n', 'U \n\n' ... 'D \n\n']
 		"""
-		start_coord, end_coord = self.parse_string(mv_str)
-		self.occupied_spaces -= {start_coord}
-		path = self.find_path(start_coord, end_coord)
-		last_node = start_coord
-		instruction_list = [self.move_string(start_coord), self.grab_str]
-		for node in path[1:]:
-			if node in self.occupied_spaces:
-				instruction_list = self.make_way(last_node, node, path, instruction_list)
-			instruction_list.append(self.move_string(node))
-			last_node = node
+		self.loop_count += 1
+		instruction_list = []
+		if self.loop_count < 5:
+			start_coord, end_coord = self.parse_string(mv_str)
+			self.occupied_spaces -= {start_coord}
+			path = self.find_path(start_coord, end_coord)
+			last_node = start_coord
+			instruction_list.append(self.move_string(start_coord))
+			instruction_list.append(self.grab_str)
+			for node in path[1:]:
+				if node in self.occupied_spaces:
+					instruction_list = self.make_way(last_node, node, path, instruction_list)
+				instruction_list.append(self.move_string(node))
+				last_node = node
 
-		instruction_list.append(self.release_str)
-		self.occupied_spaces.add(end_coord)
-		if self.made_way_flag:
-			instruction_list = self.return_moved(instruction_list)
+			instruction_list.append(self.release_str)
+			self.occupied_spaces.add(end_coord)
+			if self.made_way_flag:
+				instruction_list = self.return_moved(instruction_list)
 
 		return instruction_list
 
@@ -183,10 +189,18 @@ class MotionPlanner(object):
 	def return_moved(self, instruction_list):
 		self.made_way_flag = False
 		command = str(self.made_way_coord[0]) + ' ' + str(self.made_way_coord[1]) + ' -> ' + str(self.contested_space[0]) + ' ' + str(self.contested_space[1]) + ' \n\n'
-			
+
 		for instruction in self.make_command_strings(command):
 			instruction_list.append(instruction)
 		return instruction_list
+
+	def capture(self, mv_str):
+		start_coord, end_coord = self.parse_string(mv_str)
+		path = self.find_path(start_coord, end_coord)
+		print("Path:", path)
+		if len(path) == 1:
+			return path[0]
+		return path[-2]
 
 	def run(self, mv_str):
 		""" Waits to receive a string.
@@ -196,11 +210,13 @@ class MotionPlanner(object):
 		"""
 		mv_string = mv_str #get string
 		instruction_list = self.make_command_strings(mv_str)
-		for instruction in instruction_list:
-			print(instruction)
+		# for instruction in instruction_list:
+		# 	print(instruction)
 			#self.ser.write(instruction)
+		return instruction_list
 
 
 if __name__ == '__main__':
 	mp = MotionPlanner()
-	strings = mp.run("2.0 1.0 -> 3.0 4.0 \n\n")
+	strings = mp.capture("2.0 1.0 -> 3.0 4.0 \n\n")
+	print(strings)

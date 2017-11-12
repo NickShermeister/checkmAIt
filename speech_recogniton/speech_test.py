@@ -139,34 +139,73 @@ def attempt_command_string(feed):
     Tries to create a command string for chess based on the input. 
     To be used with the text stream
     """
-    pieces = ["knight", "queen", "king", "pawn", "bishop", "rook", "Bishop", \
-              "Knight", "Queen", "King", "Rook", "Pawn", "night", "Night"]      
+
+    pieces = ["knight", "queen", "king", "pawn", "bishop", "rook", "work", \
+              "night", "Night", "brooke"]      
     rows = ["1", "2", "3", "4", "5", "6", "7", "8"]                             
-    cols = ["B", "C", "D", "F", "G", "H", "A", "E"]
+    cols = ["B", "C", "D", "F", "G", "H", "A", "E", "b", "c", "a", "d", "e", "f"]
     command_string = ""
-    feed = feed.replace(" ", "")
-    for piece in pieces:
-        if piece in feed:
-            if piece == "knight" or piece == "Knight" or \
-               piece == "night" or piece == "Night":
-                command_string += "n"
-            else:
-                command_string += piece[0].upper()
-            piece_start = feed.index(piece)
-            break   
-        # feed = feed.substring(0, piece_start) + \
-            #         feed.substring((piece_start + piece.length), feed.length)
-    for row in rows:
-        if row in feed:
-            command_string += row
-            break
-    for col in cols:
-        if col in feed:
-            command_string += col.upper()
-            break
-    if len(command_string) == 3:
-        print(command_string)
+    feed = feed.encode('ascii','ignore')
+    feed = feed.strip()
+    feed_list = feed.split(" ")
+    
+    command_string += ""
+    if len(feed_list) < 2:
+        return
+    if feed_list[0].lower() in pieces:
+        piece = feed_list[0].lower()
+        print(piece)
+        if piece == "knight" or piece == "Knight" or \
+           piece == "night" or piece == "Night":
+            command_string += "N"
+        elif piece == "work" or piece == "brooke":
+            command_string += "R"
+        else:
+            command_string += piece[0].upper()
+
+    if feed_list[1] == "from": 
+        command_string += make_string(feed_list[2],rows, cols)
+        command_string += make_string(feed_list[-1],rows, cols)
+
+    else:
+        command_string += make_string(feed_list[-1],rows, cols)
+  
+    if len(command_string) not in [3, 5]:
+        print("Try again, nerd.")
+        return    
+
+    print(command_string)
+    return command_string
+    """ 
+    if "from" not in feed and "to" not in feed:
+        cmd_addition = make_string(feed, rows, cols)
+        command_string += cmd_addition
+        if len(command_string) == 3:
+            print(command_string)
+            return command_string
+    else:
+        feed = feed.replace("from", "")
+        feed_1, feed_2 = feed.split("to")
+        feed_1 = make_string(feed_1, rows, cols)
+        feed_2 = make_string(feed_2, rows, cols)
+        command_string += feed_1 + feed_2
         return command_string
+    """        
+
+def make_string(string, rows, cols):
+    """
+    Finds rows and columns in given string or substring.
+    """
+    command_string = "" 
+    for row in rows:                                                        
+        if row in string:                                                     
+            command_string += row 
+            break                                          
+    for col in cols:                                                        
+        if col in string: 
+            command_string += col.lower()  
+            break
+    return command_string
     
 def  main():
     # See http://g.co/cloud/speech/docs/languages
@@ -190,7 +229,7 @@ def  main():
         responses = client.streaming_recognize(streaming_config, requests)
 
         # Now, put the transcription responses to use.
-        listen_print_loop(responses)
+        return listen_print_loop(responses)
 
 if __name__ == '__main__':
     main()
