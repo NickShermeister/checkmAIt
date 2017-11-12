@@ -20,7 +20,7 @@ class Mechanism(object):
         :type pos: Position
         :returns: tuple of (shoulder angle, elbow angle) in degrees
         """
-        dpos = pos.as_vector() - self.center
+        dpos = pos.to_vector() - self.center
 
         radius = np.linalg.norm(dpos)
 
@@ -30,35 +30,63 @@ class Mechanism(object):
 
 robot = Mechanism(20.0, 20.0, 4.0, (3.5, 3.5))
 
+
 class Position(object):
     def __init__(self, x, y):
         self.y = y
         self.x = x
 
+    def as_joints(self, bot=robot):
+        return bot.inverseKinemetics(self)
 
-    def as_joints_str(self, bot=robot):
-        return "{} {}".format(*bot.inverseKinemetics(self))
-
-    def as_vector(self):
+    def to_vector(self):
         return np.array([self.x, self.y])
+
+    @staticmethod
+    def from_vector(vec):
+        return Position(*vec)
 
 
 class Connection(object):
+    TARGET_BOX = 0
+    MAG_BOX = 1
+
     def __init__(self):
         self.brick = nxt.find_one_brick()
 
     def send_target(self, pos):
-
         """
         :type pos: Position
         """
-        s = 'M ' + pos.as_joints_str()
-        self.brick.something(())
+        self.send_target_raw(*pos.as_joints())
+
+    def send_target_raw(self, shoulder, elbow):
+        s = 'T {} {}'.format(shoulder, elbow)
+        self.brick.message_write(self.TARGET_BOX, s)
+
+    def send_mag_up(self):
+        s = 'U'
+        self.brick.message_write(self.MAG_BOX, s)
+        self.brick.play_tone_and_wait(2000, 500)
+
+    def send_mag_down(self):
+        s = 'D'
+        self.brick.message_write(self.MAG_BOX, s)
+        self.brick.play_tone_and_wait(1000, 500)
 
     def run_test(self):
+        for box in range(10):
+            self.brick.message_write(box, 'message test %d' % box)
+        for box in range(10):
+            local_box, message = self.brick.message_read(box, box, True)
+            print local_box, message
+
         while True:
-            self.brick.play_tone_and_wait(np.random.randint(1000, 2000), 500)
+            self.send_mag_up()
             time.sleep(1.5)
+            self.send_mag_down()
+            time.sleep(1.5)
+
 
 if __name__ == '__main__':
     Connection().run_test()
