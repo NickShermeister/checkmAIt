@@ -1,10 +1,17 @@
 #!/usr/bin/env python2
+"""
+Requires: python-nxt
+        pyserial
+"""
+
 import struct
 
 import nxt
 import numpy as np
 
 import time
+
+import serial
 
 
 class Mechanism(object):
@@ -72,6 +79,7 @@ class Connection(object):
 
     def __init__(self):
         self.brick = nxt.find_one_brick()
+        self.arduino = serial.Serial('/dev/serial/by-id/usb-1a86_USB2.0-Serial-if00-port0', 9600)
         print "Initialized!"
 
     def send_target(self, pos):
@@ -86,14 +94,17 @@ class Connection(object):
         self.brick.message_write(self.ELBOW_BOX, struct.pack('f', elbow))
 
     def send_mag_up(self):
-        s = 'U'
-        # self.brick.message_write(self.MAG_BOX, s)
-        self.brick.play_tone_and_wait(2000, 500)
+        s = 'U\n'
+        self.arduino.write(s)
+        self.brick.play_tone_and_wait(1415, 100)
+        time.sleep(.5)
 
     def send_mag_down(self):
         s = 'D'
-        # self.brick.message_write(self.MAG_BOX, s)
-        self.brick.play_tone_and_wait(1000, 500)
+        self.arduino.write(s)
+        self.brick.play_tone_and_wait(1000, 100)
+        time.sleep(.5)
+
 
     def run_test(self):
         for box in range(5, 10):
@@ -121,7 +132,15 @@ class Connection(object):
         self.send_target_raw(0, 0)
 
         while True:
-            s = raw_input('Input: "x y"')
+            s = raw_input('Input: "x y" or "u" or "d": ')
+            s = s.strip()
+            if s.lower() == 'u':
+                self.send_mag_up()
+                continue
+            if s.lower() == 'd':
+                self.send_mag_down()
+                continue
+
             l = s.split(' ')
             pos = Position(float(l[0]), float(l[1]))
 
