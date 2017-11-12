@@ -192,6 +192,9 @@ class MotionPlanner(object):
 	def capture(self, mv_str):
 		start_coord, end_coord = self.parse_string(mv_str)
 		path = self.find_path(start_coord, end_coord)
+		print("Path:", path)
+		if len(path) < 2:
+			return path[-1]
 		return path[-2]
 
 	def run(self, mv_str):

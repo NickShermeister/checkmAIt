@@ -61,23 +61,40 @@ class ChessGame:
         self.updateLocations(loc1, loc2)
         assert (len(hi.uci()) == 4)
         src, dest = self.uciToLocations(hi.uci())
-        self.output_move(src, dest)
+        self.mp.run(self.output_move(src, dest))
 
     def updateLocations(self, loc1, loc2):
         # print("Loc 1: %s" % loc1)
         # print("Loc 1: %s" % loc2)
         piece1 = self.findLocPiece(loc1)
         piece2 = self.findLocPiece(loc2)
+        if piece1 == piece2:
+            piece2 = None
         # print(piece1)
         # print(piece2)
         # print("Good1")
         # print("Piece1 : %s " % piece1)
         # print("Piece2 : %s " % piece2)
-        
-        if piece2: #Need to run this first because of pathing
-            self.graveyardMove(loc2)
 
-        if self.turn:
+        if piece2 is not None: #Need to run this first because of pathing
+            hi = loc1+loc2
+            src, dest = self.uciToLocations(hi)
+            temp = self.mp.capture(self.output_move(src, dest))
+            temp = self.convertBack(temp)
+            if self.convertBack(loc1) != temp:
+                print(loc1, loc2, temp)
+                self.updateLocations(loc1, temp)
+
+            if(self.turn == self.first):
+                #white takes black, so false
+                self.graveyardMove(loc2, False)
+            else:
+                #black takes white, so true
+                self.graveyardMove(loc2, True)
+
+            self.updateLocations(temp, loc2)
+
+        elif self.turn:
             # print(self.whiteLocations[piece1])
             self.whiteLocations[piece1].remove(loc1)
             self.whiteLocations[piece1].append(loc2)
@@ -87,15 +104,25 @@ class ChessGame:
             self.blackLocations[piece1].append(loc2)
 
 
+    def convertBack(self, numerals):
+        part1 = str(chr(int(numerals[0]+97)))
+        part2 = str(int(numerals[1]+1))
+        return part1+part2
 
-    def graveyardMove(self, loc):
+
+    def graveyardMove(self, loc, iswhite = None):
         """
         Sends a piece to the graveyard, and removes it from the record of the board
         :param loc: two-character string representing location on board
         :return:
         """
         piece = self.findLocPiece(loc)
-        is_white = piece.isupper()
+        print("Piece:",piece, "at", loc)
+        if iswhite:
+            is_white = iswhite
+        else:
+            is_white = piece.isupper()
+        print("White Piece?",is_white)
 
         # Remove the piece from its current square
         (self.whiteLocations if is_white else self.blackLocations)[piece].remove(loc)
@@ -104,7 +131,10 @@ class ChessGame:
         dest = self.graveyard.storePiece(is_white, piece)
 
         print("Sending piece {} at {} to graveyard {}".format(piece, loc, dest))
-        self.output_move(loc, dest)
+        # print(self.output_move(loc,dest))
+        # temp = self.pairToLocation(loc)
+        # print(temp)
+        self.mp.run(self.output_move(self.pairToLocation(loc), dest))
 
     def reviveFromGraveyard(self, dest, piece):
         """
@@ -124,7 +154,7 @@ class ChessGame:
         (self.whiteLocations if is_white else self.blackLocations)[piece].append(dest)
 
         print("The source is %s" % str(source))
-        self.output_move(source, self.pairToLocation(dest))
+        self.mp.run(self.output_move(source, self.pairToLocation(dest)))
 
 
     def printLocations(self):
@@ -189,7 +219,7 @@ class ChessGame:
         string = '{} {} -> {} {} \n'.format(*source, *dest)
 
         # print("OUTPUT: \n\t", string)
-        self.mp.run(string)
+
 
         return string
 
@@ -220,12 +250,10 @@ class ChessGame:
         self.engine.position(self.board)
         test = self.engine.go(movetime=300)
         hi = str(test[0])
-        print(hi)
         # self.movePiece(hi)
         hi1 = self.findLocPiece(hi[0:2])
-        print(hi1)
         hi2 = hi1.upper() +hi
-        print(hi2)
+        print("Being passed into movePiece: %s " % hi2)
         self.movePiece(hi2)
         # self.board.push(Nf3)
 
@@ -312,7 +340,7 @@ class Graveyard(object):
         # White spaces
         for i in [-3, -2, 9, 10]:
             for j in range(0, 8):
-                self.empty.append((i < 0, (i, j)))
+                self.empty.append((i < 0, (j, i)))
 
         self.empty.sort(key=lambda x: self._earliness(x[1]))
 
@@ -324,7 +352,7 @@ class Graveyard(object):
         :return:
         """
         x, y = coord
-        return 2.1 * abs(x) - abs(y)
+        return 2.1 * abs(y) - abs(x)
 
     def storePiece(self, color, kind):
         """
