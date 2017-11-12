@@ -95,8 +95,8 @@ class MotionPlanner(object):
 			self.occupied_spaces.add(space)
 		for space in zip(np.arange(0.0, 8.0), [1.0]*8):
 			self.occupied_spaces.add(space)
-		for space in zip(np.arange(0.0, 8.0), [2.0]*8):
-			self.occupied_spaces.add(space)
+		# for space in zip(np.arange(0.0, 8.0), [2.0]*8):
+		# 	self.occupied_spaces.add(space)
 
 		# Second player side taken out
 		for space in zip(np.arange(0.0, 8.0), [7.0]*8):
