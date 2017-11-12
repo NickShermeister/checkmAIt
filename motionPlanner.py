@@ -76,7 +76,7 @@ class MotionPlanner(object):
 
 	def start_board(self):
 		""" Sets all the spaces that are occupied
-		at game start as occupied, all 
+		at game start as occupied, all
 		"""
 		self.occupied_spaces = set()
 		extended_columns = np.arange(self.column_range[0]-1, self.column_range[0]+2)
@@ -113,7 +113,7 @@ class MotionPlanner(object):
 		starting and ending coordinates,
 		returns the starting and ending
 		coordinates as tuples
-		mv_str = 
+		mv_str =
 		'startcolumn startfile -> endcolumn endfile \n\n'
 
 		returns: start_coord, end_coord
@@ -129,9 +129,9 @@ class MotionPlanner(object):
 		starting and ending coordinates, returns
 		a list of strings detailing the moves
 		that the arm must make.
-		mv_str = 
+		mv_str =
 		'startcolumn startfile -> endcolumn endfile \n\n'
-		
+
 		returns: list of strings formatted as:
 			['M %f %f \n\n', 'U \n\n' ... 'D \n\n']
 		"""
@@ -184,7 +184,7 @@ class MotionPlanner(object):
 	def return_moved(self, instruction_list):
 		self.made_way_flag = False
 		command = str(self.made_way_coord[0]) + ' ' + str(self.made_way_coord[1]) + ' -> ' + str(self.contested_space[0]) + ' ' + str(self.contested_space[1]) + ' \n\n'
-			
+
 		for instruction in self.make_command_strings(command):
 			instruction_list.append(instruction)
 		return instruction_list
@@ -197,9 +197,10 @@ class MotionPlanner(object):
 		"""
 		mv_string = mv_str #get string
 		instruction_list = self.make_command_strings(mv_str)
-		for instruction in instruction_list:
-			print(instruction)
+		# for instruction in instruction_list:
+		# 	print(instruction)
 			#self.ser.write(instruction)
+		return instruction_list
 
 
 if __name__ == '__main__':
