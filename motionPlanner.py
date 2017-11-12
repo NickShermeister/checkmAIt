@@ -189,6 +189,11 @@ class MotionPlanner(object):
 			instruction_list.append(instruction)
 		return instruction_list
 
+	def capture(self, mv_str):
+		start_coord, end_coord = self.parse_string(mv_str)
+		path = self.find_path(start_coord, end_coord)
+		return path[-2]
+
 	def run(self, mv_str):
 		""" Waits to receive a string.
 		when the string is received,
@@ -205,4 +210,5 @@ class MotionPlanner(object):
 
 if __name__ == '__main__':
 	mp = MotionPlanner()
-	strings = mp.run("2.0 1.0 -> 3.0 4.0 \n\n")
+	strings = mp.capture("2.0 1.0 -> 3.0 4.0 \n\n")
+	print(strings)
