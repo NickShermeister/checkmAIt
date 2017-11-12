@@ -17,26 +17,26 @@ class Mechanism(object):
     def inverseKinemetics(self, pos):
         """
 
-        :type pos: Position
+        :type pos: Position in grid coordinates
         :returns: tuple of (shoulder angle, elbow angle) in degrees
         """
-        dpos = pos.to_vector() - self.center
+        dpos = (pos.to_vector() - self.center) * self.gridsize  # In cm
 
         radius = np.linalg.norm(dpos)
 
         # a1 is angle between the lower arm (arm1) and the position vector
-        a1 = np.rad2deg(np.arccos((radius)/(2*self.arm_length)))
+        a1 = np.rad2deg(np.arccos((radius) / (2 * self.arm_length)))
         # a2 is the angle between the two arms
-        a2 = 180 - 2*a1
+        a2 = 180 - 2 * a1
         # a3 is the angle between vertical and position vector
-        a3 = np.arctan(dpos[0]/dpos[1])
+        a3 = np.arctan(dpos[0] / dpos[1])
 
-        sh_angle = a3 + a1 # shoulder angle
-        el_angle = 180 - a2 # elbow angle
+        sh_angle = a3 + a1  # shoulder angle
+        el_angle = 180 - a2  # elbow angle
         return sh_angle, el_angle
 
 
-robot = Mechanism(20.0, 20.0, 4.0, (3.5, 3.5))
+robot = Mechanism(20.0, 4.0, (3.5, 3.5))
 
 
 class Position(object):
@@ -93,7 +93,7 @@ class Connection(object):
 
         while True:
             t = time.time()
-            angle = (t % 10)*50
+            angle = (t % 10) * 50
             self.send_target_raw(angle, -angle)
             # self.send_mag_up()
             time.sleep(.1)
