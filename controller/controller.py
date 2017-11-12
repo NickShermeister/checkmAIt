@@ -33,7 +33,7 @@ class Mechanism(object):
         dpos = (pos.to_vector() - self.center) * self.gridsize  # In cm
 
         if (dpos == np.array([0, 0])).all():
-            return 0, 180/self.el_gear
+            return 0, 180 / self.el_gear
 
         radius = np.linalg.norm(dpos)
 
@@ -78,8 +78,15 @@ class Connection(object):
     MAG_BOX = 2
 
     def __init__(self):
-        self.brick = nxt.find_one_brick()
-        self.arduino = serial.Serial('/dev/serial/by-id/usb-1a86_USB2.0-Serial-if00-port0', 9600)
+        try:
+            self.brick = nxt.find_one_brick()
+            self.has_brick = True
+            self.arduino = serial.Serial('/dev/serial/by-id/usb-1a86_USB2.0-Serial-if00-port0', 9600)
+        except:
+            self.brick = None
+            self.has_brick = False
+            print "NO BRICK CONNECTED"
+
         print "Initialized!"
 
     def send_target(self, pos):
@@ -90,28 +97,37 @@ class Connection(object):
 
     def send_target_raw(self, shoulder, elbow):
         print "Sending target (s,e): ", (shoulder, elbow)
-        self.brick.message_write(self.SHOULDER_BOX, struct.pack('f', shoulder))
-        self.brick.message_write(self.ELBOW_BOX, struct.pack('f', elbow))
+        if self.has_brick:
+            self.brick.message_write(self.SHOULDER_BOX, struct.pack('f', shoulder))
+            self.brick.message_write(self.ELBOW_BOX, struct.pack('f', elbow))
+        else:
+            print "NO BRICK CONNECTED"
 
     def send_mag_up(self):
-        s = 'U\n'
-        self.arduino.write(s)
-        self.brick.play_tone_and_wait(1415, 100)
+        if self.has_brick:
+            s = 'U\n'
+            self.arduino.write(s)
+            self.brick.play_tone_and_wait(1415, 100)
+        else:
+            print "NO BRICK CONNECTED: Mag up"
+
         time.sleep(.5)
 
     def send_mag_down(self):
-        s = 'D'
-        self.arduino.write(s)
-        self.brick.play_tone_and_wait(1000, 100)
-        time.sleep(.5)
-
+        if self.has_brick:
+            s = 'D\n'
+            self.arduino.write(s)
+            self.brick.play_tone_and_wait(1415, 100)
+        else:
+            print "NO BRICK CONNECTED: Mag down"
 
     def run_test(self):
-        for box in range(5, 10):
-            self.brick.message_write(box, 'message test %d' % box)
-        for box in range(5, 10):
-            local_box, message = self.brick.message_read(box, box, True)
-            print local_box, message
+        if self.has_brick:
+            for box in range(5, 10):
+                self.brick.message_write(box, 'message test %d' % box)
+            for box in range(5, 10):
+                local_box, message = self.brick.message_read(box, box, True)
+                print local_box, message
 
         while True:
             t = time.time()
@@ -123,13 +139,16 @@ class Connection(object):
             # time.sleep(1.5)
 
     def key_control(self):
-        for box in range(5, 10):
-            self.brick.message_write(box, 'message test %d' % box)
-        for box in range(5, 10):
-            local_box, message = self.brick.message_read(box, box, True)
-            print local_box, message
+        if self.has_brick:
+            for box in range(5, 10):
+                self.brick.message_write(box, 'message test %d' % box)
+            for box in range(5, 10):
+                local_box, message = self.brick.message_read(box, box, True)
+                print local_box, message
 
         self.send_target_raw(0, 0)
+
+        self.send_mag_down()
 
         while True:
             s = raw_input('Input: "x y" or "u" or "d": ')
