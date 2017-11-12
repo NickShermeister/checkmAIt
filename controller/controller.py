@@ -151,7 +151,13 @@ class Connection(object):
         self.send_mag_down()
 
         while True:
-            s = raw_input('Input: "x y" or "u" or "d": ')
+            # s = raw_input('Input: "x y" or "u" or "d": ')
+            try:
+                s = raw_input()
+            except EOFError:
+                time.sleep(0.01)
+                continue
+                
             s = s.strip()
             if s.lower() == 'u':
                 self.send_mag_up()
