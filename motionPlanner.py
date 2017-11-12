@@ -14,6 +14,9 @@ to install: pip3 install networkx
 import networkx as nx
 import numpy as np
 import subprocess
+import os
+
+import time
 #import serial
 
 class MotionPlanner(object):
@@ -36,6 +39,12 @@ class MotionPlanner(object):
 		self.contested_space = tuple()
 		self.loop_count = 0
 		self.controller = subprocess.Popen(["python2", "controller/controller.py"], stdin = subprocess.PIPE)
+		print('Initialized2')
+		# self.controller.communicate(bytes('u\n', encoding='UTF8'))
+		self.controller.stdin.write(bytes('u\n', encoding='UTF8'))
+		# print(bytes('u\n', encoding='UTF8'), file=self.controller.stdin)
+		print('Initialized3')
+		# print('u\n'.encode(),file=self.controller.stdin)
 		#self.ser = serial.Serial('/dev/tty.usbserial', 9600)
 
 	def create_board_graph(self, piece_place):
@@ -213,12 +222,13 @@ class MotionPlanner(object):
 		mv_string = mv_str #get string
 		instruction_list = self.make_command_strings(mv_str)
 		for instruction in instruction_list:
-		 	out = self.controller.communicate(instruction)
+			print("Sending Command: ", instruction)
+			out = self.controller.stdin.write(instruction)
 			#self.ser.write(instruction)
 		return instruction_list
 
 
 if __name__ == '__main__':
 	mp = MotionPlanner()
-	strings = mp.capture("2.0 1.0 -> 3.0 4.0 \n\n")
+	strings = mp.run("2.0 1.0 -> 3.0 4.0 \n\n")
 	print(strings)
