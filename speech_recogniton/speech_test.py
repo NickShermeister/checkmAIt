@@ -229,7 +229,7 @@ def  main():
         responses = client.streaming_recognize(streaming_config, requests)
 
         # Now, put the transcription responses to use.
-        listen_print_loop(responses)
+        return listen_print_loop(responses)
 
 if __name__ == '__main__':
     main()

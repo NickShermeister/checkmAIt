@@ -8,7 +8,8 @@ arm to that place, grab the piece,
 navigate the board, and release the
 piece.
 
-Requires: networkx, numpy 
+Requires: networkx, numpy
+to install: pip3 install networkx
 """
 import networkx as nx
 import numpy as np

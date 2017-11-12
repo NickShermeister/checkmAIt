@@ -7,6 +7,7 @@ import chess
 import chess.uci
 from motionPlanner import *
 from collections import defaultdict
+from speech_reognition.speech_test import main
 
 
 class ChessGame:
@@ -248,7 +249,8 @@ class ChessGame:
             return False
 
     def playerTurn(self):
-        move = input('Move: ')
+        move = main()
+        #move = input('Move: ')
         if move == "p":
             self.printBoard()
         elif move == "m":  # print legal moves
