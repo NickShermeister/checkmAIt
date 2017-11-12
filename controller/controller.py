@@ -8,11 +8,10 @@ import time
 
 
 class Mechanism(object):
-    def __init__(self, arm1, arm2, gridsize, center):
+    def __init__(self, arm_length, gridsize, center):
         """All units in cm"""
         self.gridsize = gridsize
-        self.arm2 = arm2
-        self.arm1 = arm1
+        self.arm_length = arm_length
         self.center = np.array(center)
 
     def inverseKinemetics(self, pos):
@@ -25,8 +24,16 @@ class Mechanism(object):
 
         radius = np.linalg.norm(dpos)
 
-        # TODO: This is a placeholder, USE SOMETHING REAL
-        return np.rad2deg(radius / self.arm1), np.rad2deg(np.arctan2(*dpos))
+        # a1 is angle between the lower arm (arm1) and the position vector
+        a1 = np.rad2deg(np.arccos((radius)/(2*self.arm_length)))
+        # a2 is the angle between the two arms
+        a2 = 180 - 2*a1
+        # a3 is the angle between vertical and position vector
+        a3 = np.arctan(dpos[0]/dpos[1])
+
+        sh_angle = a3 + a1 # shoulder angle
+        el_angle = 180 - a2 # elbow angle
+        return sh_angle, el_angle
 
 
 robot = Mechanism(20.0, 20.0, 4.0, (3.5, 3.5))
