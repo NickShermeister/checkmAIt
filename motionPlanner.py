@@ -21,6 +21,9 @@ class MotionPlanner(object):
 	"""
 
 	def __init__(self):
+
+		self.file_range = np.arange(-1.0, 9.0)
+		self.column_range = np.arange(-2.0,10.0)
 		self.start_board()
 
 		# Create some repetative strings
@@ -39,11 +42,9 @@ class MotionPlanner(object):
 		piece_place: tuple of our piece coordinates
 		"""
 		self.board = nx.Graph()
-		file_range = np.arange(-1.0, 9.0)
-		column_range = np.arange(-2.0,10.0)
 
-		for i in column_range:
-			for j in file_range:
+		for i in self.column_range:
+			for j in self.file_range:
 				edge_list = [((i,j),(i,j-1.0), 1.0),
 							((i,j),(i,j+1.0), 1.0),
 							((i,j),(i-1.0,j), 1.0),
@@ -77,31 +78,33 @@ class MotionPlanner(object):
 		at game start as occupied, all 
 		"""
 		self.occupied_spaces = set()
-
+		extended_columns = np.arange(self.column_range[0]-1, self.column_range[0]+2)
+		extended_files = np.arange(self.file_range[0]-1, self.file_range[0]+2)
+		player_space = np.arange(0.0, 8.0)
 		# Fake top and bottom files get erased
-		for space in zip(np.arange(-3.0, 11.0), [0]*14):
+		for space in zip(extended_columns, [0]*14):
 			self.occupied_spaces.add(space)
-		for space in zip(np.arange(-3.0, 11.0), [9]*14):
+		for space in zip(extended_columns, [9]*14):
 			self.occupied_spaces.add(space)
 
 		# Fake left and right columns get erased
-		for space in zip([-2.0]*12, np.arange(-2.0, 10.0)):
+		for space in zip([-2.0]*12, extended_files):
 			self.occupied_spaces.add(space)
-		for space in zip([9.0]*12, np.arange(-2.0, 10.0)):
+		for space in zip([9.0]*12, extended_files):
 			self.occupied_spaces.add(space)
 
 		# One player side taken out
-		for space in zip(np.arange(0.0, 8.0), [0.0]*8):
+		for space in zip(player_space, [0.0]*8):
 			self.occupied_spaces.add(space)
-		for space in zip(np.arange(0.0, 8.0), [1.0]*8):
+		for space in zip(player_space, [1.0]*8):
 			self.occupied_spaces.add(space)
 		# for space in zip(np.arange(0.0, 8.0), [2.0]*8):
 		# 	self.occupied_spaces.add(space)
 
 		# Second player side taken out
-		for space in zip(np.arange(0.0, 8.0), [7.0]*8):
+		for space in zip(player_space, [7.0]*8):
 			self.occupied_spaces.add(space)
-		for space in zip(np.arange(0.0, 8.0), [6.0]*8):
+		for space in zip(player_space, [6.0]*8):
 			self.occupied_spaces.add(space)
 
 	def parse_string(self, mv_str):
@@ -169,7 +172,6 @@ class MotionPlanner(object):
 				temp_mv_str = str(in_way_coord[0]) + ' ' + str(in_way_coord[1]) + ' -> ' + str(space[0]) + ' ' + str(space[1]) + ' \n\n'
 				temp_list = self.make_command_strings(temp_mv_str)
 				self.made_way_coord = space
-				print(self.made_way_coord)
 				break
 
 		for instruction in temp_list:
@@ -180,7 +182,6 @@ class MotionPlanner(object):
 
 	def return_moved(self, instruction_list):
 		self.made_way_flag = False
-		#print(str(self.made_way_coord))
 		command = str(self.made_way_coord[0]) + ' ' + str(self.made_way_coord[1]) + ' -> ' + str(self.contested_space[0]) + ' ' + str(self.contested_space[1]) + ' \n\n'
 			
 		for instruction in self.make_command_strings(command):
