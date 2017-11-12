@@ -33,6 +33,7 @@ class MotionPlanner(object):
 		self.made_way_flag = False
 		self.made_way_coord = tuple()
 		self.contested_space = tuple()
+		self.loop_count = 0
 		#self.ser = serial.Serial('/dev/tty.usbserial', 9600)
 
 	def create_board_graph(self, piece_place):
@@ -135,21 +136,25 @@ class MotionPlanner(object):
 		returns: list of strings formatted as:
 			['M %f %f \n\n', 'U \n\n' ... 'D \n\n']
 		"""
-		start_coord, end_coord = self.parse_string(mv_str)
-		self.occupied_spaces -= {start_coord}
-		path = self.find_path(start_coord, end_coord)
-		last_node = start_coord
-		instruction_list = [self.move_string(start_coord), self.grab_str]
-		for node in path[1:]:
-			if node in self.occupied_spaces:
-				instruction_list = self.make_way(last_node, node, path, instruction_list)
-			instruction_list.append(self.move_string(node))
-			last_node = node
+		self.loop_count += 1
+		instruction_list = []
+		if self.loop_count < 5:
+			start_coord, end_coord = self.parse_string(mv_str)
+			self.occupied_spaces -= {start_coord}
+			path = self.find_path(start_coord, end_coord)
+			last_node = start_coord
+			instruction_list.append(self.move_string(start_coord))
+			instruction_list.append(self.grab_str)
+			for node in path[1:]:
+				if node in self.occupied_spaces:
+					instruction_list = self.make_way(last_node, node, path, instruction_list)
+				instruction_list.append(self.move_string(node))
+				last_node = node
 
-		instruction_list.append(self.release_str)
-		self.occupied_spaces.add(end_coord)
-		if self.made_way_flag:
-			instruction_list = self.return_moved(instruction_list)
+			instruction_list.append(self.release_str)
+			self.occupied_spaces.add(end_coord)
+			if self.made_way_flag:
+				instruction_list = self.return_moved(instruction_list)
 
 		return instruction_list
 
@@ -193,8 +198,8 @@ class MotionPlanner(object):
 		start_coord, end_coord = self.parse_string(mv_str)
 		path = self.find_path(start_coord, end_coord)
 		print("Path:", path)
-		if len(path) < 2:
-			return path[-1]
+		if len(path) == 1:
+			return path[0]
 		return path[-2]
 
 	def run(self, mv_str):

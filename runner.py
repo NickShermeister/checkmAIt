@@ -7,7 +7,7 @@ import chess
 import chess.uci
 from motionPlanner import *
 from collections import defaultdict
-from speech_recogniton.speech_test import main
+#from speech_recogniton.speech_test import main
 
 
 class ChessGame:
