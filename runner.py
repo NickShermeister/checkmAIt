@@ -5,6 +5,7 @@ pip3 install python-chess
 """
 import chess
 import chess.uci
+from motionPlanner import *
 from collections import defaultdict
 
 
@@ -37,6 +38,7 @@ class ChessGame:
         self.blackLocations['k'] = ['e8']
         self.blackLocations['q'] = ['d8']
         self.graveyard = Graveyard()
+        self.mp = MotionPlanner()
 
         # self.resetBoard()
 
@@ -183,6 +185,7 @@ class ChessGame:
         string = '{} {} -> {} {} \n'.format(*source, *dest)
 
         print("OUTPUT: \n\t", string)
+        self.mp.run(string)
 
         return string
 
