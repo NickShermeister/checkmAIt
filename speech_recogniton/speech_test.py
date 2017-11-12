@@ -126,17 +126,49 @@ def listen_print_loop(responses):
 
         else:
             print(transcript + overwrite_chars)
-
-            # Exit recognition if any of the transcribed phrases could be
-            # one of our keywords.
+            string_attempt = attempt_command_string(transcript)
+            if string_attempt:
+                return string_attempt
             if re.search(r'\b(exit|quit)\b', transcript, re.I):
                 print('Exiting..')
                 break
-
             num_chars_printed = 0
 
-
-def main():
+def attempt_command_string(feed):
+    """
+    Tries to create a command string for chess based on the input. 
+    To be used with the text stream
+    """
+    pieces = ["knight", "queen", "king", "pawn", "bishop", "rook", "Bishop", \
+              "Knight", "Queen", "King", "Rook", "Pawn", "night", "Night"]      
+    rows = ["1", "2", "3", "4", "5", "6", "7", "8"]                             
+    cols = ["B", "C", "D", "F", "G", "H", "A", "E"]
+    command_string = ""
+    feed = feed.replace(" ", "")
+    for piece in pieces:
+        if piece in feed:
+            if piece == "knight" or piece == "Knight" or \
+               piece == "night" or piece == "Night":
+                command_string += "n"
+            else:
+                command_string += piece[0].upper()
+            piece_start = feed.index(piece)
+            break   
+        # feed = feed.substring(0, piece_start) + \
+            #         feed.substring((piece_start + piece.length), feed.length)
+    for row in rows:
+        if row in feed:
+            command_string += row
+            break
+    for col in cols:
+        if col in feed:
+            command_string += col.upper()
+            break
+    if len(command_string) == 3:
+        print(command_string)
+        return command_string
+    
+def  main():
     # See http://g.co/cloud/speech/docs/languages
     # for a list of supported languages.
     language_code = 'en-US'  # a BCP-47 language tag
@@ -159,7 +191,6 @@ def main():
 
         # Now, put the transcription responses to use.
         listen_print_loop(responses)
-
 
 if __name__ == '__main__':
     main()
