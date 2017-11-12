@@ -14,6 +14,9 @@ class Mechanism(object):
         self.arm_length = arm_length
         self.center = np.array(center)
 
+        self.sh_gear = -12.0 / 36  # joint moves ** times what motor does
+        self.el_gear = -12.0 / 36
+
     def inverseKinemetics(self, pos):
         """
 
@@ -22,21 +25,28 @@ class Mechanism(object):
         """
         dpos = (pos.to_vector() - self.center) * self.gridsize  # In cm
 
+        if (dpos == np.array([0, 0])).all():
+            return 0, 180/self.el_gear
+
         radius = np.linalg.norm(dpos)
+
+        print pos.to_vector(), dpos, radius
 
         # a1 is angle between the lower arm (arm1) and the position vector
         a1 = np.rad2deg(np.arccos((radius) / (2 * self.arm_length)))
         # a2 is the angle between the two arms
         a2 = 180 - 2 * a1
         # a3 is the angle between vertical and position vector
-        a3 = np.arctan(dpos[0] / dpos[1])
+        a3 = np.rad2deg(np.arctan2(-dpos[0], dpos[1]))
 
         sh_angle = a3 + a1  # shoulder angle
         el_angle = 180 - a2  # elbow angle
-        return sh_angle, el_angle
+
+        print "World angles (s,e): ", sh_angle, el_angle
+        return sh_angle / self.sh_gear, el_angle / self.el_gear
 
 
-robot = Mechanism(20.0, 4.0, (3.5, 3.5))
+robot = Mechanism(16.0, 3.7, (0, 0))
 
 
 class Position(object):
@@ -71,6 +81,7 @@ class Connection(object):
         self.send_target_raw(*pos.as_joints())
 
     def send_target_raw(self, shoulder, elbow):
+        print "Sending target (s,e): ", (shoulder, elbow)
         self.brick.message_write(self.SHOULDER_BOX, struct.pack('f', shoulder))
         self.brick.message_write(self.ELBOW_BOX, struct.pack('f', elbow))
 
@@ -100,6 +111,22 @@ class Connection(object):
             # self.send_mag_down()
             # time.sleep(1.5)
 
+    def key_control(self):
+        for box in range(5, 10):
+            self.brick.message_write(box, 'message test %d' % box)
+        for box in range(5, 10):
+            local_box, message = self.brick.message_read(box, box, True)
+            print local_box, message
+
+        self.send_target_raw(0, 0)
+
+        while True:
+            s = raw_input('Input: "x y"')
+            l = s.split(' ')
+            pos = Position(float(l[0]), float(l[1]))
+
+            self.send_target(pos)
+
 
 if __name__ == '__main__':
-    Connection().run_test()
+    Connection().key_control()
