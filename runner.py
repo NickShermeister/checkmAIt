@@ -7,7 +7,7 @@ import chess
 import chess.uci
 from motionPlanner import *
 from collections import defaultdict
-from speech_reognition.speech_test import main
+from speech_recogniton.speech_test import main
 
 
 class ChessGame:
@@ -68,11 +68,15 @@ class ChessGame:
         # print("Loc 1: %s" % loc2)
         piece1 = self.findLocPiece(loc1)
         piece2 = self.findLocPiece(loc2)
-        print(piece1)
-        print(piece2)
+        # print(piece1)
+        # print(piece2)
         # print("Good1")
         # print("Piece1 : %s " % piece1)
         # print("Piece2 : %s " % piece2)
+        
+        if piece2: #Need to run this first because of pathing
+            self.graveyardMove(loc2)
+
         if self.turn:
             # print(self.whiteLocations[piece1])
             self.whiteLocations[piece1].remove(loc1)
@@ -82,8 +86,7 @@ class ChessGame:
             self.blackLocations[piece1].remove(loc1)
             self.blackLocations[piece1].append(loc2)
 
-        if piece2:
-            self.graveyardMove(loc2)
+
 
     def graveyardMove(self, loc):
         """
@@ -135,8 +138,8 @@ class ChessGame:
         Takes in a 2 letter/number string thatgives a square (e.g. a1, h8, etc.)
         returns P for white pawn, p for black pawn.
         """
-        print(self.whiteLocations)
-        print(location)
+        # print(self.whiteLocations)
+        # print(location)
         for x in self.whiteLocations:
             if location in self.whiteLocations[x]:
                 return x
@@ -185,19 +188,20 @@ class ChessGame:
 
         string = '{} {} -> {} {} \n'.format(*source, *dest)
 
-        print("OUTPUT: \n\t", string)
+        # print("OUTPUT: \n\t", string)
         self.mp.run(string)
 
         return string
 
     @staticmethod
     def pairToLocation(pair):
-        print(pair)
-        print(len(pair))
+        # print(pair)
+        # print(len(pair))
         assert(len(pair) == 2)
 
         # Converts a 2-character UCI coordinate to a tuple
-        loc = (float(ord(pair[0]) - 96), float(pair[1]))
+        loc = (float(ord(pair[0]) - 97), float(pair[1])-1)
+        print(loc)
         assert (0. <= loc[0] < 8 and 0. <= loc[1] < 8)
         return loc
 
@@ -220,7 +224,8 @@ class ChessGame:
         # self.movePiece(hi)
         hi1 = self.findLocPiece(hi[0:2])
         print(hi1)
-        hi2 = hi1+hi
+        hi2 = hi1.upper() +hi
+        print(hi2)
         self.movePiece(hi2)
         # self.board.push(Nf3)
 
@@ -249,8 +254,8 @@ class ChessGame:
             return False
 
     def playerTurn(self):
-        move = main()
-        #move = input('Move: ')
+        # move = main()
+        move = input('Move: ')
         if move == "p":
             self.printBoard()
         elif move == "m":  # print legal moves
