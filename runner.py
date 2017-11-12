@@ -47,6 +47,22 @@ class ChessGame:
 
     def movePiece(self, command):
         # TODO: HANDLE CASTLING AND IN PASSING
+        if command == "Ke8g8":
+            #kingside black
+            command ==  "Ke8f8"
+        elif command == "Ke8c8":
+            #queenside black
+            command == "Ke8d8"
+        elif command == "Ke1g1":
+            command == "Ke1f1"
+        elif command == "Ke1c1":
+            command == "Ke1d1"
+        elif command == "0-0" or command == "0-0-0":
+            print("Invalid command; no castling yet sorry.")
+            print(self.board)
+            self.turn = not self.turn
+            return
+        print(command)
         try:
             hi = self.board.push_san(command)
 
@@ -81,7 +97,7 @@ class ChessGame:
             src, dest = self.uciToLocations(hi)
             temp = self.mp.capture(self.output_move(src, dest))
             temp = self.convertBack(temp)
-            if self.convertBack(loc1) != temp:
+            if loc1 != temp:
                 print(loc1, loc2, temp)
                 self.updateLocations(loc1, temp)
 
@@ -105,7 +121,10 @@ class ChessGame:
 
 
     def convertBack(self, numerals):
-        part1 = str(chr(int(numerals[0]+97)))
+        print("Numerals: ")
+        print(numerals)
+        print(type(numerals))
+        part1 = str(chr(int(numerals[0])+97))
         part2 = str(int(numerals[1]+1))
         return part1+part2
 
@@ -125,7 +144,10 @@ class ChessGame:
         print("White Piece?",is_white)
 
         # Remove the piece from its current square
-        (self.whiteLocations if is_white else self.blackLocations)[piece].remove(loc)
+        try:
+            (self.whiteLocations if is_white else self.blackLocations)[piece].remove(loc)
+        except:
+            pass
 
         # Add the piece to the graveyard
         dest = self.graveyard.storePiece(is_white, piece)
@@ -363,8 +385,10 @@ class Graveyard(object):
         """
 
         kind = kind.upper()
-
-        (color, location) = [(c, l) for c, l in self.empty if c == color][-1]
+        try:
+            (color, location) = [(c, l) for c, l in self.empty if c == color][-1]
+        except:
+            print("You broke it.")
         self.empty.remove((color, location))
 
         self.stored[(color, kind)].append(location)
