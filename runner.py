@@ -54,7 +54,7 @@ class ChessGame():
             self.whiteLocations[piece1].remove(loc1)
             self.whiteLocations[piece1].append(loc2)
             # print("Good2")
-            if piece2 != -1:
+            if piece2:
                 print("Good3")
                 self.blackLocations[piece2].remove(loc2)
                 self.blackGraveyard[piece2].append(self.blackGraves)
@@ -64,7 +64,7 @@ class ChessGame():
             # print(self.blackLocations[piece1])
             self.blackLocations[piece1].remove(loc1)
             self.blackLocations[piece1].append(loc2)
-            if piece2 != -1:
+            if piece2:
                 self.whiteLocations[piece2].remove(loc2)
                 self.whiteGraveyard[piece2].append(self.whiteGraves)
                 self.whiteGraves+=1
@@ -95,7 +95,7 @@ class ChessGame():
         for x in self.blackLocations:
             if location in self.blackLocations[x]:
                 return x
-        return -1
+        return None
 
 
     def printBoard(self):
