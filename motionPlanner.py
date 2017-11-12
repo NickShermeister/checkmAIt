@@ -51,8 +51,9 @@ class MotionPlanner(object):
 							((i,j),(i+1.0,j-1.0), 1.414)]
 				self.board.add_weighted_edges_from(edge_list)
 
-		for space in (self.occupied_spaces - {piece_place}):
-			self.board.remove_node(space)
+		for space in self.occupied_spaces - {piece_place}:
+			for edge in self.board.edges(space):
+				self.board[edge[0]][edge[1]]['weight'] += 5
 
 	def find_path(self, start, end):
 		""" Given the starting and ending
