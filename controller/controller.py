@@ -53,7 +53,7 @@ class Mechanism(object):
         return sh_angle / self.sh_gear, el_angle / self.el_gear
 
 
-robot = Mechanism(16.0, 3.7, (3.5, 3.5))
+robot = Mechanism(15.5, 3.625, (3.5, 3.5))
 
 
 class Position(object):

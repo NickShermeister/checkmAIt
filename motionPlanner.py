@@ -195,6 +195,7 @@ class MotionPlanner(object):
 		for instruction in temp_list:
 			instruction_list.append(instruction)
 		instruction_list.append(self.move_string(start_coord))
+		instruction_list.append(self.grab_str)
 		self.made_way_flag = True
 		return instruction_list
 
