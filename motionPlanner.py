@@ -13,6 +13,7 @@ to install: pip3 install networkx
 """
 import networkx as nx
 import numpy as np
+import subprocess
 #import serial
 
 class MotionPlanner(object):
@@ -28,12 +29,13 @@ class MotionPlanner(object):
 		self.start_board()
 
 		# Create some repetative strings
-		self.grab_str = str.encode('U \n\n')
-		self.release_str = str.encode('D \n\n')
+		self.grab_str = str.encode('u \n')
+		self.release_str = str.encode('d \n')
 		self.made_way_flag = False
 		self.made_way_coord = tuple()
 		self.contested_space = tuple()
 		self.loop_count = 0
+		self.controller = subprocess.Popen(["python2", "controller/controller.py"], stdin = subprocess.PIPE)
 		#self.ser = serial.Serial('/dev/tty.usbserial', 9600)
 
 	def create_board_graph(self, piece_place):
@@ -163,7 +165,7 @@ class MotionPlanner(object):
 		returns a string that fits the format
 		'M float float'
 		"""
-		return str.encode('M ' + str(coord[0]) + ' ' + str(coord[1]) + ' \n\n')
+		return str.encode(str(coord[0]) + ' ' + str(coord[1]) + ' \n')
 
 	def make_way(self, start_coord, in_way_coord, path_list, instruction_list):
 		""" Given a coordinate, moves the piece there
@@ -210,8 +212,8 @@ class MotionPlanner(object):
 		"""
 		mv_string = mv_str #get string
 		instruction_list = self.make_command_strings(mv_str)
-		# for instruction in instruction_list:
-		# 	print(instruction)
+		for instruction in instruction_list:
+		 	out = self.controller.communicate(instruction)
 			#self.ser.write(instruction)
 		return instruction_list
 
