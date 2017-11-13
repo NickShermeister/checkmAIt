@@ -227,7 +227,7 @@ class MotionPlanner(object):
 			print("Sending Command: ", instruction)
 			out = self.controller.stdin.write(instruction)
 			self.controller.stdin.flush()
-			print("Command sent, got", out)
+			# print("Command sent, got", out)
 			#self.ser.write(instruction)
 		#return instruction_list
 

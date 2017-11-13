@@ -37,7 +37,7 @@ class Mechanism(object):
 
         radius = np.linalg.norm(dpos)
 
-        print pos.to_vector(), dpos, radius
+        # print pos.to_vector(), dpos, radius
 
         # a1 is angle between the lower arm (arm1) and the position vector
         a1 = np.rad2deg(np.arccos((radius) / (2 * self.arm_length)))
@@ -49,7 +49,7 @@ class Mechanism(object):
         sh_angle = a3 + a1  # shoulder angle
         el_angle = 180 - a2  # elbow angle
 
-        print "World angles (s,e): ", sh_angle, el_angle
+        # print "World angles (s,e): ", sh_angle, el_angle
         return sh_angle / self.sh_gear, el_angle / self.el_gear
 
 
@@ -96,7 +96,7 @@ class Connection(object):
         self.send_target_raw(*pos.as_joints())
 
     def send_target_raw(self, shoulder, elbow):
-        print "Sending target (s,e): ", (shoulder, elbow)
+        # print "Sending target (s,e): ", (shoulder, elbow)
         if self.has_brick:
             self.brick.message_write(self.SHOULDER_BOX, struct.pack('f', shoulder))
             self.brick.message_write(self.ELBOW_BOX, struct.pack('f', elbow))

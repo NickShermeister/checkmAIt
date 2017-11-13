@@ -5,7 +5,7 @@ Servo myservo;  // create servo object to control a servo
 
 int pos = 90;    // variable to store the servo position
 
-const int UP_POS = 60;
+const int UP_POS = 90;
 const int DOWN_POS = 140;
 
 void setup() {
