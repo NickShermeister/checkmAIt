@@ -1,5 +1,5 @@
 """
-Chess Running script for Hack Holyoke 2017.
+Chess Running script for our passionate pursuit.
 in order to import chess, run:
 pip3 install python-chess
 """
@@ -11,7 +11,8 @@ from collections import defaultdict
 
 
 class ChessGame:
-    """docstring for ChessGame."""
+    """A game of Wizards chess, created by:
+    ."""
 
     def __init__(self):
 
@@ -42,7 +43,6 @@ class ChessGame:
         self.mp = MotionPlanner()
 
         # self.resetBoard()
-
         self.gameLoop()
 
     def movePiece(self, command):
@@ -77,7 +77,7 @@ class ChessGame:
         self.updateLocations(loc1, loc2)
         assert (len(hi.uci()) == 4)
         src, dest = self.uciToLocations(hi.uci())
-        self.mp.run(self.output_move(src, dest))
+        # self.mp.run(self.output_move(src, dest))
 
     def updateLocations(self, loc1, loc2):
         # print("Loc 1: %s" % loc1)
@@ -119,7 +119,6 @@ class ChessGame:
             self.blackLocations[piece1].remove(loc1)
             self.blackLocations[piece1].append(loc2)
 
-
     def convertBack(self, numerals):
         print("Numerals: ")
         print(numerals)
@@ -127,7 +126,6 @@ class ChessGame:
         part1 = str(chr(int(numerals[0])+97))
         part2 = str(int(numerals[1]+1))
         return part1+part2
-
 
     def graveyardMove(self, loc, iswhite = None):
         """
@@ -177,7 +175,6 @@ class ChessGame:
 
         print("The source is %s" % str(source))
         self.mp.run(self.output_move(source, self.pairToLocation(dest)))
-
 
     def printLocations(self):
         print("White locations")
@@ -349,7 +346,6 @@ class ChessGame:
                 self.gameOver()
         print("Baiiiiiii")
 
-
 class Graveyard(object):
     def __init__(self):
         self.empty = []  # Available spaces, tuples of (color, coords) with first-used ones at the end
@@ -416,7 +412,6 @@ class Graveyard(object):
             print('Color: {}, Type: {}'.format('White' if k[0] else 'Black', k[1]))
             for loc in v:
                 print('\t{}'.format(loc))
-
 
 if __name__ == "__main__":
     game = ChessGame()
