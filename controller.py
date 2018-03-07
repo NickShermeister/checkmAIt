@@ -43,7 +43,7 @@ class Controller(object):
         else:
             raise NotImplementedError()
 
-    def goto_coord(self, coord:PieceCoord):
+    def goto_coord(self, coord: PieceCoord):
         self.goto_raw_coord(self._convert_coord(coord))
 
     def goto_raw_coord(self, pos: RobotPosition):
@@ -56,6 +56,14 @@ class Controller(object):
         x = (coord.x - 6.5) * self.square_size + self.center[0]
         y = (coord.y - 3.5) * self.square_size + self.center[1]
         return RobotPosition(x, y)
+
+    def run_test(self):
+        self.mag_down()
+        for x in range(0, 10, 0.1):
+
+            self.goto_raw_coord(RobotPosition(x, 0))
+            time.sleep(.1)
+
 
 def key_control():
     c = Controller()
@@ -87,6 +95,7 @@ def key_control():
 
         except Exception:
             print('Input two numbers separated by a space')
+
 
 if __name__ == '__main__':
     key_control()
