@@ -13,8 +13,7 @@ from six.moves import queue
 RATE = 16000
 CHUNK = int(RATE / 10)  # 100ms
 
-# A great deal of this code is taken from the Google audio stream to text
-# example program. By a great deal, I mean most of it...
+# A nonzero amount of this is from the Google Cloud Services docs.
 class MicrophoneStream(object):
     """Opens a recording stream as a generator yielding the audio chunks."""
     def __init__(self, rate, chunk):
@@ -95,6 +94,12 @@ def listen_print_loop(responses):
     response is an interim one, print a line feed at the end of it, to allow
     the next result to overwrite it, until the response is a final one. For the
     final one, print a newline to preserve the finalized transcription.
+
+
+
+
+    responses : Audio stream
+    returns : strings constructed in chess notation
     """
     num_chars_printed = 0
     for response in responses:
@@ -134,12 +139,14 @@ def listen_print_loop(responses):
                 break
             num_chars_printed = 0
 
+
+
 def attempt_command_string(feed):
     """
     Tries to create a command string for chess based on the input. 
     To be used with the text stream
     """
-
+    # Make an informed guess on what the command is.
     pieces = ["knight", "queen", "king", "pawn", "bishop", "rook", "work", \
               "night", "Night", "brooke"]      
     rows = ["1", "2", "3", "4", "5", "6", "7", "8"]                             
@@ -149,12 +156,17 @@ def attempt_command_string(feed):
     feed = feed.strip()
     feed_list = feed.split(" ")
     
+
+    # Go through the feedlist, converting to chess notation
     command_string += ""
     if len(feed_list) < 2:
         return
+    
+    # Empirically found common mistakes revealed through testing with 
+    # logitech webcam microphone.
     if feed_list[0].lower() in pieces:
         piece = feed_list[0].lower()
-        print(piece)
+        # print(piece)
         if piece == "knight" or piece == "Knight" or \
            piece == "night" or piece == "Night":
             command_string += "N"
@@ -170,27 +182,13 @@ def attempt_command_string(feed):
     else:
         command_string += make_string(feed_list[-1],rows, cols)
   
+    # Hardcoding in whether or not this is chess notation. Can be changed.
     if len(command_string) not in [3, 5]:
-        print("Try again, nerd.")
+        print("Failed.")
         return    
 
-    print(command_string)
+    # print(command_string)
     return command_string
-    """ 
-    if "from" not in feed and "to" not in feed:
-        cmd_addition = make_string(feed, rows, cols)
-        command_string += cmd_addition
-        if len(command_string) == 3:
-            print(command_string)
-            return command_string
-    else:
-        feed = feed.replace("from", "")
-        feed_1, feed_2 = feed.split("to")
-        feed_1 = make_string(feed_1, rows, cols)
-        feed_2 = make_string(feed_2, rows, cols)
-        command_string += feed_1 + feed_2
-        return command_string
-    """        
 
 def make_string(string, rows, cols):
     """
