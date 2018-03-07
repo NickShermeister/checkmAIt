@@ -2,6 +2,8 @@
 Chess Running script for our passionate pursuit.
 In order to import chess, run:
 pip3 install python-chess
+
+THIS FILE SHOULD BE MIGRATED TO ai.py AND game.py
 """
 import chess
 import chess.uci

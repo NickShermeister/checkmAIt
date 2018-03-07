@@ -31,7 +31,7 @@ def main():
                 for step in steps:
                     controller.makeMove(step)
 
-            response = ai.getMove()
+            response = ai.getMove(game.board)
 
             implementation = game.implementMove(response)
 
@@ -43,3 +43,6 @@ def main():
         else:
             sleep(0.01)
 
+
+if __name__ == '__main__':
+    main()

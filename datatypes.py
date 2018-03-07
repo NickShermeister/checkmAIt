@@ -11,7 +11,8 @@ class PieceMove(object):
 class PieceCoord(object):
     def __init__(self, x, y):
         """
-        :param int x: x-coordinate on the play field
+        :param int x: x-coordinate on the play field:
+            x=0 is leftmost square in graveyard, x=3 is the leftmost square on the board
         :param int y: y-coordinate on the play field
         """
         self.y = y
@@ -20,20 +21,20 @@ class PieceCoord(object):
 
 class Action(object):
     def __init__(self):
-        self._up = False
-        self._down = False
-        self._coords = None
+        self.up = False
+        self.down = False
+        self.coord = None
 
     @classmethod
     def PenUp(cls):
         action = cls()
-        action._up = True
+        action.up = True
         return action
 
     @classmethod
     def PenDown(cls):
         action = cls()
-        action._down = True
+        action.down = True
         return action
 
     @classmethod
@@ -42,5 +43,5 @@ class Action(object):
         :type coords: PieceCoord
         """
         action = cls()
-        action._coords = PieceCoord(x, y)
+        action.coord = PieceCoord(x, y)
         return action
