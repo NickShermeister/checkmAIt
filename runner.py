@@ -340,9 +340,13 @@ class ChessGame:
         self.engine.position(self.board)    #Pass in the board's current state to the game engine.
         test = self.engine.go(movetime=300) #Movetime in milliseconds to generate best move.
         full_move_string = str(test[0])
+        print("hi")
+        print(full_move_string)
 
-        part1 = self.findLocPiece(full_move[0:2])
-        move_for_board = part1.upper() +full_move_string
+
+        #Need this because we need to get the piece name; the AI just returns locations.
+        part1 = self.findLocPiece(full_move_string[0:2]) #get the piece from the dictionary
+        move_for_board = part1.upper() +full_move_string  #sum the two parts again.
         print("Being passed into movePiece: %s " % move_for_board)
         self.movePiece(move_for_board)
 
@@ -385,7 +389,7 @@ class ChessGame:
     def playerTurn(self):
         """
         Allow the player to make a turn.
-        Also allows other commands to view state of the board as debugging
+        Also allows other commands to view state of the board as debugging[]
         """
         # move = main()
         move = input('Move: ')
