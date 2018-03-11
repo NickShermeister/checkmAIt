@@ -6,6 +6,7 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 **/.idea/
+/speech_recogniton/checkmAIt-be608f85fc97.json
 
 # CMake
 cmake-build-debug/
