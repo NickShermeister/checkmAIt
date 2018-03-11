@@ -1,30 +1,50 @@
 """
 Chess Running script for our passionate pursuit.
-in order to import chess, run:
+In order to import chess, run:
 pip3 install python-chess
+
+THIS FILE SHOULD BE MIGRATED TO ai.py AND game.py
 """
 import chess
 import chess.uci
+import random
 from motionPlanner import *
 from collections import defaultdict
 #from speech_recogniton.speech_test import main
 
+#TODO: Have only one place where the turn may (or may not) change.
+
 
 class ChessGame:
     """A game of Wizards chess, created by:
-    ."""
+    Anusha
+    Kaitlyn
+    Eric
+    Nick
+    """
 
     def __init__(self):
-
+        """
+        Init function for ChessGame. Creates a board and sets locations to be the default.
+        Also creates a graveyard and motion planner.
+        Finishes by entering game loop, which runs indefinitely.
+        """
         self.board = chess.Board()
         self.running = True
-        self.turn = True    #True means player makes first move; else AI makes first move.
-        #first player is always white
-        self.engine = chess.uci.popen_engine('stockfish-8-linux/Linux/stockfish_8_x64')
+        self.turn = True #bool(random.getrandbits(1))
+        #True means player makes first move; else AI makes first move. Black first move doesn't work because of swiss cheese code
+        #TODO: FIX CODE SO IT ISN'T HARD CODED THAT THE AI IS BLACK.
+
+        #Engine setup
+        self.engine = chess.uci.popen_engine('libs/stockfish-8-linux/Linux/stockfish_8_x64')
         self.engine.uci()
         self.first = self.turn
+
+        #Full location list
         self.whiteLocations = {'': [], 'R': [], 'N': [], 'B': [], 'K': [], 'Q': []}
         self.blackLocations = {'': [], 'r': [], 'n': [], 'b': [], 'k': [], 'q': []}
+
+        # White Pieces
         self.whiteLocations[''] = ['a2', 'b2', 'c2', 'd2', 'e2', 'f2', 'g2', 'h2']
         self.whiteLocations['R'] = ['a1', 'h1']
         self.whiteLocations['N'] = ['b1', 'g1']
@@ -39,19 +59,28 @@ class ChessGame:
         self.blackLocations['b'] = ['c8', 'f8']
         self.blackLocations['k'] = ['e8']
         self.blackLocations['q'] = ['d8']
+
+        #Misc. creation
         self.graveyard = Graveyard()
         self.mp = MotionPlanner()
 
         # self.resetBoard()
+
+        #enter main loop
         self.gameLoop()
 
     def movePiece(self, command):
-        # TODO: HANDLE CASTLING AND IN PASSING
+        """
+            Moves a singular piece using a given command (in algebraic; no spaces).
+            :param command: String
+        """
+
+        # TODO: HANDLE CASTLING AND IN PASSING (this block of code)
         if command == "Ke8g8":
-            #kingside black
+            #kingside black castle attempt
             command ==  "Ke8f8"
         elif command == "Ke8c8":
-            #queenside black
+            #queenside black castle attempt
             command == "Ke8d8"
         elif command == "Ke1g1":
             command == "Ke1f1"
@@ -63,35 +92,56 @@ class ChessGame:
             self.turn = not self.turn
             return
         print(command)
+
+        #Try a command; if it fails then prevent a change in turn and make the player go.
         try:
             hi = self.board.push_san(command)
-
         except:
             print("Invalid command.")
             print(self.board)
             self.turn = not self.turn
             return
-        stripped_command = ''.join(l for l in hi.uci() if l in '12345678abcdefgh')
+
+        stripped_command = ''.join(l for l in hi.uci() if l in '12345678abcdefgh')  #Strip the command so that it only has the before and after coordinates.
+
+        #get the before/after coordinates
         loc1 = stripped_command[0:2]
         loc2 = stripped_command[2:]
-        self.updateLocations(loc1, loc2)
+
+        self.updateLocations(loc1, loc2)    #Updates the location of PIECES
+
+        #make sure that the uci is correct.
         assert (len(hi.uci()) == 4)
+
+        #Move the piece (currently inactive as we switch to Gantry).
         src, dest = self.uciToLocations(hi.uci())
         # self.mp.run(self.output_move(src, dest))
 
     def updateLocations(self, loc1, loc2):
-        # print("Loc 1: %s" % loc1)
-        # print("Loc 1: %s" % loc2)
+        """
+            Update the location of a piece by taking its original location (loc1) and moving it to the new location (loc2)
+            :param loc1: String (letterNumber ex. a2)
+            :param loc2: String (letterNumber ex. a3)
+        """
+
+        #Get the pieces based on the locations passed in
         piece1 = self.findLocPiece(loc1)
         piece2 = self.findLocPiece(loc2)
+
+        #TODO: DETERMINE WHY THIS IS HERE; seems redundant/useless
         if piece1 == piece2:
             piece2 = None
+
+        # Print debugging code.
+        # print("Loc 1: %s" % loc1)
+        # print("Loc 1: %s" % loc2)
         # print(piece1)
         # print(piece2)
         # print("Good1")
         # print("Piece1 : %s " % piece1)
         # print("Piece2 : %s " % piece2)
 
+        #Make sure that the second piece is moved to the graveyard first.
         if piece2 is not None: #Need to run this first because of pathing
             hi = loc1+loc2
             src, dest = self.uciToLocations(hi)
@@ -110,6 +160,7 @@ class ChessGame:
 
             self.updateLocations(temp, loc2)
 
+        #Make the move, depending on whose turn it is.
         elif self.turn:
             # print(self.whiteLocations[piece1])
             self.whiteLocations[piece1].remove(loc1)
@@ -120,6 +171,11 @@ class ChessGame:
             self.blackLocations[piece1].append(loc2)
 
     def convertBack(self, numerals):
+        """
+            Converts a numeral command to a string Command. Used for captures.
+            :param numerals: String (of numerical command)
+            :return: String (algebraic notation)
+        """
         print("Numerals: ")
         print(numerals)
         print(type(numerals))
@@ -177,6 +233,9 @@ class ChessGame:
         self.mp.run(self.output_move(source, self.pairToLocation(dest)))
 
     def printLocations(self):
+        """
+        Print the locations of all pieces saved by the game.
+        """
         print("White locations")
         print(self.whiteLocations)
         print("Black locations")
@@ -198,9 +257,15 @@ class ChessGame:
         return None
 
     def printBoard(self):
+        """
+        Prints the board. Included as a separate function in case we want to print more than just the board when printing board in the future.
+        """
         print(self.board)
 
     def resetBoard(self):
+        """
+        Resets the board to its starting (default) position.
+        """
         # TODO: ROUTE TO MOVE PIECES BACK
         toRevive = dict()
 
@@ -220,16 +285,18 @@ class ChessGame:
         toRevive['k'] = ['e8']
         toRevive['q'] = ['d8']
 
+        #Actually revive the pieces
         for piece in toRevive:
             for locs in toRevive[piece]:
                 self.reviveFromGraveyard(locs, piece)
 
+        #Make the board in the computer know it's reset.
         self.board.reset()
+        #Prove that it's reset/print the start.
         self.printBoard()
 
     def output_move(self, source, dest):
         """
-
         :param source: Coordinates of the source (tuple in board coordinates)
         :param dest: Coordinates of the destination (tuple in board coordinates
         :return: The string output
@@ -239,11 +306,14 @@ class ChessGame:
 
         # print("OUTPUT: \n\t", string)
 
-
         return string
 
     @staticmethod
     def pairToLocation(pair):
+        """
+        Take in a touple of length two and convert it to numbers for movement purposes.
+        :param pair: tuple of strings len 2
+        """
         # print(pair)
         # print(len(pair))
         assert(len(pair) == 2)
@@ -256,7 +326,6 @@ class ChessGame:
 
     def uciToLocations(self, command):
         """
-
         :param command: 4-character uci formatted string ex. "e5e7"
         :return:
         """
@@ -266,21 +335,32 @@ class ChessGame:
         return self.pairToLocation(command[:2]), self.pairToLocation(command[2:])
 
     def aiMove(self):
-        self.engine.position(self.board)
-        test = self.engine.go(movetime=300)
-        hi = str(test[0])
-        # self.movePiece(hi)
-        hi1 = self.findLocPiece(hi[0:2])
-        hi2 = hi1.upper() +hi
-        print("Being passed into movePiece: %s " % hi2)
-        self.movePiece(hi2)
-        # self.board.push(Nf3)
+        """
+        Function to have the AI move.
+        TODO: Allow AI to start as black.
+        """
+        self.engine.position(self.board)    #Pass in the board's current state to the game engine.
+        test = self.engine.go(movetime=300) #Movetime in milliseconds to generate best move.
+        full_move_string = str(test[0])
+        print("hi")
+        print(full_move_string)
 
-        # self.movePiece(hi)
+
+        #Need this because we need to get the piece name; the AI just returns locations.
+        part1 = self.findLocPiece(full_move_string[0:2]) #get the piece from the dictionary
+        move_for_board = part1.upper() +full_move_string  #sum the two parts again.
+        print("Being passed into movePiece: %s " % move_for_board)
+        self.movePiece(move_for_board)
+
+        #Change whose turn it is.
         self.turn = not self.turn
 
     def gameOver(self):
-        # TODO: what happens when the game ends
+        """
+        If the game is over, report the result and ask if people want to play again. If they don't, running becomes false and the game will stop.
+        """
+
+        # TODO: what happens when the game ends (do more?)
         resultant = self.board.result()
         if resultant == "1-0":
             print("Congratulations! White wins!")
@@ -288,12 +368,20 @@ class ChessGame:
             print("Congratulations! Black wins!")
         else:
             print("It's a draw!")
+
+        #reset the physical board as well as the saved board state
         self.resetBoard()
+
+        #Ask the user if they want to play again.
         again = input("Want to play again? (y/n): ")
         if again.lower() == "n":
             self.running = False
 
     def checkGameOver(self):
+        """
+        Check to see if the game is over.
+        :return: Boolean (true if game is over, else false)
+        """
         if self.board.is_game_over():
             # TODO: get why it is over (stalemate, checkmate)
             return True
@@ -301,6 +389,10 @@ class ChessGame:
             return False
 
     def playerTurn(self):
+        """
+        Allow the player to make a turn.
+        Also allows other commands to view state of the board as debugging[]
+        """
         # move = main()
         move = input('Move: ')
         if move == "p":

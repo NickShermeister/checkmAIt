@@ -38,7 +38,7 @@ class MotionPlanner(object):
 		self.made_way_coord = tuple()
 		self.contested_space = tuple()
 		self.loop_count = 0
-		self.controller = subprocess.Popen(["python2", "controller/controller.py"], stdin = subprocess.PIPE)
+		self.controller = subprocess.Popen(["python2", "oldcontroller/controller.py"], stdin = subprocess.PIPE)
 		print('Initialized2')
 		# self.controller.communicate(bytes('u\n', encoding='UTF8'))
 		self.controller.stdin.write(bytes('u\n', encoding='UTF8'))
@@ -226,9 +226,9 @@ class MotionPlanner(object):
 		for instruction in instruction_list:
 			print("Sending Command: ", instruction)
 			out = self.controller.stdin.write(instruction)
-			self.controller.stdin.flush()
+			# self.controller.stdin.flush()
 			# print("Command sent, got", out)
-			self.ser.write(instruction)
+			# self.ser.write(instruction)
 		#return instruction_list
 
 
