@@ -26,7 +26,7 @@ def main():
             implementation = game.implementMove(command)
 
             for m in implementation:
-                steps = planner.make_command_strings(m)  # type:List[Action]
+                steps = planner.make_command_list(m)  # type:List[Action]
 
                 for step in steps:
                     controller.makeMove(step)
@@ -36,7 +36,7 @@ def main():
             implementation = game.implementMove(response)
 
             for m in implementation:
-                steps = planner.make_command_strings(m)  # type:List[Action]
+                steps = planner.make_command_list(m)  # type:List[Action]
 
                 for step in steps:
                     controller.makeMove(step)

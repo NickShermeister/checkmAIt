@@ -18,6 +18,8 @@ class PieceCoord(object):
         self.y = y
         self.x = x
 
+    def __str__(self):
+        return "({},{})".format(self.x,self.y)
 
 class Action(object):
     def __init__(self):
@@ -45,3 +47,17 @@ class Action(object):
         action = cls()
         action.coord = PieceCoord(x, y)
         return action
+
+    @classmethod
+    def GotoCoord(cls, coord:PieceCoord):
+        action = cls()
+        action.coord = coord
+        return action
+
+    def __str__(self):
+        if self.up:
+            return "Pen Up"
+        elif self.down:
+            return "Pen Down"
+        elif self.coord is not None:
+            return "Move to ({},{})".format(self.coord.x, self.coord.y)

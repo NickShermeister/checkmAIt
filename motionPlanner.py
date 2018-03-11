@@ -1,23 +1,15 @@
-""" HackHolyoke 2017
-checkmAIt
-
-Given a starting coordinate pair
-and an ending coordinate pair,
-outputs commands to navigate the
-arm to that place, grab the piece,
-navigate the board, and release the
-piece.
+""" Wiz-nerds 2018
+Olin College Passionate Pursuit
 
 Requires: networkx, numpy
 to install: pip3 install networkx
 """
+
 import networkx as nx
 import numpy as np
-import subprocess
-import os
+from datatypes import *
 
 import time
-#import serial
 
 class MotionPlanner(object):
 	""" Contains a graph of spaces on a
@@ -26,214 +18,162 @@ class MotionPlanner(object):
 	"""
 
 	def __init__(self):
-
-		self.column_range = np.arange(-1.0, 9.0)
-		self.file_range = np.arange(-2.0,10.0)
+		self.rank_range = np.arange(0, 8) # rows
+		self.file_range = np.arange(0, 14) # columns
 		self.start_board()
 
-		# Create some repetative strings
-		self.grab_str = str.encode('u \n')
-		self.release_str = str.encode('d \n')
-		self.made_way_flag = False
-		self.made_way_coord = tuple()
-		self.contested_space = tuple()
-		self.loop_count = 0
-		self.controller = subprocess.Popen(["python2", "oldcontroller/controller.py"], stdin = subprocess.PIPE)
-		print('Initialized2')
-		# self.controller.communicate(bytes('u\n', encoding='UTF8'))
-		self.controller.stdin.write(bytes('u\n', encoding='UTF8'))
-		# print(bytes('u\n', encoding='UTF8'), file=self.controller.stdin)
-		print('Initialized3')
-		# print('u\n'.encode(),file=self.controller.stdin)
-		#self.ser = serial.Serial('/dev/tty.usbserial', 9600)
+		self.made_way_flag = False # May need to toggle if something moved out of the way
+		self.made_way_coord = tuple() # Where the thing moved to
+		self.contested_space = tuple() # space being fought over
+		self.loop_count = 0 # counter to prevent infinite loop
 
-	def create_board_graph(self, piece_place):
+	def start_board(self):
+		""" Sets all the spaces that are occupied
+		at game start as occupied
+		"""
+		self.occupied_spaces = set()
+		player_space = np.arange(0, 8)
+
+		self.spaces = {}
+		for i in np.arange(-1, 9):
+			for j in np.arange(-1, 15):
+				self.spaces[(i,j)] = PieceCoord(i,j)
+
+		# One player side taken out
+		for space in player_space:
+			self.occupied_spaces.add(self.spaces[(space, 0)]) # player row 1
+			self.occupied_spaces.add(self.spaces[(space, 1)]) # player row 2
+			self.occupied_spaces.add(self.spaces[(space, 6)]) # ai row 1
+			self.occupied_spaces.add(self.spaces[(space, 7)]) # ai row 2
+
+	def create_board_graph(self, coord:PieceCoord):
 		""" Given the coordinates of the piece
 		to be moved, creates a graph with all
 		possible movements.
 
-		piece_place: tuple of our piece coordinates
+		coord: PieceCoord of our piece coordinates
 		"""
-		self.board = nx.Graph()
 
-		for i in self.column_range:
+		self.board = nx.Graph()
+		for i in self.rank_range:
 			for j in self.file_range:
-				edge_list = [((i,j),(i,j-1.0), 1.0),
-							((i,j),(i,j+1.0), 1.0),
-							((i,j),(i-1.0,j), 1.0),
-							((i,j),(i+1.0,j), 1.0),
-							((i,j),(i-1.0,j-1.0), 1.414),
-							((i,j),(i-1.0,j+1.0), 1.414),
-							((i,j),(i+1.0,j+1.0), 1.414),
-							((i,j),(i+1.0,j-1.0), 1.414)]
+				edge_list = [(self.spaces[(i,j)], self.spaces[(i,j-1)], 1.0),
+							(self.spaces[(i,j)], self.spaces[(i,j+1)], 1.0),
+							(self.spaces[(i,j)], self.spaces[(i-1,j)], 1.0),
+							(self.spaces[(i,j)], self.spaces[(i+1,j)], 1.0),
+							(self.spaces[(i,j)], self.spaces[(i-1,j-1)], 1.414),
+							(self.spaces[(i,j)], self.spaces[(i-1,j+1)], 1.414),
+							(self.spaces[(i,j)], self.spaces[(i+1,j-1)], 1.414),
+							(self.spaces[(i,j)], self.spaces[(i+1,j+1)], 1.414)]
 				self.board.add_weighted_edges_from(edge_list)
 
-		for space in self.occupied_spaces - {piece_place}:
+		# remove nodes that shouldn't exist
+		for j in self.file_range:
+			try:
+				self.board.remove_node(self.spaces[(-1,j)])
+				self.board.remove_node(self.spaces[(8,j)])
+			except:
+				pass
+
+		for i in self.rank_range:
+			try:
+				self.board.remove_node(self.spaces[(i,-1)])
+				self.board.remove_node(self.spaces[(i,14)])
+			except:
+				pass
+
+		for space in self.occupied_spaces - {self.spaces[(coord.x, coord.y)]}:
 			for edge in self.board.edges(space):
 				self.board[edge[0]][edge[1]]['weight'] += 2
 
-	def find_path(self, start, end):
+	def find_path(self, start:PieceCoord, end:PieceCoord) -> [PieceCoord]:
 		""" Given the starting and ending
 		coordinates, calculates the shortest
 		path through
 		"""
 		self.create_board_graph(start)
-		if end not in self.board.nodes():
+		if self.spaces[(end.x,end.y)] not in self.board.nodes():
 			print("Ending Coordinate not found")
 			return []
 
-		try: return nx.shortest_path(self.board, start, end, weight = 'weight')
+		s = (start.x, start.y)
+		e = (end.x, end.y)
+		try: return nx.shortest_path(self.board, self.spaces[s], self.spaces[e], weight = 'weight')
 
 		except nx.exception.NetworkXNoPath: return []
 
-	def start_board(self):
-		""" Sets all the spaces that are occupied
-		at game start as occupied, all
-		"""
-		self.occupied_spaces = set()
-		extended_columns = np.arange(self.column_range[0]-1, self.column_range[0]+2)
-		extended_files = np.arange(self.file_range[0]-1, self.file_range[0]+2)
-		player_space = np.arange(0.0, 8.0)
-		# Fake top and bottom files get erased
-		for space in zip(extended_columns, [0]*14):
-			self.occupied_spaces.add(space)
-		for space in zip(extended_columns, [9]*14):
-			self.occupied_spaces.add(space)
-
-		# Fake left and right columns get erased
-		for space in zip([-2.0]*12, extended_files):
-			self.occupied_spaces.add(space)
-		for space in zip([9.0]*12, extended_files):
-			self.occupied_spaces.add(space)
-
-		# One player side taken out
-		for space in zip(player_space, [0.0]*8):
-			self.occupied_spaces.add(space)
-		for space in zip(player_space, [1.0]*8):
-			self.occupied_spaces.add(space)
-		# for space in zip(np.arange(0.0, 8.0), [2.0]*8):
-		# 	self.occupied_spaces.add(space)
-
-		# Second player side taken out
-		for space in zip(player_space, [7.0]*8):
-			self.occupied_spaces.add(space)
-		for space in zip(player_space, [6.0]*8):
-			self.occupied_spaces.add(space)
-
-	def parse_string(self, mv_str):
-		""" Given a string that specifies
-		starting and ending coordinates,
-		returns the starting and ending
-		coordinates as tuples
-		mv_str =
-		'startcolumn startfile -> endcolumn endfile \n\n'
-
-		returns: start_coord, end_coord
-		"""
-		sc, sf, arrow, ec, ef, nl = mv_str.split(' ')
-		start_coord = (float(sc), float(sf))
-		end_coord = (float(ec), float(ef))
-
-		return start_coord, end_coord
-
-	def make_command_strings(self, mv_str):
+	def make_command_list(self, move:PieceMove) -> [Action]:
 		""" Given a string that specifies the
 		starting and ending coordinates, returns
 		a list of strings detailing the moves
 		that the arm must make.
-		mv_str =
-		'startcolumn startfile -> endcolumn endfile \n\n'
-
-		returns: list of strings formatted as:
-			['M %f %f \n\n', 'U \n\n' ... 'D \n\n']
 		"""
 		self.loop_count += 1
 		instruction_list = []
 		if self.loop_count < 5:
-			start_coord, end_coord = self.parse_string(mv_str)
-			self.occupied_spaces -= {start_coord}
-			path = self.find_path(start_coord, end_coord)
-			last_node = start_coord
-			instruction_list.append(self.release_str)
-			instruction_list.append(self.move_string(start_coord))
-			instruction_list.append(self.grab_str)
+			self.occupied_spaces -= {move.start}
+			path = self.find_path(move.start, move.end)
+			last = move.start
+			instruction_list.append(Action().PenDown())
+			instruction_list.append(Action().GotoCoord(move.start))
+			instruction_list.append(Action().PenUp())
+
 			for node in path[1:]:
 				if node in self.occupied_spaces:
-					instruction_list = self.make_way(last_node, node, path, instruction_list)
-				instruction_list.append(self.move_string(node))
-				last_node = node
+					instruction_list = instruction_list + self.make_way(last, node, path)
+				instruction_list.append(Action().GotoCoord(node))
+				last = node
 
-			instruction_list.append(self.release_str)
-			self.occupied_spaces.add(end_coord)
+			instruction_list.append(Action().PenDown())
+			self.occupied_spaces.add(move.end)
 			if self.made_way_flag:
-				instruction_list = self.return_moved(instruction_list)
+				instruction_list = instruction_list + self.return_moved()
 
 		return instruction_list
 
-	def move_string(self, coord):
-		""" Given a coordinate tuple,
-		returns a string that fits the format
-		'M float float'
-		"""
-		return str.encode(str(coord[0]) + ' ' + str(coord[1]) + ' \n')
-
-	def make_way(self, start_coord, in_way_coord, path_list, instruction_list):
+	def make_way(self, start_coord:PieceCoord, in_way_coord:PieceCoord, path_list) -> [Action]:
 		""" Given a coordinate, moves the piece there
 		to an unoccupied space nearby that is not in
-		the path_list. Appends necessary commands to
-		instruction_list
+		the path_list.
 		"""
+		instruction_list = [Action().PenDown()]
 		self.contested_space = in_way_coord
-		instruction_list.append(self.release_str)
 		for space in self.board.neighbors(in_way_coord):
 			if space not in self.occupied_spaces and space not in path_list:
-				temp_mv_str = str(in_way_coord[0]) + ' ' + str(in_way_coord[1]) + ' -> ' + str(space[0]) + ' ' + str(space[1]) + ' \n\n'
-				temp_list = self.make_command_strings(temp_mv_str)
+				move = PieceMove(in_way_coord, space)
+				instruction_list = instruction_list + self.make_command_list(move)
 				self.made_way_coord = space
 				break
-
-		for instruction in temp_list:
-			instruction_list.append(instruction)
-		instruction_list.append(self.move_string(start_coord))
-		instruction_list.append(self.grab_str)
+		instruction_list.append(Action().GotoCoord(start_coord))
+		instruction_list.append(Action().PenUp())
 		self.made_way_flag = True
 		return instruction_list
 
-	def return_moved(self, instruction_list):
+	def return_moved(self) -> [Action]:
+		""" Returns a moved piece to its starting position """
 		self.made_way_flag = False
-		command = str(self.made_way_coord[0]) + ' ' + str(self.made_way_coord[1]) + ' -> ' + str(self.contested_space[0]) + ' ' + str(self.contested_space[1]) + ' \n\n'
+		move = PieceMove(self.made_way_coord, self.contested_space)
 
-		for instruction in self.make_command_strings(command):
-			instruction_list.append(instruction)
-		return instruction_list
+		return self.make_command_list(move)
 
-	def capture(self, mv_str):
-		start_coord, end_coord = self.parse_string(mv_str)
-		path = self.find_path(start_coord, end_coord)
-		print("Path:", path)
-		if len(path) == 1:
-			return path[0]
-		return path[-2]
-
-	def run(self, mv_str):
+	# def capture(self, move:PieceMove):
+	# 	""" Not sure what this is for """
+	# 	path = self.find_path(move.start, move.end)
+	# 	print("Path:", path)
+	# 	if len(path) == 1:
+	# 		return path[0]
+	# 	return path[-2]
+	def test(self, move):
 		""" Waits to receive a string.
 		when the string is received,
 		creates a list of commands to
 		pass onward.
 		"""
-		mv_string = mv_str #get string
-		instruction_list = self.make_command_strings(mv_str)
+		instruction_list = self.make_command_list(move)
 		for instruction in instruction_list:
-			print("Sending Command: ", instruction)
-			out = self.controller.stdin.write(instruction)
-			# self.controller.stdin.flush()
-			# print("Command sent, got", out)
-			# self.ser.write(instruction)
-		#return instruction_list
-
+			print("Sending Command: ")
+			print(instruction)
 
 if __name__ == '__main__':
 	mp = MotionPlanner()
-	strings = mp.run("2.0 1.0 -> 3.0 4.0 \n\n")
-	print(strings)
-	# time.sleep(10)
+	mp.test(PieceMove(PieceCoord(2,1), PieceCoord(3,4)))
