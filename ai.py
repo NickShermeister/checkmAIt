@@ -24,7 +24,7 @@ class aiController:
         :param str color: Whose move it is
         :return Move: What the AI wants to do in the format (@#@#) [we need to search that location for the piece in order to have a valid command]
         """
-        self.engine.position(self.board)    #Pass in the board's current state to the game engine.
+        self.engine.position(boardState)    #Pass in the board's current state to the game engine.
         test = self.engine.go(movetime=self.time) #Movetime in milliseconds to generate best move.
         full_move_string = str(test[0])
 

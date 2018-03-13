@@ -1,9 +1,15 @@
 class PieceMove(object):
     def __init__(self, start, end):
         """
-        :param PieceCoord start:
-        :param PieceCoord end:
+        :param PieceCoord|tuple start:
+        :param PieceCoord|tuple end:
         """
+        if type(start) is tuple:
+            start = PieceCoord(*start)
+
+        if type(end) is tuple:
+            end = PieceCoord(*end)
+
         self.start = start
         self.end = end
 
@@ -19,7 +25,11 @@ class PieceCoord(object):
         self.x = x
 
     def __str__(self):
-        return "({},{})".format(self.x,self.y)
+        return "({},{})".format(self.x, self.y)
+
+    def as_tuple(self):
+        return self.x, self.y
+
 
 class Action(object):
     def __init__(self):
@@ -49,7 +59,7 @@ class Action(object):
         return action
 
     @classmethod
-    def GotoCoord(cls, coord:PieceCoord):
+    def GotoCoord(cls, coord: PieceCoord):
         action = cls()
         action.coord = coord
         return action

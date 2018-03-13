@@ -83,7 +83,7 @@ class MotionPlanner(object):
 				pass
 
 		for space in self.occupied_spaces - {self.spaces[(coord.x, coord.y)]}:
-			for edge in self.board.edges(space):
+			for edge in self.board.edges(space.as_tuple()):
 				self.board[edge[0]][edge[1]]['weight'] += 2
 
 	def find_path(self, start:PieceCoord, end:PieceCoord) -> [PieceCoord]:
@@ -152,7 +152,7 @@ class MotionPlanner(object):
 	def return_moved(self) -> [Action]:
 		""" Returns a moved piece to its starting position """
 		self.made_way_flag = False
-		move = PieceMove(self.made_way_coord, self.contested_space)
+		move = PieceMove(PieceCoord(*self.made_way_coord), self.contested_space)
 
 		return self.make_command_list(move)
 

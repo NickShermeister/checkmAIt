@@ -12,4 +12,4 @@ class SpeechInput(object):
         :rtype: None|Move
         """
 
-        return None
+        return Move.from_uci(input("UCI move:"))
