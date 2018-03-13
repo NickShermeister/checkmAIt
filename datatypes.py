@@ -13,6 +13,11 @@ class PieceMove(object):
         self.start = start
         self.end = end
 
+    def __str__(self):
+        return "Moving " + str(self.start) + " to " + str(self.end)
+
+    __repr__ = __str__
+
 
 class PieceCoord(object):
     def __init__(self, x, y):
@@ -26,6 +31,8 @@ class PieceCoord(object):
 
     def __str__(self):
         return "({},{})".format(self.x, self.y)
+
+    __repr__ = __str__
 
     def as_tuple(self):
         return self.x, self.y

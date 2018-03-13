@@ -24,6 +24,7 @@ def main():
         if command:
 
             implementation = game.implementMove(command)
+            print(implementation)
 
             for m in implementation:
                 steps = planner.make_command_list(m)  # type:List[Action]

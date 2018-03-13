@@ -55,8 +55,8 @@ class MotionPlanner(object):
 		"""
 
 		self.board = nx.Graph()
-		for i in self.rank_range:
-			for j in self.file_range:
+		for j in self.rank_range:
+			for i in self.file_range:
 				edge_list = [(self.spaces[(i,j)], self.spaces[(i,j-1)], 1.0),
 							(self.spaces[(i,j)], self.spaces[(i,j+1)], 1.0),
 							(self.spaces[(i,j)], self.spaces[(i-1,j)], 1.0),
@@ -68,14 +68,14 @@ class MotionPlanner(object):
 				self.board.add_weighted_edges_from(edge_list)
 
 		# remove nodes that shouldn't exist
-		for j in self.file_range:
+		for j in self.rank_range:
 			try:
 				self.board.remove_node(self.spaces[(-1,j)])
 				self.board.remove_node(self.spaces[(8,j)])
 			except:
 				pass
 
-		for i in self.rank_range:
+		for i in self.file_range:
 			try:
 				self.board.remove_node(self.spaces[(i,-1)])
 				self.board.remove_node(self.spaces[(i,14)])
