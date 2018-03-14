@@ -22,7 +22,7 @@ def main():
     while True:
         command = speech.getCommand()
         if command:
-
+            print(command)
             implementation = game.implementMove(command)
             print(implementation)
 
@@ -33,6 +33,7 @@ def main():
                     controller.makeMove(step)
 
             response = ai.getMove(game.board)
+            print(response)
 
             implementation = game.implementMove(response)
 

@@ -17,11 +17,9 @@ class aiController:
         #change the amount of time the engine takes between turns
         self.time = newTime
 
-    def getMove(self, boardState):
+    def getMove(self, boardState: Board)->Move:
         """
-
         :param Board boardState: The state of the board
-        :param str color: Whose move it is
         :return Move: What the AI wants to do in the format (@#@#) [we need to search that location for the piece in order to have a valid command]
         """
         self.engine.position(boardState)    #Pass in the board's current state to the game engine.
@@ -34,4 +32,4 @@ class aiController:
         # print("Being passed into movePiece: %s " % move_for_board)
         # self.movePiece(move_for_board)
 
-        return full_move_string
+        return Move.from_uci(full_move_string)
