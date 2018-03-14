@@ -22,9 +22,8 @@ def main():
     while True:
         command = speech.getCommand()
         if command:
-            print(command)
-            implementation = game.implementMove(command)
-            print(implementation)
+            # implementation = game.implementMove(command)
+            implementation = game.testImplementMove(str(command))
 
             for m in implementation:
                 steps = planner.make_command_list(m)  # type:List[Action]
@@ -35,7 +34,8 @@ def main():
             response = ai.getMove(game.board)
             print(response)
 
-            implementation = game.implementMove(response)
+            # implementation = game.implementMove(response)
+            implementation = game.testImplementMove(str(response))
 
             for m in implementation:
                 steps = planner.make_command_list(m)  # type:List[Action]

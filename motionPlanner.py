@@ -35,8 +35,8 @@ class MotionPlanner(object):
 		player_space = np.arange(0, 8)
 
 		self.spaces = {}
-		for i in np.arange(-1, 9):
-			for j in np.arange(-1, 15):
+		for i in np.arange(-1, 15):
+			for j in np.arange(-1, 9):
 				self.spaces[(i,j)] = PieceCoord(i,j)
 
 		# One player side taken out
@@ -96,10 +96,6 @@ class MotionPlanner(object):
 			print("Ending Coordinate not found")
 			return []
 
-		if self.spaces[start.as_tuple()] not in self.occupied_spaces:
-			print("No piece at this point")
-			return []
-
 		s = (start.x, start.y)
 		e = (end.x, end.y)
 		try: return nx.shortest_path(self.board, self.spaces[s], self.spaces[e], weight = 'weight')
@@ -114,6 +110,9 @@ class MotionPlanner(object):
 		"""
 		self.loop_count += 1
 		instruction_list = []
+		if self.spaces[move.start.as_tuple()] not in self.occupied_spaces:
+			print(str(move.start) + " is not an occupied space")
+			return []
 		if self.loop_count < 5:
 			self.occupied_spaces -= {move.start}
 			path = self.find_path(move.start, move.end)
