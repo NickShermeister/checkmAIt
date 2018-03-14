@@ -13,4 +13,4 @@ class Game(object):
 
     def implementMove(self, move: Move) -> List[PieceMove]:
         # TODO: This
-        return [PieceMove(PieceCoord(1, 1), PieceCoord(2, 2))]
+        return [PieceMove(PieceCoord(5, 0), PieceCoord(5, 3))]

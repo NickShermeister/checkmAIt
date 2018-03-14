@@ -152,7 +152,7 @@ class MotionPlanner(object):
 	def return_moved(self) -> [Action]:
 		""" Returns a moved piece to its starting position """
 		self.made_way_flag = False
-		move = PieceMove(PieceCoord(*self.made_way_coord), self.contested_space)
+		move = PieceMove(self.made_way_coord, self.contested_space)
 
 		return self.make_command_list(move)
 
