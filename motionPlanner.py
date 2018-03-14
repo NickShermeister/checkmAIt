@@ -96,6 +96,10 @@ class MotionPlanner(object):
 			print("Ending Coordinate not found")
 			return []
 
+		if self.spaces[start.as_tuple()] not in self.occupied_spaces:
+			print("No piece at this point")
+			return []
+
 		s = (start.x, start.y)
 		e = (end.x, end.y)
 		try: return nx.shortest_path(self.board, self.spaces[s], self.spaces[e], weight = 'weight')
