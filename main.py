@@ -7,6 +7,7 @@ from speech import SpeechInput
 from game import Game
 from motionPlanner import MotionPlanner
 from controller import Controller
+from game import Game
 
 from datatypes import *
 

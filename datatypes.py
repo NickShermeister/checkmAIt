@@ -13,6 +13,12 @@ class PieceMove(object):
         self.start = start
         self.end = end
 
+    def __str__(self):
+        return chr(self.start.x+97-3) + chr(self.start.y) + chr(self.end.x+97-3) + chr(self.end.y)
+
+    def toString(self):
+        return chr(self.start.x+97-3) + chr(self.start.y) + chr(self.end.x+97-3) + chr(self.end.y)
+
 
 class PieceCoord(object):
     def __init__(self, x, y):
