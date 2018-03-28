@@ -14,10 +14,16 @@ class PieceMove(object):
         self.end = end
 
     def __str__(self):
+<<<<<<< HEAD
         return chr(self.start.x+97-3) + chr(self.start.y) + chr(self.end.x+97-3) + chr(self.end.y)
 
     def toString(self):
         return chr(self.start.x+97-3) + chr(self.start.y) + chr(self.end.x+97-3) + chr(self.end.y)
+=======
+        return "Moving " + str(self.start) + " to " + str(self.end)
+
+    __repr__ = __str__
+>>>>>>> 891c12a391cb672198c38f143158b9ab6b55c051
 
 
 class PieceCoord(object):
@@ -32,6 +38,8 @@ class PieceCoord(object):
 
     def __str__(self):
         return "({},{})".format(self.x, self.y)
+
+    __repr__ = __str__
 
     def as_tuple(self):
         return self.x, self.y

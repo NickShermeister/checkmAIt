@@ -35,8 +35,8 @@ class MotionPlanner(object):
 		player_space = np.arange(0, 8)
 
 		self.spaces = {}
-		for i in np.arange(-1, 9):
-			for j in np.arange(-1, 15):
+		for i in np.arange(-1, 15):
+			for j in np.arange(-1, 9):
 				self.spaces[(i,j)] = PieceCoord(i,j)
 
 		# One player side taken out
@@ -55,8 +55,8 @@ class MotionPlanner(object):
 		"""
 
 		self.board = nx.Graph()
-		for i in self.rank_range:
-			for j in self.file_range:
+		for j in self.rank_range:
+			for i in self.file_range:
 				edge_list = [(self.spaces[(i,j)], self.spaces[(i,j-1)], 1.0),
 							(self.spaces[(i,j)], self.spaces[(i,j+1)], 1.0),
 							(self.spaces[(i,j)], self.spaces[(i-1,j)], 1.0),
@@ -68,14 +68,14 @@ class MotionPlanner(object):
 				self.board.add_weighted_edges_from(edge_list)
 
 		# remove nodes that shouldn't exist
-		for j in self.file_range:
+		for j in self.rank_range:
 			try:
 				self.board.remove_node(self.spaces[(-1,j)])
 				self.board.remove_node(self.spaces[(8,j)])
 			except:
 				pass
 
-		for i in self.rank_range:
+		for i in self.file_range:
 			try:
 				self.board.remove_node(self.spaces[(i,-1)])
 				self.board.remove_node(self.spaces[(i,14)])
@@ -110,6 +110,9 @@ class MotionPlanner(object):
 		"""
 		self.loop_count += 1
 		instruction_list = []
+		if self.spaces[move.start.as_tuple()] not in self.occupied_spaces:
+			print(str(move.start) + " is not an occupied space")
+			return []
 		if self.loop_count < 5:
 			self.occupied_spaces -= {move.start}
 			path = self.find_path(move.start, move.end)
@@ -152,7 +155,7 @@ class MotionPlanner(object):
 	def return_moved(self) -> [Action]:
 		""" Returns a moved piece to its starting position """
 		self.made_way_flag = False
-		move = PieceMove(PieceCoord(*self.made_way_coord), self.contested_space)
+		move = PieceMove(self.made_way_coord, self.contested_space)
 
 		return self.make_command_list(move)
 
