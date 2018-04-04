@@ -46,7 +46,7 @@ class Game(object):
         # self.mp = MotionPlanner()
 
         #enter main loop
-        self.gameLoop()
+        # self.gameLoop()
 
     def movePiece(self, command):
         """
@@ -128,11 +128,11 @@ class Game(object):
             # print(dest)
             # temp = self.mp.capture(self.output_move(src, dest))
             # temp = self.convertBack(temp)
-            if loc2 in self.whiteLocations.get(piece2):
+            if loc2 in self.whiteLocations.get(piece2.upper()):
                 print("Attempted white graveyard move")
                 #black takes white, so true
                 self.graveyardMove(loc2, True)
-            if loc2 in self.blackLocations.get(piece2):
+            elif loc2 in self.blackLocations.get(piece2):
                 print("Attempted black graveyard move")
                 #white takes black, so false
                 self.graveyardMove(loc2, False)
@@ -279,14 +279,12 @@ class Game(object):
         """
         :param source: Coordinates of the source (tuple in board coordinates)
         :param dest: Coordinates of the destination (tuple in board coordinates
-        :return: The string output
+        :return: corresponding PieceMove
         """
 
-        string = '{} {} -> {} {} \n'.format(*source, *dest)
-
-        # print("OUTPUT: \n\t", string)
-
-        return string
+        src = PieceCoord(source[0]+3, source[1])
+        dest = PieceCoord(dest[0]+3, dest[1])
+        return PieceMove(src, dest)
 
     @staticmethod
     def pairToLocation(pair):
@@ -321,8 +319,8 @@ class Game(object):
         self.engine.position(self.board)    #Pass in the board's current state to the game engine.
         test = self.engine.go(movetime=300) #Movetime in milliseconds to generate best move.
         full_move_string = str(test[0])
-        print("hi")
-        print(full_move_string)
+        # print("hi")
+        # print(full_move_string)
 
 
         #Need this because we need to get the piece name; the AI just returns locations.
@@ -330,9 +328,6 @@ class Game(object):
         move_for_board = part1.upper() +full_move_string  #sum the two parts again.
         print("Being passed into movePiece: %s " % move_for_board)
         self.movePiece(move_for_board)
-
-        #Change whose turn it is.
-        self.turn = not self.turn
 
     def gameOver(self):
         """
@@ -420,7 +415,6 @@ class Game(object):
         if(not self.turn):
             self.aiMove()
         while (self.running):
-            print("Player turn (T=white, F=black): %s" % self.turn)
             self.playerTurn()
             if self.checkGameOver():
                 self.gameOver()
@@ -439,18 +433,48 @@ class Game(object):
 
         return PieceMove(one, two)
 
+    def validateMove(self, Move):
+        """ Checks to make sure the move is valid """
+        move = move.lower()
+        if move == "p":
+            self.printBoard()
+        elif move == "k":
+            self.printKey()
+        elif move == "m":  # print legal moves
+            print(self.board.legal_moves)
+            for x in self.board.legal_moves:
+                print(x)
+        elif move == "r":  # fast reset of board
+            self.resetBoard()
+        elif move == "g":
+            self.graveyard.printHi()
+        elif move == "pl":
+            self.printLocations()
+        else:
+            mv = self.movePiece(move)
+            if mv[0]:
+                src = PieceCoord(mv[1][0], mv[1][1])
+                dest = PieceCoord(mv[2][0], mv[2][1])
+                if self.checkGameOver():
+                    self.gameOver()
+                return PieceMove(src, dest)
+            else:
+                print("That wasn't a good move. Try again.")
+
     def testImplementMove(self, move):
         """ Test version which takes a string instead of a move """
         return [PieceMove(PieceCoord(self.mapper[move[0]], int(move[1])-1), PieceCoord(self.mapper[move[2]], int(move[3])-1))]
     #
-    # def implementMove(self, move: Move) -> List[PieceMove]:
-    #     # TODO: This
-    #     return [PieceMove(PieceCoord(5, 0), PieceCoord(5, 3))]
-
+    def implementMove(self, move): # -> List[PieceMove]:
+        moves = []
+        moves.append(validateMove(move))
+        return validateMove(move)
+        # return [PieceMove(PieceCoord(5, 0), PieceCoord(5, 3))]
 
 
 if __name__ == "__main__":
     game = Game()
+    game.gameLoop()
 
 
 # =======
@@ -460,5 +484,3 @@ if __name__ == "__main__":
 #         				'e':7, 'f':8, 'g':9, 'h':10
 #         }
 #
-
-# >>>>>>> 891c12a391cb672198c38f143158b9ab6b55c051
