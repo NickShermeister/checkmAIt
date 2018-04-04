@@ -11,9 +11,8 @@ class Game(object):
         self.board = Board()
         self.board.reset()
 
-<<<<<<< HEAD
         self.running = True;
-        self.turn = True #bool(random.getrandbits(1))
+        self.turn = bool(random.getrandbits(1))
         self.engine = chess.uci.popen_engine('libs/stockfish-8-linux/Linux/stockfish_8_x64')
         self.engine.uci()
         self.first = self.turn
@@ -70,17 +69,14 @@ class Game(object):
             print("Invalid command; no castling yet sorry.")
             print(self.board)
             self.turn = not self.turn
-            return
+            return False
         print(command)
 
         #Try a command; if it fails then prevent a change in turn and make the player go.
         try:
             hi = self.board.push_san(command)
         except:
-            print("Invalid command.")
-            print(self.board)
-            self.turn = not self.turn
-            return
+            return False
 
         stripped_command = ''.join(l for l in hi.uci() if l in '12345678abcdefgh')  #Strip the command so that it only has the before and after coordinates.
 
@@ -95,8 +91,8 @@ class Game(object):
 
         #Move the piece (currently inactive as we switch to Gantry).
         src, dest = self.uciToLocations(self.convertMoves(loc1, loc2))
+        return True
         # self.mp.run(self.output_move(src, dest))
-
 
     def updateLocations(self, loc1, loc2):
         """
@@ -110,8 +106,8 @@ class Game(object):
         piece2 = self.findLocPiece(loc2)
 
         #TODO: DETERMINE WHY THIS IS HERE; seems redundant/useless
-        if piece1 == piece2:
-            piece2 = None
+        # if piece1 == piece2:
+        #     piece2 = None
 
         # Print debugging code.
         # print("Loc 1: %s" % loc1)
@@ -122,24 +118,28 @@ class Game(object):
         # print("Piece1 : %s " % piece1)
         # print("Piece2 : %s " % piece2)
 
+        print("piece2: ")
+        print(piece2)
         #Make sure that the second piece is moved to the graveyard first.
-        # if piece2 is not None: #Need to run this first because of pathing
-        #     hi = loc1+loc2
-        #     src, dest = self.uciToLocations(hi)
-        #     # temp = self.mp.capture(self.output_move(src, dest))
-        #     temp = self.convertBack(temp)
-        #     if loc1 != temp:
-        #         print(loc1, loc2, temp)
-        #         self.updateLocations(loc1, temp)
-        #
-        #     if(self.turn == self.first):
-        #         #white takes black, so false
-        #         self.graveyardMove(loc2, False)
-        #     else:
-        #         #black takes white, so true
-        #         self.graveyardMove(loc2, True)
-        #
-        #     self.updateLocations(temp, loc2)
+        if piece2 is not None: #Need to run this first because of pathing
+            print(piece2 + ".")
+            print(loc2)
+            print("Should we be here?")
+            print(self.blackLocations.values())
+            # hi = loc1+loc2
+            # src, dest = self.uciToLocations(hi)
+            # print(dest)
+            # temp = self.mp.capture(self.output_move(src, dest))
+            # temp = self.convertBack(temp)
+            if loc2 in self.whiteLocations.get(piece2):
+                print("Attempted white move")
+                #black takes white, so true
+                self.graveyardMove(loc2, True)
+            if loc2 in self.blackLocations.get(piece2):
+                print("Attempted black move")
+                #white takes black, so false
+                self.graveyardMove(loc2, False)
+            return self.updateLocations(loc1, loc2)
 
         #Make the move, depending on whose turn it is.
         try:
@@ -193,7 +193,7 @@ class Game(object):
         # print(self.output_move(loc,dest))
         # temp = self.pairToLocation(loc)
         # print(temp)
-        self.mp.run(self.output_move(self.pairToLocation(loc), dest))
+        # self.mp.run(self.output_move(self.pairToLocation(loc), dest))
 
     def reviveFromGraveyard(self, dest, piece):
         """
@@ -205,7 +205,7 @@ class Game(object):
 
         is_white = piece.isupper()
         source = self.graveyard.retrievePiece(is_white, piece)
-        assert source is not None, "Tried to revive piece not in graveyard"
+        # assert source is not None, "Tried to revive piece not in graveyard"
 
         if piece.lower() == 'p':
             piece = ''
@@ -213,7 +213,7 @@ class Game(object):
         (self.whiteLocations if is_white else self.blackLocations)[piece].append(dest)
 
         print("The source is %s" % str(source))
-        self.mp.run(self.output_move(source, self.pairToLocation(dest)))
+        # self.mp.run(self.output_move(source, self.pairToLocation(dest)))
 
     def printLocations(self):
         """
@@ -366,9 +366,20 @@ class Game(object):
         """
         if self.board.is_game_over():
             # TODO: get why it is over (stalemate, checkmate)
+            self.printBoard()
             return True
         else:
             return False
+
+    def printKey(self):
+        print("p: Print the board state.")
+        print("k: Print the key." )
+        print("m: Print legal moves.")
+        print("r: Reset the board/game.")
+        print("g: Print what's in the graveyard.")
+        print("pl: Print locations of all pieces.")
+        print("cm: Complete an easy checkmate.")
+
 
     def playerTurn(self):
         """
@@ -379,6 +390,8 @@ class Game(object):
         move = input('Move: ')
         if move == "p":
             self.printBoard()
+        elif move == "k":
+            self.printKey()
         elif move == "m":  # print legal moves
             print(self.board.legal_moves)
             for x in self.board.legal_moves:
@@ -391,35 +404,26 @@ class Game(object):
             self.printLocations()
         elif move == "cm":  # a very easy checkmate, for endgame testing
             self.movePiece("e4")
-            self.turn = not self.turn
             self.movePiece("e5")
-            self.turn = not self.turn
             self.movePiece("Qh5")
-            self.turn = not self.turn
             self.movePiece("Nc6")
-            self.turn = not self.turn
             self.movePiece("Bc4")
-            self.turn = not self.turn
             self.movePiece("Nf6")
-            self.turn = not self.turn
-            self.movePiece("Qxf7")
+            self.movePiece("Qf7")
         else:
-            self.movePiece(move)
-            if self.checkGameOver():
-                self.gameOver()
-            self.aiMove()
-            self.turn = not self.turn
+            if(self.movePiece(move)):
+                if self.checkGameOver():
+                    self.gameOver()
+                self.aiMove()
+            else:
+                print("That wasn't a good move. Try again.")
 
     def gameLoop(self):
+        if(not self.turn):
+            self.aiMove()
         while (self.running):
             print("Player turn (T=white, F=black): %s" % self.turn)
             self.playerTurn()
-            # if (self.turn):  # player turn
-            #
-            #
-            # else:  # AI turn=
-
-
             if self.checkGameOver():
                 self.gameOver()
         print("Baiiiiiii")
@@ -437,24 +441,26 @@ class Game(object):
 
         return PieceMove(one, two)
 
+    def testImplementMove(self, move):
+        """ Test version which takes a string instead of a move """
+        return [PieceMove(PieceCoord(self.mapper[move[0]], int(move[1])-1), PieceCoord(self.mapper[move[2]], int(move[3])-1))]
+    #
+    # def implementMove(self, move: Move) -> List[PieceMove]:
+    #     # TODO: This
+    #     return [PieceMove(PieceCoord(5, 0), PieceCoord(5, 3))]
 
-    def implementMove(self, move: Move) -> List[PieceMove]:
-        # TODO: This
-        return [PieceMove(PieceCoord(1, 1), PieceCoord(2, 2))]
+
 
 if __name__ == "__main__":
     game = Game()
-=======
-        self.left_graveyard = "TODO: this"
-        self.right_graveyard = "TODO: this"
-        self.mapper = {'a':3, 'b':4, 'c':5, 'd':6,
-        				'e':7, 'f':8, 'g':9, 'h':10
-        }
 
-    def testImplementMove(self, move):
-    	""" Test version which takes a string instead of a move """
-    	return [PieceMove(PieceCoord(self.mapper[move[0]], int(move[1])-1), PieceCoord(self.mapper[move[2]], int(move[3])-1))]
 
-    def implementMove(self, move: Move) -> List[PieceMove]:
-        return [PieceMove(PieceCoord(5, 0), PieceCoord(5, 3))]
->>>>>>> 891c12a391cb672198c38f143158b9ab6b55c051
+# =======
+#         self.left_graveyard = "TODO: this"
+#         self.right_graveyard = "TODO: this"
+#         self.mapper = {'a':3, 'b':4, 'c':5, 'd':6,
+#         				'e':7, 'f':8, 'g':9, 'h':10
+#         }
+#
+
+# >>>>>>> 891c12a391cb672198c38f143158b9ab6b55c051
