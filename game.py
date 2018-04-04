@@ -118,25 +118,22 @@ class Game(object):
         # print("Piece1 : %s " % piece1)
         # print("Piece2 : %s " % piece2)
 
-        print("piece2: ")
-        print(piece2)
         #Make sure that the second piece is moved to the graveyard first.
         if piece2 is not None: #Need to run this first because of pathing
-            print(piece2 + ".")
-            print(loc2)
-            print("Should we be here?")
-            print(self.blackLocations.values())
+            # print(piece2 + ".")
+            # print(loc2)
+            # print("Should we be here?")
             # hi = loc1+loc2
             # src, dest = self.uciToLocations(hi)
             # print(dest)
             # temp = self.mp.capture(self.output_move(src, dest))
             # temp = self.convertBack(temp)
             if loc2 in self.whiteLocations.get(piece2):
-                print("Attempted white move")
+                print("Attempted white graveyard move")
                 #black takes white, so true
                 self.graveyardMove(loc2, True)
             if loc2 in self.blackLocations.get(piece2):
-                print("Attempted black move")
+                print("Attempted black graveyard move")
                 #white takes black, so false
                 self.graveyardMove(loc2, False)
             return self.updateLocations(loc1, loc2)
@@ -159,9 +156,9 @@ class Game(object):
             :param numerals: String (of numerical command)
             :return: String (algebraic notation)
         """
-        print("Numerals: ")
-        print(numerals)
-        print(type(numerals))
+        # print("Numerals: ")
+        # print(numerals)
+        # print(type(numerals))
         part1 = str(chr(int(numerals[0])+97))
         part2 = str(int(numerals[1]+1))
         return part1+part2
@@ -174,7 +171,7 @@ class Game(object):
         """
         piece = self.findLocPiece(loc)
         print("Piece:",piece, "at", loc)
-        if iswhite:
+        if iswhite is not None:
             is_white = iswhite
         else:
             is_white = piece.isupper()
@@ -388,6 +385,7 @@ class Game(object):
         """
         # move = main()
         move = input('Move: ')
+        move = move.lower()
         if move == "p":
             self.printBoard()
         elif move == "k":
@@ -426,7 +424,7 @@ class Game(object):
             self.playerTurn()
             if self.checkGameOver():
                 self.gameOver()
-        print("Baiiiiiii")
+        print("Thanks for playing!")
 
     def convertMoves(self, loc1, loc2):
         """
