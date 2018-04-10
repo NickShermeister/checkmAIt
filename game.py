@@ -43,10 +43,6 @@ class Game(object):
 
         #Misc. creation
         self.graveyard = Graveyard()
-        # self.mp = MotionPlanner()
-
-        #enter main loop
-        # self.gameLoop()
 
     def movePiece(self, command):
         """
@@ -69,30 +65,26 @@ class Game(object):
             print("Invalid command; no castling yet sorry.")
             print(self.board)
             self.turn = not self.turn
-            return False
+            return []
         print(command)
 
         #Try a command; if it fails then prevent a change in turn and make the player go.
         try:
             hi = self.board.push_san(command)
         except:
-            return False
+            return []
 
         stripped_command = ''.join(l for l in hi.uci() if l in '12345678abcdefgh')  #Strip the command so that it only has the before and after coordinates.
-
-        #get the before/after coordinates
-        loc1 = stripped_command[0:2]
-        loc2 = stripped_command[2:]
-
-        self.updateLocations(loc1, loc2)    #Updates the location of PIECES
-
         #make sure that the uci is correct.
         assert (len(hi.uci()) == 4)
 
-        #Move the piece (currently inactive as we switch to Gantry).
-        src, dest = self.uciToLocations(self.convertMoves(loc1, loc2))
-        return True
-        # self.mp.run(self.output_move(src, dest))
+        #get the before/after coordinates
+        loc1, loc2 = uciToLocations(stripped_command)
+
+        moves = self.updateLocations(loc1, loc2)    #Updates the location of PIECES
+
+        moves = moves + convertMoves(loc1, loc2)
+        return moves
 
     def updateLocations(self, loc1, loc2):
         """
@@ -100,43 +92,22 @@ class Game(object):
             :param loc1: String (letterNumber ex. a2)
             :param loc2: String (letterNumber ex. a3)
         """
-
+        moves = [] # create a list to add the moves to
         #Get the pieces based on the locations passed in
         piece1 = self.findLocPiece(loc1)
         piece2 = self.findLocPiece(loc2)
 
-        #TODO: DETERMINE WHY THIS IS HERE; seems redundant/useless
-        # if piece1 == piece2:
-        #     piece2 = None
-
-        # Print debugging code.
-        # print("Loc 1: %s" % loc1)
-        # print("Loc 2: %s" % loc2)
-        # print(piece1)
-        # print(piece2)
-        # print("Good1")
-        # print("Piece1 : %s " % piece1)
-        # print("Piece2 : %s " % piece2)
-
         #Make sure that the second piece is moved to the graveyard first.
-        if piece2 is not None: #Need to run this first because of pathing
-            # print(piece2 + ".")
-            # print(loc2)
-            # print("Should we be here?")
-            # hi = loc1+loc2
-            # src, dest = self.uciToLocations(hi)
-            # print(dest)
-            # temp = self.mp.capture(self.output_move(src, dest))
-            # temp = self.convertBack(temp)
+        if piece2 is not None: #Need to run this first because of path
             if loc2 in self.whiteLocations.get(piece2.upper()):
                 print("Attempted white graveyard move")
                 #black takes white, so true
-                self.graveyardMove(loc2, True)
+                moves.append(self.graveyardMove(loc2, True))
             elif loc2 in self.blackLocations.get(piece2):
                 print("Attempted black graveyard move")
                 #white takes black, so false
-                self.graveyardMove(loc2, False)
-            return self.updateLocations(loc1, loc2)
+                moves.append(self.graveyardMove(loc2, False))
+            return moves + self.updateLocations(loc1, loc2)
 
         #Make the move, depending on whose turn it is.
         try:
@@ -149,19 +120,8 @@ class Game(object):
             self.blackLocations[piece1].append(loc2)
         except:
             pass
-
-    def convertBack(self, numerals):
-        """
-            Converts a numeral command to a string Command. Used for captures.
-            :param numerals: String (of numerical command)
-            :return: String (algebraic notation)
-        """
-        # print("Numerals: ")
-        # print(numerals)
-        # print(type(numerals))
-        part1 = str(chr(int(numerals[0])+97))
-        part2 = str(int(numerals[1]+1))
-        return part1+part2
+        moves.append(convertMoves(loc1, loc2))
+        return moves
 
     def graveyardMove(self, loc, iswhite = None):
         """
@@ -194,7 +154,7 @@ class Game(object):
         Makes a move to revive the given piece from the graveyard, and marks its new position.
         :param dest: two-character code of space to fill
         :param piece: piece character (capital = white) to revive
-        :return:
+        :return: A piece move from the source to the destination
         """
 
         is_white = piece.isupper()
@@ -207,7 +167,7 @@ class Game(object):
         (self.whiteLocations if is_white else self.blackLocations)[piece].append(dest)
 
         print("The source is %s" % str(source))
-        # self.mp.run(self.output_move(source, self.pairToLocation(dest)))
+        return convertMoves(source, dest)
 
     def printLocations(self):
         """
@@ -223,8 +183,6 @@ class Game(object):
         Takes in a 2 letter/number string thatgives a square (e.g. a1, h8, etc.)
         returns P for white pawn, p for black pawn.
         """
-        # print(self.whiteLocations)
-        # print(location)
         for x in self.whiteLocations:
             if location in self.whiteLocations[x]:
                 return x
@@ -243,8 +201,8 @@ class Game(object):
         """
         Resets the board to its starting (default) position.
         """
-        # TODO: ROUTE TO MOVE PIECES BACK
         toRevive = dict()
+        moves = []
 
         # White pieces
         toRevive[''] = ['a2', 'b2', 'c2', 'd2', 'e2', 'f2', 'g2', 'h2']
@@ -265,25 +223,27 @@ class Game(object):
         #Actually revive the pieces
         for piece in toRevive:
             for locs in toRevive[piece]:
-                self.reviveFromGraveyard(locs, piece)
+                moves.append(self.reviveFromGraveyard(locs, piece))
 
         #Make the board in the computer know it's reset.
         self.board.reset()
         #Prove that it's reset/print the start.
         self.printBoard()
+        return moves
 
     @staticmethod
-    def pairToLocation(pair):
+    def pairToLocation(position):
         """
-        Take in a touple of length two and convert it to numbers for movement purposes.
-        :param pair: tuple of strings len 2
+        Takes in a string of length 2 formatted as 'e7'
+        and returns a tuple of floats that index onto
+        the board.
+        :param position: string of length 2
+        :return: tuple of location
         """
-        # print(pair)
-        # print(len(pair))
-        assert(len(pair) == 2)
+        assert(len(position) == 2)
 
         # Converts a 2-character UCI coordinate to a tuple
-        loc = (float(ord(pair[0]) - 97), float(pair[1])-1)
+        loc = (float(ord(position[0]) - 97), float(position[1])-1)
         print(loc)
         assert (0. <= loc[0] < 8 and 0. <= loc[1] < 8)
         return loc
@@ -291,29 +251,11 @@ class Game(object):
     def uciToLocations(self, command):
         """
         :param command: 4-character uci formatted string ex. "e5e7"
-        :return:
+        :return: a pair of tuples
         """
 
         comm_string = str(command)
         return self.pairToLocation(comm_string[:2]), self.pairToLocation(comm_string[2:])
-
-    def aiMove(self):
-        """
-        Function to have the AI move.
-        TODO: Allow AI to start as black.
-        """
-        self.engine.position(self.board)    #Pass in the board's current state to the game engine.
-        test = self.engine.go(movetime=300) #Movetime in milliseconds to generate best move.
-        full_move_string = str(test[0])
-        # print("hi")
-        # print(full_move_string)
-
-
-        #Need this because we need to get the piece name; the AI just returns locations.
-        part1 = self.findLocPiece(full_move_string[0:2]) #get the piece from the dictionary
-        move_for_board = part1.upper() +full_move_string  #sum the two parts again.
-        print("Being passed into movePiece: %s " % move_for_board)
-        self.movePiece(move_for_board)
 
     def gameOver(self):
         """
@@ -343,7 +285,6 @@ class Game(object):
         :return: Boolean (true if game is over, else false)
         """
         if self.board.is_game_over():
-            # TODO: get why it is over (stalemate, checkmate)
             self.printBoard()
             return True
         else:
@@ -358,137 +299,6 @@ class Game(object):
         print("pl: Print locations of all pieces.")
         print("cm: Complete an easy checkmate.")
 
-
-    def playerTurn(self):
-        """
-        Allow the player to make a turn.
-        Also allows other commands to view state of the board as debugging[]
-        """
-        # move = main()
-        move = input('Move: ')
-        move = move.lower()
-        if move == "p":
-            self.printBoard()
-        elif move == "k":
-            self.printKey()
-        elif move == "m":  # print legal moves
-            print(self.board.legal_moves)
-            for x in self.board.legal_moves:
-                print(x)
-        elif move == "r":  # fast reset of board
-            self.resetBoard()
-        elif move == "g":
-            self.graveyard.printHi()
-        elif move == "pl":
-            self.printLocations()
-        elif move == "cm":  # a very easy checkmate, for endgame testing
-            self.movePiece("e4")
-            self.movePiece("e5")
-            self.movePiece("Qh5")
-            self.movePiece("Nc6")
-            self.movePiece("Bc4")
-            self.movePiece("Nf6")
-            self.movePiece("Qf7")
-        else:
-            if(self.movePiece(move)):
-                if self.checkGameOver():
-                    self.gameOver()
-                self.aiMove()
-            else:
-                print("That wasn't a good move. Try again.")
-
-    def gameLoop(self):
-        if(not self.turn):
-            self.aiMove()
-        while (self.running):
-            self.playerTurn()
-            if self.checkGameOver():
-                self.gameOver()
-        print("Thanks for playing!")
-
-    # MOST OF THE NEW STUFF
-    def executeMove(self, command):
-        """
-            Moves a singular piece using a given command (in algebraic; no spaces).
-            :param command: String
-            :param moves:   List of PieceMoves
-
-            :return:        Boolean
-        """
-        if command == "Ke8g8":
-            #kingside black castle attempt
-            command ==  "Ke8f8"
-        elif command == "Ke8c8":
-            #queenside black castle attempt
-            command == "Ke8d8"
-        elif command == "Ke1g1":
-            command == "Ke1f1"
-        elif command == "Ke1c1":
-            command == "Ke1d1"
-        elif command == "0-0" or command == "0-0-0":
-            print("Invalid command; no castling yet sorry.")
-            print(self.board)
-            self.turn = not self.turn
-            return False
-        print(command)
-
-        #Try a command; if it fails then prevent a change in turn and make the player go.
-        try:
-            hi = self.board.push_san(command)
-        except:
-            return False
-
-        stripped_command = ''.join(l for l in hi.uci() if l in '12345678abcdefgh')  #Strip the command so that it only has the before and after coordinates.
-
-        #get the before/after coordinates
-        loc1 = stripped_command[0:2]
-        loc2 = stripped_command[2:]
-
-        #make sure that the uci is correct.
-        assert (len(hi.uci()) == 4)
-
-        return self.updateLocations2(loc1, loc2)
-
-    def updateLocations2(self, loc1, loc2):
-        """
-            Update the location of a piece by taking its original location (loc1) and moving it to the new location (loc2)
-            :param loc1: String (letterNumber ex. a2)
-            :param loc2: String (letterNumber ex. a3)
-
-            return: list of moves necessary
-        """
-
-        #Get the pieces based on the locations passed in
-        moves = []
-        piece1 = self.findLocPiece(loc1)
-        piece2 = self.findLocPiece(loc2)
-
-        #Make sure that the second piece is moved to the graveyard first.
-        if piece2 is not None:
-            if loc2 in self.whiteLocations.get(piece2.upper()):
-                print("Attempted white graveyard move")
-                #black takes white, so true
-                moves.append(self.graveyardMove(loc2, True))
-            elif loc2 in self.blackLocations.get(piece2):
-                print("Attempted black graveyard move")
-                #white takes black, so false
-                moves.append(self.graveyardMove(loc2, False))
-            return moves + self.updateLocations2(loc1, loc2)
-
-        #Make the move, depending on whose turn it is.
-        try:
-            self.whiteLocations[piece1].remove(loc1)
-            self.whiteLocations[piece1].append(loc2)
-        except:
-            pass
-        try:
-            self.blackLocations[piece1].remove(loc1)
-            self.blackLocations[piece1].append(loc2)
-        except:
-            pass
-        moves.append(convertMoves(loc1, loc2))
-        return moves
-
     def convertMoves(self, loc1, loc2):
         """
         Returns a PieceMove
@@ -502,44 +312,50 @@ class Game(object):
 
         return PieceMove(one, two)
 
-    def validateMove(self, move):
-        """ Checks to make sure the move is valid """
-        move = move.lower()
-        if move == "p":
+    def implementMove(self, command):
+        """
+        Allow the player to make a turn.
+        Also allows other commands to view state of the board as debugging[]
+        """
+        # move = main()
+        command = command.lower()
+        if command == "p":
             self.printBoard()
-        elif move == "k":
+        elif command == "k":
             self.printKey()
-        elif move == "m":  # print legal moves
+        elif command == "m":  # print legal moves
             print(self.board.legal_moves)
             for x in self.board.legal_moves:
                 print(x)
-        elif move == "r":  # fast reset of board
+        elif command == "r":  # fast reset of board
             self.resetBoard()
-        elif move == "g":
+        elif command == "g":
             self.graveyard.printHi()
-        elif move == "pl":
+        elif command == "pl":
             self.printLocations()
+        elif command == "cm":  # a very easy checkmate, for endgame testing
+            moves = self.movePiece("e4")
+            moves = self.movePiece("e5")
+            moves = self.movePiece("Qh5")
+            moves = self.movePiece("Nc6")
+            moves = self.movePiece("Bc4")
+            moves = self.movePiece("Nf6")
+            moves = self.movePiece("Qf7")
         else:
-            return self.executeMove(move)
+            moves = movePiece(command)
+            if moves != []:
+                if self.checkGameOver():
+                    self.gameOver()
+                    return moves
+                return moves
+            else:
+                print("That wasn't a good move. Try again.")
 
     def testImplementMove(self, move):
         """ Test version which takes a string instead of a move """
         return [PieceMove(PieceCoord(self.mapper[move[0]], int(move[1])-1), PieceCoord(self.mapper[move[2]], int(move[3])-1))]
-    #
-    def implementMove(self, move): # -> List[PieceMove]:
-        moves = validateMove(move)
-        return moves
 
 
 if __name__ == "__main__":
     game = Game()
-    game.gameLoop()
-
-
-# =======
-#         self.left_graveyard = "TODO: this"
-#         self.right_graveyard = "TODO: this"
-#         self.mapper = {'a':3, 'b':4, 'c':5, 'd':6,
-#         				'e':7, 'f':8, 'g':9, 'h':10
-#         }
-#
+    print(game.implementMove('cm'))
