@@ -187,10 +187,7 @@ class Game(object):
         dest = self.graveyard.storePiece(is_white, piece)
 
         print("Sending piece {} at {} to graveyard {}".format(piece, loc, dest))
-        # print(self.output_move(loc,dest))
-        # temp = self.pairToLocation(loc)
-        # print(temp)
-        # self.mp.run(self.output_move(self.pairToLocation(loc), dest))
+        return convertMoves(loc, dest)
 
     def reviveFromGraveyard(self, dest, piece):
         """
@@ -274,17 +271,6 @@ class Game(object):
         self.board.reset()
         #Prove that it's reset/print the start.
         self.printBoard()
-
-    def output_move(self, source, dest):
-        """
-        :param source: Coordinates of the source (tuple in board coordinates)
-        :param dest: Coordinates of the destination (tuple in board coordinates
-        :return: corresponding PieceMove
-        """
-
-        src = PieceCoord(source[0]+3, source[1])
-        dest = PieceCoord(dest[0]+3, dest[1])
-        return PieceMove(src, dest)
 
     @staticmethod
     def pairToLocation(pair):
@@ -420,6 +406,89 @@ class Game(object):
                 self.gameOver()
         print("Thanks for playing!")
 
+    # MOST OF THE NEW STUFF
+    def executeMove(self, command):
+        """
+            Moves a singular piece using a given command (in algebraic; no spaces).
+            :param command: String
+            :param moves:   List of PieceMoves
+
+            :return:        Boolean
+        """
+        if command == "Ke8g8":
+            #kingside black castle attempt
+            command ==  "Ke8f8"
+        elif command == "Ke8c8":
+            #queenside black castle attempt
+            command == "Ke8d8"
+        elif command == "Ke1g1":
+            command == "Ke1f1"
+        elif command == "Ke1c1":
+            command == "Ke1d1"
+        elif command == "0-0" or command == "0-0-0":
+            print("Invalid command; no castling yet sorry.")
+            print(self.board)
+            self.turn = not self.turn
+            return False
+        print(command)
+
+        #Try a command; if it fails then prevent a change in turn and make the player go.
+        try:
+            hi = self.board.push_san(command)
+        except:
+            return False
+
+        stripped_command = ''.join(l for l in hi.uci() if l in '12345678abcdefgh')  #Strip the command so that it only has the before and after coordinates.
+
+        #get the before/after coordinates
+        loc1 = stripped_command[0:2]
+        loc2 = stripped_command[2:]
+
+        #make sure that the uci is correct.
+        assert (len(hi.uci()) == 4)
+
+        return self.updateLocations2(loc1, loc2)
+
+    def updateLocations2(self, loc1, loc2):
+        """
+            Update the location of a piece by taking its original location (loc1) and moving it to the new location (loc2)
+            :param loc1: String (letterNumber ex. a2)
+            :param loc2: String (letterNumber ex. a3)
+
+            return: list of moves necessary
+        """
+
+        #Get the pieces based on the locations passed in
+        moves = []
+        piece1 = self.findLocPiece(loc1)
+        piece2 = self.findLocPiece(loc2)
+
+        #Make sure that the second piece is moved to the graveyard first.
+        if piece2 is not None:
+            if loc2 in self.whiteLocations.get(piece2.upper()):
+                print("Attempted white graveyard move")
+                #black takes white, so true
+                moves.append(self.graveyardMove(loc2, True))
+            elif loc2 in self.blackLocations.get(piece2):
+                print("Attempted black graveyard move")
+                #white takes black, so false
+                moves.append(self.graveyardMove(loc2, False))
+            return moves + self.updateLocations2(loc1, loc2)
+
+        #Make the move, depending on whose turn it is.
+        try:
+            self.whiteLocations[piece1].remove(loc1)
+            self.whiteLocations[piece1].append(loc2)
+        except:
+            pass
+        try:
+            self.blackLocations[piece1].remove(loc1)
+            self.blackLocations[piece1].append(loc2)
+        except:
+            pass
+        moves.append(convertMoves(loc1, loc2))
+        return moves
+
     def convertMoves(self, loc1, loc2):
         """
         Returns a PieceMove
@@ -433,7 +502,7 @@ class Game(object):
 
         return PieceMove(one, two)
 
-    def validateMove(self, Move):
+    def validateMove(self, move):
         """ Checks to make sure the move is valid """
         move = move.lower()
         if move == "p":
@@ -451,25 +520,15 @@ class Game(object):
         elif move == "pl":
             self.printLocations()
         else:
-            mv = self.movePiece(move)
-            if mv[0]:
-                src = PieceCoord(mv[1][0], mv[1][1])
-                dest = PieceCoord(mv[2][0], mv[2][1])
-                if self.checkGameOver():
-                    self.gameOver()
-                return PieceMove(src, dest)
-            else:
-                print("That wasn't a good move. Try again.")
+            return self.executeMove(move)
 
     def testImplementMove(self, move):
         """ Test version which takes a string instead of a move """
         return [PieceMove(PieceCoord(self.mapper[move[0]], int(move[1])-1), PieceCoord(self.mapper[move[2]], int(move[3])-1))]
     #
     def implementMove(self, move): # -> List[PieceMove]:
-        moves = []
-        moves.append(validateMove(move))
-        return validateMove(move)
-        # return [PieceMove(PieceCoord(5, 0), PieceCoord(5, 3))]
+        moves = validateMove(move)
+        return moves
 
 
 if __name__ == "__main__":
