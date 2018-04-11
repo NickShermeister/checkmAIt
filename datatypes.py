@@ -14,7 +14,9 @@ class PieceMove(object):
         self.end = end
 
     def __str__(self):
-        return chr(self.start.x+97-3) + chr(self.start.y) + chr(self.end.x+97-3) + chr(self.end.y)
+        return chr(int(self.start.x)+97) + str(int(self.start.y + 1)) + chr(int(self.end.x)+97) + str(int(self.end.y)+1)
+
+    __repr__ = __str__
 
     def toString(self):
         return chr(self.start.x+97-3) + chr(self.start.y) + chr(self.end.x+97-3) + chr(self.end.y)

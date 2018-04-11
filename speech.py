@@ -11,5 +11,6 @@ class SpeechInput(object):
         :return: Chess-formatted string of the most recent command recieved from the microphone
         :rtype: None|Move
         """
-
-        return Move.from_uci(input("UCI move:"))
+        # move = Move.from_uci(input("UCI move:"))
+        # print(move)
+        return input("UCI move: ")

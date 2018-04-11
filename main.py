@@ -23,8 +23,7 @@ def main():
     while True:
         command = speech.getCommand()
         if command:
-            # implementation = game.implementMove(command)
-            implementation = game.testImplementMove(str(command))
+            implementation = game.implementMove(str(command))
 
             for m in implementation:
                 steps = planner.make_command_list(m)  # type:List[Action]
@@ -32,17 +31,15 @@ def main():
                 for step in steps:
                     controller.makeMove(step)
 
-            response = ai.getMove(game.board)
-            print(response)
+            if len(implementation) > 0:
+                response = ai.getMove(game.board)
+                implementation = game.implementMove(str(response))
 
-            # implementation = game.implementMove(response)
-            implementation = game.testImplementMove(str(response))
+                for m in implementation:
+                    steps = planner.make_command_list(m)  # type:List[Action]
 
-            for m in implementation:
-                steps = planner.make_command_list(m)  # type:List[Action]
-
-                for step in steps:
-                    controller.makeMove(step)
+                    for step in steps:
+                        controller.makeMove(step)
         else:
             sleep(0.01)
 

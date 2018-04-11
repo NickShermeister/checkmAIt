@@ -66,6 +66,21 @@ class Game(object):
             print(self.board)
             self.turn = not self.turn
             return []
+        else:
+            if(len(command) > 4):
+                command = command[0].upper() + command[1:]
+            elif(len(command) == 4):
+                # if(command[0:2] in self.whiteLocations['']):
+                #     pass
+                # else:
+                try:
+                    command = self.findLocPiece(command[0:2]).upper() + command
+                except:
+                    print(command)
+                    print("fuk off m8")
+                    print(self.whiteLocations)
+                    print(self.blackLocations)
+                    return []
         print(command)
 
         #Try a command; if it fails then prevent a change in turn and make the player go.
@@ -79,11 +94,10 @@ class Game(object):
         assert (len(hi.uci()) == 4)
 
         #get the before/after coordinates
-        loc1, loc2 = uciToLocations(stripped_command)
+        loc1 = stripped_command[0:2]
+        loc2 = stripped_command[2:]
 
         moves = self.updateLocations(loc1, loc2)    #Updates the location of PIECES
-
-        moves = moves + convertMoves(loc1, loc2)
         return moves
 
     def updateLocations(self, loc1, loc2):
@@ -110,17 +124,15 @@ class Game(object):
             return moves + self.updateLocations(loc1, loc2)
 
         #Make the move, depending on whose turn it is.
-        try:
-            self.whiteLocations[piece1].remove(loc1)
-            self.whiteLocations[piece1].append(loc2)
-        except:
-            pass
-        try:
-            self.blackLocations[piece1].remove(loc1)
-            self.blackLocations[piece1].append(loc2)
-        except:
-            pass
-        moves.append(convertMoves(loc1, loc2))
+        if piece1 is not None: #Need to run this first because of path
+            if loc1 in self.whiteLocations.get(piece1.upper()):
+                self.whiteLocations[piece1].remove(loc1)
+                self.whiteLocations[piece1].append(loc2)
+            else:
+                self.blackLocations[piece1].remove(loc1)
+                self.blackLocations[piece1].append(loc2)
+        loc1fix, loc2fix = self.uciToLocations(loc1+loc2)
+        moves.append(PieceMove(loc1fix, loc2fix))
         return moves
 
     def graveyardMove(self, loc, iswhite = None):
@@ -130,24 +142,24 @@ class Game(object):
         :return:
         """
         piece = self.findLocPiece(loc)
-        print("Piece:",piece, "at", loc)
+        # print("Piece:",piece, "at", loc)
         if iswhite is not None:
             is_white = iswhite
         else:
             is_white = piece.isupper()
-        print("White Piece?",is_white)
+        # print("White Piece?",is_white)
 
         # Remove the piece from its current square
         try:
             (self.whiteLocations if is_white else self.blackLocations)[piece].remove(loc)
         except:
             pass
-
         # Add the piece to the graveyard
         dest = self.graveyard.storePiece(is_white, piece)
+        loc_tuple = self.pairToLocation(loc)
 
-        print("Sending piece {} at {} to graveyard {}".format(piece, loc, dest))
-        return convertMoves(loc, dest)
+        print("Sending piece {} at {} to graveyard {}".format(piece, loc_tuple, dest))
+        return PieceMove(loc_tuple, dest)
 
     def reviveFromGraveyard(self, dest, piece):
         """
@@ -167,7 +179,7 @@ class Game(object):
         (self.whiteLocations if is_white else self.blackLocations)[piece].append(dest)
 
         print("The source is %s" % str(source))
-        return convertMoves(source, dest)
+        return self.convertMoves(source, dest)
 
     def printLocations(self):
         """
@@ -244,7 +256,7 @@ class Game(object):
 
         # Converts a 2-character UCI coordinate to a tuple
         loc = (float(ord(position[0]) - 97), float(position[1])-1)
-        print(loc)
+        # print(loc)
         assert (0. <= loc[0] < 8 and 0. <= loc[1] < 8)
         return loc
 
@@ -304,6 +316,7 @@ class Game(object):
         Returns a PieceMove
         """
         #a is 97 in ascii, we're ofsetting by 3 in the long-direction (x)
+        # print("convertMoves")
         move1 = (ord(loc1[0]) - 97 + 3, ord(loc1[1]))
         move2 = (ord(loc2[0]) - 97 + 3, ord(loc2[1]))
 
@@ -317,7 +330,7 @@ class Game(object):
         Allow the player to make a turn.
         Also allows other commands to view state of the board as debugging[]
         """
-        # move = main()
+        moves = []
         command = command.lower()
         if command == "p":
             self.printBoard()
@@ -334,22 +347,21 @@ class Game(object):
         elif command == "pl":
             self.printLocations()
         elif command == "cm":  # a very easy checkmate, for endgame testing
-            moves = self.movePiece("e4")
-            moves = self.movePiece("e5")
-            moves = self.movePiece("Qh5")
-            moves = self.movePiece("Nc6")
-            moves = self.movePiece("Bc4")
-            moves = self.movePiece("Nf6")
-            moves = self.movePiece("Qf7")
+            moves = moves + self.movePiece("e4")
+            moves = moves + self.movePiece("e5")
+            moves = moves + self.movePiece("Qh5")
+            moves = moves + self.movePiece("Nc6")
+            moves = moves + self.movePiece("Bc4")
+            moves = moves + self.movePiece("Nf6")
+            moves = moves + self.movePiece("Qf7")
         else:
-            moves = movePiece(command)
+            moves = moves + self.movePiece(command)
             if moves != []:
                 if self.checkGameOver():
                     self.gameOver()
-                    return moves
-                return moves
             else:
                 print("That wasn't a good move. Try again.")
+        return moves
 
     def testImplementMove(self, move):
         """ Test version which takes a string instead of a move """
