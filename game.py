@@ -51,21 +51,36 @@ class Game(object):
         """
 
         # TODO: HANDLE CASTLING AND IN PASSING (this block of code)
-        if command == "Ke8g8":
-            #kingside black castle attempt
-            command ==  "Ke8f8"
-        elif command == "Ke8c8":
-            #queenside black castle attempt
-            command == "Ke8d8"
-        elif command == "Ke1g1":
-            command == "Ke1f1"
-        elif command == "Ke1c1":
-            command == "Ke1d1"
-        elif command == "0-0" or command == "0-0-0":
-            print("Invalid command; no castling yet sorry.")
-            print(self.board)
-            self.turn = not self.turn
-            return []
+        if command in "Ke1h1 Ke1g1":
+            if command == "Ke1g1":
+                command = "e1h1"
+            else:
+                command = command[-4:]
+            self.updateLocations("h1", "f1")
+        elif command in "Ke1a1 Ke1c1":
+            if command == "Ke1c1":
+                command = "e1a1"
+            else:
+                command = command[-4:]
+            self.updateLocations("a1", "d1")
+        elif command in "ke8h8 Ke8g8":
+            if command == "Ke8g8":
+                command = "e8h8"
+            else:
+                command = command[-4:]
+            self.updateLocations("h8", "f8")
+        elif command in "ke8a8 Ke8c8":
+            if command == "Ke8c8":
+                command = "e8a8"
+            else:
+                command = command[-4:]
+            self.updateLocations("a8", "d8")
+
+        # elif command == "0-0" or command == "0-0-0":
+        #     print("Invalid command; no castling yet sorry.")
+        #     print(self.board)
+        #     self.turn = not self.turn
+        #     return []
         else:
             if(len(command) > 4):
                 command = command[0].upper() + command[1:]
@@ -87,8 +102,10 @@ class Game(object):
         try:
             hi = self.board.push_san(command)
         except:
+            print("We broke f00l")
             return []
 
+        print("Hi is: " + str(hi))
         stripped_command = ''.join(l for l in hi.uci() if l in '12345678abcdefgh')  #Strip the command so that it only has the before and after coordinates.
         #make sure that the uci is correct.
         assert (len(hi.uci()) == 4)
