@@ -55,6 +55,7 @@ class MotionPlanner(object):
 		"""
 
 		self.board = nx.Graph()
+		self.loop_count = 0
 		for i in self.rank_range:
 			for j in self.file_range:
 				edge_list = [(self.spaces[(i,j)], self.spaces[(i,j-1)], 1.0),
@@ -111,6 +112,7 @@ class MotionPlanner(object):
 		that the arm must make.
 		"""
 		self.loop_count += 1
+		print(self.loop_count)
 		instruction_list = []
 		if self.spaces[move.start.as_tuple()] not in self.occupied_spaces:
 			print(str(move.start) + " is not an occupied space")
@@ -132,6 +134,7 @@ class MotionPlanner(object):
 			instruction_list.append(Action().PenDown())
 			self.occupied_spaces.add(move.end)
 			if self.made_way_flag:
+				print("returning piece...")
 				instruction_list = instruction_list + self.return_moved()
 		self.print_board()
 		return instruction_list
