@@ -71,15 +71,15 @@ class MotionPlanner(object):
 		# remove nodes that shouldn't exist
 		for j in self.rank_range:
 			try:
-				self.board.remove_node(self.spaces[(-1,j)])
-				self.board.remove_node(self.spaces[(8,j)])
+				self.board.remove_node(self.spaces[(-4,j)])
+				self.board.remove_node(self.spaces[(12,j)])
 			except:
 				pass
 
 		for i in self.file_range:
 			try:
 				self.board.remove_node(self.spaces[(i,-1)])
-				self.board.remove_node(self.spaces[(i,14)])
+				self.board.remove_node(self.spaces[(i,8)])
 			except:
 				pass
 
@@ -137,7 +137,7 @@ class MotionPlanner(object):
 				instruction_list = instruction_list + self.return_moved()
 		else:
 			raise Exception("Recursion limit reached; no path available")
-		# self.print_board()
+		self.print_board()
 		return instruction_list
 
 	def make_way(self, start_coord:PieceCoord, in_way_coord:PieceCoord, path_list) -> [Action]:
