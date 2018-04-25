@@ -18,10 +18,6 @@ class Game(object):
         self.engine.uci()
         self.first = self.turn
 
-        #TODO: THIS
-        self.left_graveyard = Graveyard()
-        self.right_graveyard = Graveyard()
-
         #Full location list
         self.whiteLocations = {'': [], 'R': [], 'N': [], 'B': [], 'K': [], 'Q': []}
         self.blackLocations = {'': [], 'r': [], 'n': [], 'b': [], 'k': [], 'q': []}

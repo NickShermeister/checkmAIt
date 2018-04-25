@@ -2,47 +2,43 @@ import chess
 import chess.uci
 import random
 from collections import defaultdict
+from typing import List, Tuple, Dict
+
+from datatypes import PieceCoord
 
 
 class Graveyard(object):
     def __init__(self):
-        self.empty = []  # Available spaces, tuples of (color, coords) with first-used ones at the end
-        self.stored = defaultdict(list)  # Map from tuples (bool isWhite, string type) to coords,
+        self.empty = []  # type: List[Tuple[bool, PieceCoord]]
+        self.stored = defaultdict(list)  # type: Dict[Tuple[bool, str], List[PieceCoord]]
         # with the last added at the end.
         self._initspaces()
 
     def _initspaces(self):
 
         # White spaces
-        for i in [-3, -2, 9, 10]:
-            for j in range(0, 8):
-                self.empty.append((i < 0, (i, j)))
+        for x in [-3, -2, 9, 10]:
+            for y in range(0, 8):
+                self.empty.append((x < 0, PieceCoord(x, y)))
 
-        self.empty.sort(key=lambda x: self._earliness(x[1]))
+        self.empty.sort(key=lambda mt: self._earliness(mt[1]))
 
     @staticmethod
-    def _earliness(coord):
+    def _earliness(coord: PieceCoord):
         """
         How early do we want to fill this coordinate? Outer columns first, inner rows first.
-        :param coord:
-        :return:
         """
-        x, y = coord
-        return 2.1 * abs(y) - abs(x)
+        return 2.1 * abs(coord.y) - abs(coord.x)
 
-    def storePiece(self, color, kind):
+    def storePiece(self, color: bool, kind: str) -> PieceCoord:
         """
-
-        :param (bool) color: Is this piece white?
-        :param (str) kind: What is the kind of this piece?
-        :return (tuple) coord: The coordinate to which the piece should be sent.
+        :param color: Is this piece white?
+        :param kind: What is the kind of this piece?
+        :return coord: The coordinate to which the piece should be sent.
         """
 
         kind = kind.upper()
-        try:
-            (color, location) = [(c, l) for c, l in self.empty if c == color][-1]
-        except:
-            print("You broke it.")
+        (color, location) = [(c, l) for c, l in self.empty if c == color][-1]
         self.empty.remove((color, location))
 
         self.stored[(color, kind)].append(location)
