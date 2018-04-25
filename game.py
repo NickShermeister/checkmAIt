@@ -5,6 +5,7 @@ from graveyard import Graveyard
 # import chess
 import chess.uci
 import random
+import sys
 
 class Game(object):
     def __init__(self):
@@ -49,28 +50,27 @@ class Game(object):
             Moves a singular piece using a given command (in algebraic; no spaces).
             :param command: String
         """
-
         # TODO: HANDLE CASTLING AND IN PASSING (this block of code)
-        if command in "Ke1h1 Ke1g1":
+        if command in "Ke1h1 Ke1g1 e1h1 e1g1":
             if command == "Ke1g1":
                 command = "e1h1"
             else:
                 command = command[-4:]
             self.updateLocations("h1", "f1")
-        elif command in "Ke1a1 Ke1c1":
+        elif command in "Ke1a1 Ke1c1 e1a1 e1c1":
             if command == "Ke1c1":
                 command = "e1a1"
             else:
                 command = command[-4:]
             self.updateLocations("a1", "d1")
-        elif command in "ke8h8 Ke8g8":
-            if command == "Ke8g8":
+        elif command in "ke8h8 Ke8g8 ke8g8 e8h8 e8g8":
+            if command == "Ke8g8" or command == "ke8g8":
                 command = "e8h8"
             else:
                 command = command[-4:]
             self.updateLocations("h8", "f8")
-        elif command in "ke8a8 Ke8c8":
-            if command == "Ke8c8":
+        elif command in "ke8a8 Ke8c8 ke8c8 e8a8 e8c8":
+            if command == "Ke8c8" or command == "ke8c8":
                 command = "e8a8"
             else:
                 command = command[-4:]
@@ -371,6 +371,8 @@ class Game(object):
             moves = moves + self.movePiece("Bc4")
             moves = moves + self.movePiece("Nf6")
             moves = moves + self.movePiece("Qf7")
+        elif command == "exit":
+            sys.exit(0)
         else:
             moves = moves + self.movePiece(command)
             if moves != []:
