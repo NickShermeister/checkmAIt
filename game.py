@@ -97,8 +97,8 @@ class Game(object):
         #Try a command; if it fails then prevent a change in turn and make the player go.
         try:
             hi = self.board.push_san(command)
-        except:
-            print("We broke f00l")
+        except Exception as e:
+            print("We broke f00l", e)
             return []
 
         print("Hi is: " + str(hi))
