@@ -2,6 +2,8 @@
 from time import sleep
 from typing import List
 
+import chess
+
 from ai import aiController
 from speech import SpeechInput
 from game import Game
@@ -21,9 +23,22 @@ def main():
     game = Game()
 
     while True:
-        command = speech.getCommand()
-        if command:
+        if game.board.turn == chess.WHITE:
+            print(game.board)
+            command = speech.getCommand()
+            aiMove = False
+        else:
+            command = ai.getMove(game.board)
+            aiMove = True
+
+        if command == 'show':
+            print(game.board)
+        elif command:
             implementation = game.implementMove(str(command))
+
+            if aiMove and not implementation:
+                print(game.board)
+                raise Exception("The AI tried to make the move {}, which is apparently illegal.".format(command))
 
             for m in implementation:
                 steps = planner.make_command_list(m)  # type:List[Action]
@@ -31,15 +46,6 @@ def main():
                 for step in steps:
                     controller.makeMove(step)
 
-            if len(implementation) > 0:
-                response = ai.getMove(game.board)
-                implementation = game.implementMove(str(response))
-
-                for m in implementation:
-                    steps = planner.make_command_list(m)  # type:List[Action]
-
-                    for step in steps:
-                        controller.makeMove(step)
         else:
             sleep(0.01)
 

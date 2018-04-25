@@ -17,10 +17,6 @@ class Game(object):
         self.engine.uci()
         self.first = self.turn
 
-        #TODO: THIS
-        self.left_graveyard = Graveyard()
-        self.right_graveyard = Graveyard()
-
         #Full location list
         self.whiteLocations = {'': [], 'R': [], 'N': [], 'B': [], 'K': [], 'Q': []}
         self.blackLocations = {'': [], 'r': [], 'n': [], 'b': [], 'k': [], 'q': []}
@@ -101,8 +97,8 @@ class Game(object):
         #Try a command; if it fails then prevent a change in turn and make the player go.
         try:
             hi = self.board.push_san(command)
-        except:
-            print("We broke f00l")
+        except Exception as e:
+            print("We broke f00l", e)
             return []
 
         print("Hi is: " + str(hi))
