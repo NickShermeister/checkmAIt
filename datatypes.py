@@ -29,13 +29,23 @@ class PieceCoord(object):
             x=0 is leftmost square in graveyard, x=3 is the leftmost square on the board
         :param int y: y-coordinate on the play field
         """
-        self.y = y
-        self.x = x
+        if x % 1 != 0 or y % 1 != 0:
+            raise Exception("Need integers for PieceCoord!")
+        self.y = int(y)
+        self.x = int(x)
 
     def __str__(self):
         return "({},{})".format(self.x, self.y)
 
     __repr__ = __str__
+
+    def __eq__(self, other):
+        if isinstance(self, other.__class__):
+            return self.__dict__ == other.__dict__
+        return False
+
+    def __hash__(self):
+        return hash((self.x, self.y))
 
     def as_tuple(self):
         return self.x, self.y

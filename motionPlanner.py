@@ -19,7 +19,7 @@ class MotionPlanner(object):
 
 	def __init__(self):
 		self.rank_range = np.arange(0, 8) # rows
-		self.file_range = np.arange(0, 14) # columns
+		self.file_range = np.arange(-3, 12) # columns
 		self.start_board()
 
 		self.made_way_flag = False # May need to toggle if something moved out of the way
@@ -35,8 +35,8 @@ class MotionPlanner(object):
 		player_space = np.arange(0, 8)
 
 		self.spaces = {}
-		for i in np.arange(-1, 15):
-			for j in np.arange(-1, 9):
+		for i in np.arange(-1, 9):
+			for j in np.arange(-4, 13):
 				self.spaces[(i,j)] = PieceCoord(i,j)
 
 		# One player side taken out
@@ -55,8 +55,8 @@ class MotionPlanner(object):
 		"""
 
 		self.board = nx.Graph()
-		for j in self.rank_range:
-			for i in self.file_range:
+		for i in self.rank_range:
+			for j in self.file_range:
 				edge_list = [(self.spaces[(i,j)], self.spaces[(i,j-1)], 1.0),
 							(self.spaces[(i,j)], self.spaces[(i,j+1)], 1.0),
 							(self.spaces[(i,j)], self.spaces[(i-1,j)], 1.0),
@@ -85,6 +85,7 @@ class MotionPlanner(object):
 		for space in self.occupied_spaces - {self.spaces[(coord.x, coord.y)]}:
 			for edge in self.board.edges(space.as_tuple()):
 				self.board[edge[0]][edge[1]]['weight'] += 2
+		print(self.occupied_spaces)
 
 	def find_path(self, start:PieceCoord, end:PieceCoord) -> [PieceCoord]:
 		""" Given the starting and ending
@@ -131,7 +132,6 @@ class MotionPlanner(object):
 			self.occupied_spaces.add(move.end)
 			if self.made_way_flag:
 				instruction_list = instruction_list + self.return_moved()
-
 		return instruction_list
 
 	def make_way(self, start_coord:PieceCoord, in_way_coord:PieceCoord, path_list) -> [Action]:
@@ -151,6 +151,10 @@ class MotionPlanner(object):
 		instruction_list.append(Action().PenUp())
 		self.made_way_flag = True
 		return instruction_list
+
+	# def print_board(self):
+	# 	""" Prints the board """
+	# 	for space in self.spaces:
 
 	def return_moved(self) -> [Action]:
 		""" Returns a moved piece to its starting position """

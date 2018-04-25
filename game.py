@@ -255,7 +255,7 @@ class Game(object):
         assert(len(position) == 2)
 
         # Converts a 2-character UCI coordinate to a tuple
-        loc = (float(ord(position[0]) - 97), float(position[1])-1)
+        loc = (int(ord(position[0]) - 97), int(position[1])-1)
         # print(loc)
         assert (0. <= loc[0] < 8 and 0. <= loc[1] < 8)
         return loc
