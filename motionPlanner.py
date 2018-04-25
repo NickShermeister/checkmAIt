@@ -18,8 +18,8 @@ class MotionPlanner(object):
 	"""
 
 	def __init__(self):
-		self.rank_range = np.arange(0, 8) # rows
-		self.file_range = np.arange(-3, 12) # columns
+		self.file_range = np.arange(0, 8) # rows
+		self.rank_range = np.arange(-3, 11) # columns
 		self.start_board()
 
 		self.made_way_flag = False # May need to toggle if something moved out of the way
@@ -35,8 +35,8 @@ class MotionPlanner(object):
 		player_space = np.arange(0, 8)
 
 		self.spaces = {}
-		for i in np.arange(-1, 9):
-			for j in np.arange(-4, 13):
+		for i in np.arange(-4, 12):
+			for j in np.arange(-1, 9):
 				self.spaces[(i,j)] = PieceCoord(i,j)
 
 		# One player side taken out
@@ -85,7 +85,6 @@ class MotionPlanner(object):
 		for space in self.occupied_spaces - {self.spaces[(coord.x, coord.y)]}:
 			for edge in self.board.edges(space.as_tuple()):
 				self.board[edge[0]][edge[1]]['weight'] += 2
-		print(self.occupied_spaces)
 
 	def find_path(self, start:PieceCoord, end:PieceCoord) -> [PieceCoord]:
 		""" Given the starting and ending
@@ -101,7 +100,9 @@ class MotionPlanner(object):
 		e = (end.x, end.y)
 		try: return nx.shortest_path(self.board, self.spaces[s], self.spaces[e], weight = 'weight')
 
-		except nx.exception.NetworkXNoPath: return []
+		except nx.exception.NetworkXNoPath: 
+			print("No path found")
+			return []
 
 	def make_command_list(self, move:PieceMove) -> [Action]:
 		""" Given a string that specifies the
@@ -132,6 +133,7 @@ class MotionPlanner(object):
 			self.occupied_spaces.add(move.end)
 			if self.made_way_flag:
 				instruction_list = instruction_list + self.return_moved()
+		self.print_board()
 		return instruction_list
 
 	def make_way(self, start_coord:PieceCoord, in_way_coord:PieceCoord, path_list) -> [Action]:
@@ -152,9 +154,18 @@ class MotionPlanner(object):
 		self.made_way_flag = True
 		return instruction_list
 
-	# def print_board(self):
-	# 	""" Prints the board """
-	# 	for space in self.spaces:
+	def print_board(self):
+		""" Prints the board """
+		board = ""
+		for j in reversed(self.file_range):
+			board = board + "|"
+			for i in self.rank_range:
+				if self.spaces[(i,j)] in self.occupied_spaces:
+					board = board + "X|"
+				else:
+					board = board + " |"
+			board = board + "\n"
+		print(board)
 
 	def return_moved(self) -> [Action]:
 		""" Returns a moved piece to its starting position """

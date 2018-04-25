@@ -16,7 +16,7 @@ class Graveyard(object):
         # White spaces
         for i in [-3, -2, 9, 10]:
             for j in range(0, 8):
-                self.empty.append((i < 0, (j, i)))
+                self.empty.append((i < 0, (i, j)))
 
         self.empty.sort(key=lambda x: self._earliness(x[1]))
 
