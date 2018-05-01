@@ -15,6 +15,8 @@ from datatypes import *
 
 
 def main():
+    debugFlag = False
+    debugMoves = 0
     speech = SpeechInput()
     ai = aiController()
     planner = MotionPlanner()
@@ -23,13 +25,24 @@ def main():
     game = Game()
 
     while True:
-        if game.board.turn == chess.WHITE:
+        if game.board.turn == chess.WHITE and not debugFlag:
             print(game.board)
             command = speech.getCommand()
-            aiMove = False
+            try: 
+                debugMoves = int(command)
+                debugFlag = True
+                aiMove = True
+                command = ai.getMove(game.board)
+            except Exception as e: 
+                print(e)
+                aiMove = False
         else:
             command = ai.getMove(game.board)
             aiMove = True
+            if debugFlag:
+                debugMoves -= 1
+                if debugMoves == 0:
+                    debugFlag = False
 
         if command == 'show':
             print(game.board)
