@@ -19,6 +19,7 @@ def main():
     ai = aiController()
     planner = MotionPlanner()
     controller = Controller()
+    attempt = 0
 
     game = Game()
 
@@ -28,7 +29,7 @@ def main():
             command = speech.getCommand()
             aiMove = False
         else:
-            command = ai.getMove(game.board)
+            command = ai.getMove(game.board, attempt)
             aiMove = True
 
         if command == 'show':
@@ -38,13 +39,18 @@ def main():
 
             if aiMove and not implementation:
                 print(game.board)
-                raise Exception("The AI tried to make the move {}, which is apparently illegal.".format(command))
+                print("The AI did a goof. Sorry.")
+                attempt += 1
+                aiMove = False
+                # raise Exception("The AI tried to make the move {}, which is apparently illegal.".format(command))
 
-            for m in implementation:
-                steps = planner.make_command_list(m)  # type:List[Action]
+            attempt = 0
+            if aiMove:
+                for m in implementation:
+                    steps = planner.make_command_list(m)  # type:List[Action]
 
-                for step in steps:
-                    controller.makeMove(step)
+                    for step in steps:
+                        controller.makeMove(step)
 
         else:
             sleep(0.01)
