@@ -1,0 +1,28 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "51519611a0c875a8b1b22939b09ee5029f2496b332d81038507a19907834b362"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_version": "3.5"
+        },
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.python.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "python-chess": {
+            "hashes": [
+                "sha256:2c7078ab9489061f5b8f47482d79b9869a64df4c6a4a77c647e8aae6c0226ad1"
+            ],
+            "index": "pypi",
+            "version": "==0.23.3"
+        }
+    },
+    "develop": {}
+}
