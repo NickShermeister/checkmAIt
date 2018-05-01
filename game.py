@@ -48,28 +48,16 @@ class Game(object):
         """
         # TODO: HANDLE CASTLING AND IN PASSING (this block of code)
         if command in "Ke1h1 Ke1g1 e1h1 e1g1":
-            if command == "Ke1g1":
-                command = "e1h1"
-            else:
-                command = command[-4:]
+            command = "e1h1"
             self.updateLocations("h1", "f1")
         elif command in "Ke1a1 Ke1c1 e1a1 e1c1":
-            if command == "Ke1c1":
-                command = "e1a1"
-            else:
-                command = command[-4:]
+            command = "e1a1"
             self.updateLocations("a1", "d1")
         elif command in "ke8h8 Ke8g8 ke8g8 e8h8 e8g8":
-            if command == "Ke8g8" or command == "ke8g8":
-                command = "e8h8"
-            else:
-                command = command[-4:]
+            command = "e8h8"
             self.updateLocations("h8", "f8")
         elif command in "ke8a8 Ke8c8 ke8c8 e8a8 e8c8":
-            if command == "Ke8c8" or command == "ke8c8":
-                command = "e8a8"
-            else:
-                command = command[-4:]
+            command = "e8a8"
             self.updateLocations("a8", "d8")
 
         # elif command == "0-0" or command == "0-0-0":
