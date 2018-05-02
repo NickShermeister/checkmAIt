@@ -34,8 +34,7 @@ def main():
                 debugFlag = True
                 aiMove = True
                 command = ai.getMove(game.board)
-            except Exception as e: 
-                print(e)
+            except:
                 aiMove = False
         else:
             command = ai.getMove(game.board, attempt)

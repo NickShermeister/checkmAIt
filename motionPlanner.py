@@ -23,8 +23,8 @@ class MotionPlanner(object):
 		self.start_board()
 
 		self.made_way_flag = False # May need to toggle if something moved out of the way
-		self.made_way_coord = tuple() # Where the thing moved to
-		self.contested_space = tuple() # space being fought over
+		self.made_way_coord = [] # Where the thing moved to
+		self.contested_space = [] # space being fought over
 		self.loop_count = 0 # counter to prevent infinite loop
 
 	def start_board(self):
@@ -137,7 +137,7 @@ class MotionPlanner(object):
 				instruction_list = instruction_list + self.return_moved()
 		else:
 			raise Exception("Recursion limit reached; no path available")
-		self.print_board()
+		# self.print_board()
 		return instruction_list
 
 	def make_way(self, start_coord:PieceCoord, in_way_coord:PieceCoord, path_list) -> [Action]:
@@ -146,12 +146,12 @@ class MotionPlanner(object):
 		the path_list.
 		"""
 		instruction_list = [Action().PenDown()]
-		self.contested_space = in_way_coord
 		for space in self.board.neighbors(in_way_coord):
 			if space not in self.occupied_spaces and space not in path_list:
+				self.contested_space.append(in_way_coord)
 				move = PieceMove(in_way_coord, space)
 				instruction_list = instruction_list + self.make_command_list(move)
-				self.made_way_coord = space
+				self.made_way_coord.append(space)
 				break
 		instruction_list.append(Action().GotoCoord(start_coord))
 		instruction_list.append(Action().PenUp())
@@ -173,8 +173,10 @@ class MotionPlanner(object):
 
 	def return_moved(self) -> [Action]:
 		""" Returns a moved piece to its starting position """
-		self.made_way_flag = False
-		move = PieceMove(self.made_way_coord, self.contested_space)
+		move = PieceMove(self.made_way_coord[-1], self.contested_space[-1])
+		del self.made_way_coord[-1]
+		del self.contested_space[-1]
+		self.made_way_flag = not (len(self.made_way_coord) == 0)
 
 		return self.make_command_list(move)
 
