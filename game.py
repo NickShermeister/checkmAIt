@@ -47,16 +47,16 @@ class Game(object):
             :param command: String
         """
         # TODO: HANDLE CASTLING AND IN PASSING (this block of code)
-        if command in "Ke1h1 Ke1g1 e1h1 e1g1":
+        if command in ["Ke1h1", "Ke1g1", "e1h1", "e1g1", "0-0"]:
             command = "e1h1"
             self.updateLocations("h1", "f1")
-        elif command in "Ke1a1 Ke1c1 e1a1 e1c1":
+        elif command in ["Ke1a1", "Ke1c1", "e1a1", "e1c1", "0-0-0"]:
             command = "e1a1"
             self.updateLocations("a1", "d1")
-        elif command in "ke8h8 Ke8g8 ke8g8 e8h8 e8g8":
+        elif command in ["ke8h8", "Ke8g8", "ke8g8", "e8h8", "e8g8", "0-0"]:
             command = "e8h8"
             self.updateLocations("h8", "f8")
-        elif command in "ke8a8 Ke8c8 ke8c8 e8a8 e8c8":
+        elif command in ["ke8a8", "Ke8c8", "ke8c8", "e8a8", "e8c8", "0-0-0"]:
             command = "e8a8"
             self.updateLocations("a8", "d8")
 
