@@ -101,7 +101,7 @@ class MotionPlanner(object):
 		e = (end.x, end.y)
 		try: return nx.shortest_path(self.board, self.spaces[s], self.spaces[e], weight = 'weight')
 
-		except nx.exception.NetworkXNoPath: 
+		except nx.exception.NetworkXNoPath:
 			print("No path found")
 			return []
 
@@ -174,9 +174,9 @@ class MotionPlanner(object):
 	def return_moved(self) -> [Action]:
 		""" Returns a moved piece to its starting position """
 		move = PieceMove(self.made_way_coord[-1], self.contested_space[-1])
-		del self.made_way_coord[-1]
-		del self.contested_space[-1]
-		self.made_way_flag = not (len(self.made_way_coord) == 0)
+		self.made_way_coord = self.made_way_coord[:-1]
+		self.contested_space = self.contested_space[:-1]
+		self.made_way_flag = (len(self.made_way_coord) > 0)
 
 		return self.make_command_list(move)
 

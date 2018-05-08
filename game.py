@@ -47,24 +47,15 @@ class Game(object):
             :param command: String
         """
         # TODO: HANDLE CASTLING AND IN PASSING (this block of code)
-        if command in ["Ke1h1", "Ke1g1", "e1h1", "e1g1", "0-0"]:
-            command = "e1h1"
-            self.updateLocations("h1", "f1")
-        elif command in ["Ke1a1", "Ke1c1", "e1a1", "e1c1", "0-0-0"]:
-            command = "e1a1"
-            self.updateLocations("a1", "d1")
-        elif command in ["ke8h8", "Ke8g8", "ke8g8", "e8h8", "e8g8", "0-0"]:
-            command = "e8h8"
-            self.updateLocations("h8", "f8")
-        elif command in ["ke8a8", "Ke8c8", "ke8c8", "e8a8", "e8c8", "0-0-0"]:
-            command = "e8a8"
-            self.updateLocations("a8", "d8")
+
 
         # elif command == "0-0" or command == "0-0-0":
         #     print("Invalid command; no castling yet sorry.")
         #     print(self.board)
         #     self.turn = not self.turn
         #     return []
+        if False:
+            pass
         else:
             if(len(command) > 4):
                 command = command[0].upper() + command[1:]
@@ -84,9 +75,43 @@ class Game(object):
 
         #Try a command; if it fails then prevent a change in turn and make the player go.
         try:
-            hi = self.board.push_san(command)
+
+            if command in ["Ke1h1", "Ke1g1", "e1h1", "e1g1"]:
+                command = "O-O"
+                hi = self.board.push_san(command)
+                self.updateLocations("h1", "f1")
+            elif command in ["Ke1a1", "Ke1c1", "e1a1", "e1c1"]:
+                command = "O-O-O"
+                hi = self.board.push_san(command)
+                self.updateLocations("a1", "d1")
+            elif command in ["ke8h8", "Ke8g8", "ke8g8", "ke8h8", "e8h8", "e8g8"]:
+                command = "O-O"
+                hi = self.board.push_san(command)
+                self.updateLocations("h8", "f8")
+            elif command in ["ke8a8", "Ke8c8", "ke8c8", "ke8a8", "e8a8", "e8c8"]:
+                command = "O-O-O"
+                hi = self.board.push_san(command)
+                self.updateLocations("a8", "d8")
+            elif command == "0-0" and self.board.turn:
+                command = "O-O"
+                hi = self.board.push_san(command)
+                self.updateLocations("h1", "f1")
+            elif command == "0-0":
+                command = "O-O"
+                hi = self.board.push_san(command)
+                self.updateLocations("h8", "f8")
+            elif command == "0-0-0" and self.board.turn:
+                command = "O-O-O"
+                hi = self.board.push_san(command)
+                self.updateLocations("a1", "d1")
+            elif command == "0-0-0":
+                command = "O-O-O"
+                hi = self.board.push_san(command)
+                self.updateLocations("a8", "d8")
+            else:
+                hi = self.board.push_san(command)
         except Exception as e:
-            print("We broke f00l", e)
+            print("We broke f00l \n", e)
             return []
 
         print("Hi is: " + str(hi))

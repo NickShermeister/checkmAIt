@@ -29,7 +29,7 @@ def main():
         if game.board.turn == chess.WHITE and not debugFlag:
             print(game.board)
             command = speech.getCommand()
-            try: 
+            try:
                 debugMoves = int(command)
                 debugFlag = True
                 aiMove = True
@@ -52,7 +52,7 @@ def main():
             if aiMove and not implementation:
                 print(game.board)
                 print("The AI did a goof. Sorry.")
-                attempt += 1
+                attempt += 2
                 aiMove = False
                 # raise Exception("The AI tried to make the move {}, which is apparently illegal.".format(command))
 

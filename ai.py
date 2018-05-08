@@ -23,7 +23,8 @@ class aiController:
         :return Move: What the AI wants to do in the format (@#@#) [we need to search that location for the piece in order to have a valid command]
         """
         self.engine.position(boardState)    #Pass in the board's current state to the game engine.
-        test = self.engine.go(movetime=self.time) #Movetime in milliseconds to generate best move.
+        test = self.engine.go(movetime=self.time-selectedMove) #Movetime in milliseconds to generate best move.
+        print(test)
         full_move_string = str(test[selectedMove])
 
         #Old code left in to show what we did
