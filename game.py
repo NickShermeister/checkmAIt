@@ -54,23 +54,24 @@ class Game(object):
         #     print(self.board)
         #     self.turn = not self.turn
         #     return []
-        if False:
-            pass
-        else:
-            if(len(command) > 4):
-                command = command[0].upper() + command[1:]
-            elif(len(command) == 4):
-                # if(command[0:2] in self.whiteLocations['']):
-                #     pass
-                # else:
-                try:
-                    command = self.findLocPiece(command[0:2]).upper() + command
-                except:
-                    print(command)
-                    print("fuk off m8")
-                    print(self.whiteLocations)
-                    print(self.blackLocations)
-                    return []
+        promo = False
+        if(len(command) > 4):
+            command = command[0].upper() + command[1:]
+        elif(len(command) == 4):
+
+            try:
+                command = self.findLocPiece(command[0:2]).upper() + command
+                if(len(command) == 4):
+                    if(command[-1] in ["1", "8"]):
+                        command = command + input("What piece do you want? \nKnight: N\nRook: R\nBishop: B\nQueen: Q\n").upper()
+                        promo = True
+
+            except:
+                print(command)
+                print("fuk off m8")
+                print(self.whiteLocations)
+                print(self.blackLocations)
+                return []
         print(command)
 
         #Try a command; if it fails then prevent a change in turn and make the player go.
@@ -108,6 +109,16 @@ class Game(object):
                 command = "O-O-O"
                 hi = self.board.push_san(command)
                 self.updateLocations("a8", "d8")
+            elif promo:
+                if(self.board.turn):
+                    pieceRevived = command[-1].upper()
+                else:
+                    pieceRevived = command[-1].lower()
+                hi = self.board.push_san(command)
+                #Send current pawn to graveyardMove
+                #Revive queen...
+                self.graveyardMove(command[0:2])
+                self.reviveFromGraveyard(command[2:4], pieceRevived)
             else:
                 hi = self.board.push_san(command)
         except Exception as e:
@@ -198,6 +209,9 @@ class Game(object):
         is_white = piece.isupper()
         source = self.graveyard.retrievePiece(is_white, piece)
         # assert source is not None, "Tried to revive piece not in graveyard"
+        if(source == None):
+            source = self.graveyard.retrievePiece(is_white, 'p')
+            piece = ''
 
         if piece.lower() == 'p':
             piece = ''
