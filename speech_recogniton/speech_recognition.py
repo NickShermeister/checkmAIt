@@ -19,14 +19,14 @@ class MicrophoneStream(object):
     Uses microphone stream and pyaudio to create a thread-safe buffer of any
     microphone input.
     """
-    
+
     def __init__(self, rate, chunk):
         """
         Creates active MicrophoneStream object with a thread-safe buffer to
         keep raw audio data.
-        
+
         rate : Audio recording rate.
-        chunk : Sampling parameter. Should be an integer factor of the 
+        chunk : Sampling parameter. Should be an integer factor of the
                 rate value.
 
         Returns MicrophoneStream object.
@@ -81,7 +81,7 @@ class MicrophoneStream(object):
     def generator(self):
         """
         When passed a response, the generator blocks until the server replies.
-        
+
         """
         while not self.closed:
             # Use a blocking get() to ensure there's at least one chunk of
@@ -153,29 +153,31 @@ def listen_and_translate(responses):
 
 def attempt_command_string(feed):
     """
-    Tries to create a command string for chess based on the input. 
+    Tries to create a command string for chess based on the input.
     To be used with the text stream
     """
     # Make an informed guess on what the command is.
     pieces = ["knight", "queen", "king", "pawn", "bishop", "rook", "work", \
-              "night", "Night", "brooke"]      
-    rows = ["1", "2", "3", "4", "5", "6", "7", "8"]                             
+              "night", "Night", "brooke"]
+    rows = ["1", "2", "3", "4", "5", "6", "7", "8"]
     cols = ["B", "C", "D", "F", "G", "H", "A", "E", "b", "c", "a", "d", "e", "f"]
     command_string = ""
     feed = feed.encode('ascii','ignore')
     feed = feed.strip()
     feed_list = feed.decode().split(" ")
-    
+
     print(feed_list)
     # Go through the feedlist, converting to chess notation
     command_string += ""
     if len(feed_list) < 2:
+        print("String is too short")
         return
-    
-    # Empirically found common mistakes revealed through testing with 
+
+    # Empirically found common mistakes revealed through testing with
     # logitech webcam microphone.
     if feed_list[0].lower() in pieces:
         piece = feed_list[0].lower()
+        print("I found the piece", piece)
         # print(piece)
         if piece == "knight" or piece == "Knight" or \
            piece == "night" or piece == "Night":
@@ -185,17 +187,17 @@ def attempt_command_string(feed):
         else:
             command_string += piece[0].upper()
 
-    if feed_list[1] == "from": 
+    if feed_list[1] == "from":
         command_string += make_string(feed_list[2],rows, cols)
         command_string += make_string(feed_list[-1],rows, cols)
 
     else:
         command_string += make_string(feed_list[-1],rows, cols)
-  
+
     # Hardcoding in whether or not this is chess notation. Can be changed.
     if len(command_string) not in [3, 5]:
         print("Failed.")
-        return    
+        return
 
     # print(command_string)
     return command_string
@@ -204,15 +206,19 @@ def make_string(string, rows, cols):
     """
     Finds rows and columns in given string or substring.
     """
-    command_string = "" 
-    for row in rows:                                                        
-        if row in string:                                                     
-            command_string += row 
-            break                                          
-    for col in cols:                                                        
-        if col in string: 
-            command_string += col.lower()  
+    command_string = ""
+    print("I am trying to find ", string)
+    for row in rows:
+        if row in string:
+            command_string += row
+            print("I found row", row)
             break
+    for col in cols:
+        if col in string:
+            print("I found column", col)
+            command_string += col.lower()
+            break
+    print("Here is the move:",command_string)
     return command_string
 
 def  setup_and_run():
