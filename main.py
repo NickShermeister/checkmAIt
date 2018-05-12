@@ -25,47 +25,64 @@ def main():
 
     game = Game()
 
-    while True:
-        if game.board.turn == chess.WHITE and not debugFlag:
+    hi = input("AI? (1/0): \t")
+
+    if(hi == 1):
+        while True:
+            if game.board.turn == chess.WHITE and not debugFlag:
+                print(game.board)
+                command = speech.getCommand()
+                try:
+                    debugMoves = int(command)
+                    debugFlag = True
+                    aiMove = True
+                    command = ai.getMove(game.board)
+                except:
+                    aiMove = False
+            else:
+                command = ai.getMove(game.board, attempt)
+                aiMove = True
+                if debugFlag:
+                    debugMoves -= 1
+                    if debugMoves == 0:
+                        debugFlag = False
+
+            if command == 'show':
+                print(game.board)
+            elif command:
+                implementation = game.implementMove(str(command))
+
+                if aiMove and not implementation:
+                    print(game.board)
+                    print("The AI did a goof. Sorry.")
+                    attempt += 2
+                    aiMove = False
+                    # raise Exception("The AI tried to make the move {}, which is apparently illegal.".format(command))
+
+                attempt = 0
+                if aiMove:
+                    for m in implementation:
+                        steps = planner.make_command_list(m)  # type:List[Action]
+
+                        for step in steps:
+                            controller.makeMove(step)
+
+            else:
+                sleep(0.01)
+    else:
+        print("Sup?")
+        while True:
             print(game.board)
             command = speech.getCommand()
-            try:
-                debugMoves = int(command)
-                debugFlag = True
-                aiMove = True
-                command = ai.getMove(game.board)
-            except:
-                aiMove = False
-        else:
-            command = ai.getMove(game.board, attempt)
-            aiMove = True
-            if debugFlag:
-                debugMoves -= 1
-                if debugMoves == 0:
-                    debugFlag = False
 
-        if command == 'show':
-            print(game.board)
-        elif command:
-            implementation = game.implementMove(str(command))
-
-            if aiMove and not implementation:
+            if command == 'show':
                 print(game.board)
-                print("The AI did a goof. Sorry.")
-                attempt += 2
-                aiMove = False
-                # raise Exception("The AI tried to make the move {}, which is apparently illegal.".format(command))
+            elif command:
+                implementation = game.implementMove(str(command))
+                attempt = 0
 
-            attempt = 0
-            if aiMove:
-                for m in implementation:
-                    steps = planner.make_command_list(m)  # type:List[Action]
-
-                    for step in steps:
-                        controller.makeMove(step)
-
-        else:
-            sleep(0.01)
+            else:
+                sleep(0.01)
 
 
 if __name__ == '__main__':
