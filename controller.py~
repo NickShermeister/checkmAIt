@@ -79,6 +79,10 @@ class Controller(object):
             self.goto_raw_coord(RobotPosition(x, 0))
             time.sleep(.1)
 
+     def end(self):
+         pwm.stop()
+         GPIO.cleanup()
+
 
 def key_control():
     c = Controller()

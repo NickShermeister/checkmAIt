@@ -1,3 +1,4 @@
+
 from datatypes import *
 from chess import Board, Move, engine
 from typing import List
@@ -14,7 +15,7 @@ class Game(object):
 
         self.running = True;
         self.turn = bool(random.getrandbits(1))
-        self.engine = chess.uci.popen_engine('libs/stockfish-8-linux/Linux/stockfish_8_x64')
+        self.engine = chess.uci.popen_engine('stockfish-8-linux/src/stockfish')   
         self.engine.uci()
         self.first = self.turn
 

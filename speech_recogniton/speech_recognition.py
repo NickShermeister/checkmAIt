@@ -208,17 +208,14 @@ def make_string(string, rows, cols):
     """
     command_string = ""
     print("I am trying to find ", string)
+    for col in cols:
+        if col in string:
+            command_string += col.lower()
+            break
     for row in rows:
         if row in string:
             command_string += row
-            print("I found row", row)
             break
-    for col in cols:
-        if col in string:
-            print("I found column", col)
-            command_string += col.lower()
-            break
-    print("Here is the move:",command_string)
     return command_string
 
 def  setup_and_run():

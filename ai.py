@@ -9,7 +9,7 @@ from chess import Board, Move
 class aiController:
 
     def __init__(self):
-        self.engine = chess.uci.popen_engine('libs/stockfish-8-linux/Linux/stockfish_8_x64')
+        self.engine = chess.uci.popen_engine('stockfish-8-linux/src/stockfish')
         self.engine.uci()
         self.time = 300      #Time that we allow the engine to think.
 
