@@ -164,9 +164,9 @@ def attempt_command_string(feed):
     command_string = ""
     feed = feed.encode('ascii','ignore')
     feed = feed.strip()
-    feed_list = feed.split(" ")
+    feed_list = feed.decode().split(" ")
     
-
+    print(feed_list)
     # Go through the feedlist, converting to chess notation
     command_string += ""
     if len(feed_list) < 2:
