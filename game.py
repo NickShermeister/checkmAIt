@@ -57,7 +57,10 @@ class Game(object):
         promo = False
         moves = []
         if(len(command) > 4):
-            command = command[0].upper() + command[1:]
+            if(command[-1] in "12345678"):
+                command = command[0].upper() + command[1:]
+            else:
+                command = command[:-1] + command[-1].upper()
         elif(len(command) == 4):
 
             try:
@@ -81,35 +84,35 @@ class Game(object):
             if command in ["Ke1h1", "Ke1g1", "e1h1", "e1g1"]:
                 command = "O-O"
                 hi = self.board.push_san(command)
-                moves.append(self.updateLocations("h1", "f1"))
+                moves = moves + self.updateLocations("h1", "f1")
             elif command in ["Ke1a1", "Ke1c1", "e1a1", "e1c1"]:
                 command = "O-O-O"
                 hi = self.board.push_san(command)
-                moves.append(self.updateLocations("a1", "d1"))
+                moves = moves + self.updateLocations("a1", "d1")
             elif command in ["ke8h8", "Ke8g8", "ke8g8", "ke8h8", "e8h8", "e8g8"]:
                 command = "O-O"
                 hi = self.board.push_san(command)
-                moves.append(self.updateLocations("h8", "f8"))
+                moves = moves + self.updateLocations("h8", "f8")
             elif command in ["ke8a8", "Ke8c8", "ke8c8", "ke8a8", "e8a8", "e8c8"]:
                 command = "O-O-O"
                 hi = self.board.push_san(command)
-                moves.append(self.updateLocations("a8", "d8"))
+                moves = moves + self.updateLocations("a8", "d8")
             elif command == "0-0" and self.board.turn:
                 command = "O-O"
                 hi = self.board.push_san(command)
-                moves.append(self.updateLocations("h1", "f1"))
+                moves = moves + self.updateLocations("h1", "f1")
             elif command == "0-0":
                 command = "O-O"
                 hi = self.board.push_san(command)
-                moves.append(self.updateLocations("h8", "f8"))
+                moves = moves + self.updateLocations("h8", "f8")
             elif command == "0-0-0" and self.board.turn:
                 command = "O-O-O"
                 hi = self.board.push_san(command)
-                moves.append(self.updateLocations("a1", "d1"))
+                moves = moves + self.updateLocations("a1", "d1")
             elif command == "0-0-0":
                 command = "O-O-O"
                 hi = self.board.push_san(command)
-                moves.append(self.updateLocations("a8", "d8"))
+                moves = moves + self.updateLocations("a8", "d8")
             elif promo:
                 if(self.board.turn):
                     pieceRevived = command[-1].upper()
@@ -140,7 +143,7 @@ class Game(object):
         loc1 = stripped_command[0:2]
         loc2 = stripped_command[2:]
 
-        moves.append(self.updateLocations(loc1, loc2))    #Updates the location of PIECES
+        moves = moves + self.updateLocations(loc1, loc2)    #Updates the location of PIECES
         print(str(moves))
         return moves
 

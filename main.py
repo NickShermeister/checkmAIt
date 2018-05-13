@@ -27,7 +27,8 @@ def main():
 
     hi = input("AI? (1/0): \t")
 
-    if(hi == 1):
+    if(hi == "1"):
+        print("Player vs. AI")
         while True:
             if game.board.turn == chess.WHITE and not debugFlag:
                 print(game.board)
@@ -69,8 +70,38 @@ def main():
 
             else:
                 sleep(0.01)
+    elif hi == "2":   #AI game
+        print("AI duel")
+
+        while(True):
+            print(game.board)
+            try:
+                aiMove = True
+                command = ai.getMove(game.board)
+            except:
+                aiMove = False
+
+            if command:
+                implementation = game.implementMove(str(command))
+
+                if aiMove and not implementation:
+                    print(game.board)
+                    print("The AI did a goof. Sorry.")
+                    attempt += 2
+                    aiMove = False
+                attempt = 0
+                if aiMove:
+                    for m in implementation:
+                        steps = planner.make_command_list(m)  # type:List[Action]
+
+                        for step in steps:
+                            controller.makeMove(step)
+
+            else:
+                sleep(1)
+
     else:
-        print("Sup?")
+        print("Player v. Player")
         while True:
             print(game.board)
             command = speech.getCommand()
