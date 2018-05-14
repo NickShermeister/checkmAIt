@@ -71,6 +71,7 @@ class Controller(object):
             self.write_serial(command)
 
     def goto_coord(self, coord: PieceCoord):
+        print("Moving to PieceCoord:", coord)
         self.goto_raw_coord(self._convert_coord(coord))
 
     def goto_raw_coord(self, pos: RobotPosition):
