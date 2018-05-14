@@ -2,6 +2,7 @@
 
 import time
 
+import numpy as np
 from datatypes import *
 import serial
 
@@ -19,11 +20,14 @@ class Controller(object):
     UP_POS = 30
     DOWN_POS = 100
 
-    def __init__(self, simulation=True, square_size=3.0, center=(30.0, 20.0)):
+    def __init__(self, simulation=True, square_size=3.0, center=(30.0, 20.0), speed=100):
+        self.speed = speed  # In mm/sec
         self.square_size = square_size
         self.center = center
 
         self.simulation = simulation
+
+        self.lastpos = RobotPosition(0, 0)
 
         if not simulation:
             self.serial = serial.serial_for_url('/dev/ttyACM0', baudrate=115200)
@@ -68,7 +72,10 @@ class Controller(object):
         if self.simulation:
             print("Moving to coordinates {}".format(pos))
         else:
-            raise NotImplementedError()
+            dist = np.sqrt((pos.x - self.lastpos.x)**2 + (pos.y - self.lastpos.y)**2)
+            command = 'G0 Y{y} Z{z} E{e} F{f}'.format(y=pos.y, z=pos.x, e=dist, f=self.speed)
+            self.write_serial(command)
+            self.lastpos = pos
 
     def _convert_coord(self, coord: PieceCoord):
         x = (coord.x - 6.5) * self.square_size + self.center[0]
