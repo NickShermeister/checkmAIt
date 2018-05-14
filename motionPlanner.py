@@ -146,6 +146,9 @@ class MotionPlanner(object):
 		to an unoccupied space nearby that is not in
 		the path_list.
 		"""
+		print("Making way for", path_list)
+		found_space = False
+		backup_space_origin = None
 		instruction_list = [Action().PenDown()]
 		for space in self.board.neighbors(in_way_coord):
 			if space not in self.occupied_spaces and space not in path_list:
@@ -153,9 +156,24 @@ class MotionPlanner(object):
 				move = PieceMove(in_way_coord, space)
 				instruction_list = instruction_list + self.make_command_list(move)
 				self.made_way_coord.append(space)
+				found_space = True
 				break
-		instruction_list.append(Action().GotoCoord(start_coord))
-		instruction_list.append(Action().PenUp())
+			else:
+				for neighbor_space in self.board.neighbors(space):
+					if neighbor_space not in self.occupied_spaces and neighbor_space not in path_list and (backup_space_origin is None):
+						backup_space_origin = space
+		if not found_space:
+			print("Had to move", backup_space_origin)
+			second_choice = PieceMove(in_way_coord, backup_space_origin)
+			instruction_list = instruction_list + self.make_way(start_coord=in_way_coord, in_way_coord=backup_space_origin, path_list=path_list) # + self.make_command_list(second_choice)
+			instruction_list.append(Action().PenDown())
+			instruction_list.append(Action().GotoCoord(in_way_coord))
+			instruction_list.append(Action().PenUp())
+			instruction_list.append(Action().GotoCoord(backup_space_origin))
+			instruction_list.append(Action().PenDown())
+			self.made_way_coord.append(backup_space_origin)
+			self.contested_space.append(in_way_coord)
+			self.occupied_spaces -= {in_way_coord}
 		self.made_way_flag = True
 		return instruction_list
 
@@ -179,7 +197,7 @@ class MotionPlanner(object):
 		self.made_way_coord = self.made_way_coord[:-1]
 		self.contested_space = self.contested_space[:-1]
 		self.made_way_flag = (len(self.made_way_coord) > 0) and (len(self.contested_space) > 0)
-
+		print("Still have pieces to return:", self.made_way_flag, "\nPiece moved to", self.made_way_coord, "from", self.contested_space)
 		return self.make_command_list(move)
 
 	# def capture(self, move:PieceMove):
