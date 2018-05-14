@@ -227,6 +227,7 @@ class ChessGame:
         if piece.lower() == 'p':
             piece = ''
 
+        print("Revive from graveyard dest: ", dest)
         (self.whiteLocations if is_white else self.blackLocations)[piece].append(dest)
 
         print("The source is %s" % str(source))

@@ -85,7 +85,7 @@ class MotionPlanner(object):
 
 		for space in self.occupied_spaces - {self.spaces[(coord.x, coord.y)]}:
 			for edge in self.board.edges(space.as_tuple()):
-				self.board[edge[0]][edge[1]]['weight'] += 2
+				self.board[edge[0]][edge[1]]['weight'] += 4
 
 	def find_path(self, start:PieceCoord, end:PieceCoord) -> [PieceCoord]:
 		""" Given the starting and ending

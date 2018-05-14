@@ -100,7 +100,8 @@ def main():
 
                         for step in steps:
                             controller.makeMove(step)
-
+                if game.checkGameOver():
+                    game.gameOver()
             else:
                 sleep(1)
 

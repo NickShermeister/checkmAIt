@@ -150,9 +150,9 @@ class Game(object):
             print("Moves:")
             print(str(moves))
             if(not self.board.turn):
-                pieceRevived = stripped_command[-1].upper()
+                pieceRevived = hi.uci()[-1].upper()
             else:
-                pieceRevived = stripped_command[-1].lower()
+                pieceRevived = hi.uci()[-1].lower()
             #Send current pawn to graveyardMove
             #Revive queen...
             print("test1ai")
@@ -236,19 +236,22 @@ class Game(object):
         """
 
         is_white = piece.isupper()
-        source = self.graveyard.retrievePiece(is_white, piece)
         # assert source is not None, "Tried to revive piece not in graveyard"
         # if(source == None):
         #     source = self.graveyard.retrievePiece(is_white, '')
         #     piece = ''
-
         if piece.lower() == 'p':
-            piece = ''
+            temp = ''
+        else:
+            temp = piece
+        source = self.graveyard.retrievePiece(is_white, temp)
+        if source is not None:
 
-        (self.whiteLocations if is_white else self.blackLocations)[piece].append(dest)
+            (self.whiteLocations if is_white else self.blackLocations)[temp].append(dest)
 
-        print("The source is %s" % str(source))
-        return self.convertMoves(source, dest)
+            print("The source is %s" % str(source))
+            return self.convertMoves(source, dest)
+        return None
 
     def printLocations(self):
         """
@@ -286,7 +289,7 @@ class Game(object):
         moves = []
 
         # White pieces
-        toRevive[''] = ['a2', 'b2', 'c2', 'd2', 'e2', 'f2', 'g2', 'h2']
+        toRevive['P'] = ['a2', 'b2', 'c2', 'd2', 'e2', 'f2', 'g2', 'h2']
         toRevive['R'] = ['a1', 'h1']
         toRevive['N'] = ['b1', 'g1']
         toRevive['B'] = ['c1', 'f1']
@@ -294,20 +297,42 @@ class Game(object):
         toRevive['Q'] = ['d1']
 
         # Black pieces
-        toRevive[''] = ['a7', 'b7', 'c7', 'd7', 'e7', 'f7', 'g7', 'h7']
+        toRevive['p'] = ['a7', 'b7', 'c7', 'd7', 'e7', 'f7', 'g7', 'h7']
         toRevive['r'] = ['a8', 'h8']
         toRevive['n'] = ['b8', 'g8']
         toRevive['b'] = ['c8', 'f8']
         toRevive['k'] = ['e8']
         toRevive['q'] = ['d8']
 
+        print("Revive Dict:", toRevive)
         #Actually revive the pieces
+        print("Pieces still on the board")
+        print(self.whiteLocations)
+        print(self.blackLocations)
         for piece in toRevive:
             for locs in toRevive[piece]:
-                moves.append(self.reviveFromGraveyard(locs, piece))
+                rev_move = self.reviveFromGraveyard(locs, piece)
+                if rev_move is not None:
+                    moves.append(rev_move)
+                else:
+                    print("There is still a {} on the board?".format(piece))
+                    is_white = piece.isupper()
+                    if piece.lower() == 'p':
+                        temp = ''
+                    else:
+                        temp = piece
+                    source = (self.whiteLocations if is_white else self.blackLocations)[temp].pop(0)
+                    (self.whiteLocations if is_white else self.blackLocations)[temp].append(locs)
+
+                    print("The source is %s" % str(source))
+                    moves.append(self.convertMoves(source, locs))
+        print("BOARD RESET")
+        print(self.whiteLocations)
+        print(self.blackLocations)
 
         #Make the board in the computer know it's reset.
         self.board.reset()
+        self.graveyard.reset()
         #Prove that it's reset/print the start.
         self.printBoard()
         return moves
@@ -353,12 +378,13 @@ class Game(object):
             print("It's a draw!")
 
         #reset the physical board as well as the saved board state
+        self.graveyard.printHi()
         self.resetBoard()
 
         #Ask the user if they want to play again.
-        again = input("Want to play again? (y/n): ")
-        if again.lower() == "n":
-            self.running = False
+        # again = input("Want to play again? (y/n): ")
+        # if again.lower() == "n":
+        #     self.running = False
 
     def checkGameOver(self):
         """
@@ -390,7 +416,7 @@ class Game(object):
 
         if(type(loc1)!=PieceCoord):
             move1 = (ord(loc1[0]) - 97 + 3, ord(loc1[1]))
-            one = PieceCoord(move1[0], move2[1])
+            one = PieceCoord(move1[0], move1[1])
         else:
             one = loc1
 
@@ -437,8 +463,9 @@ class Game(object):
         else:
             moves = moves + self.movePiece(command)
             if moves != []:
-                if self.checkGameOver():
-                    self.gameOver()
+                # if self.checkGameOver():
+                #     self.gameOver()
+                pass
             else:
                 print("That wasn't a good move. Try again.")
         return moves

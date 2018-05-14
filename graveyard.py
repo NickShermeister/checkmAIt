@@ -30,6 +30,10 @@ class Graveyard(object):
         """
         return 2.1 * abs(coord.y) - abs(coord.x)
 
+    def reset(self):
+        self.stored = defaultdict(list)
+        self._initspaces()
+        
     def storePiece(self, color: bool, kind: str) -> PieceCoord:
         """
         :param color: Is this piece white?
@@ -60,9 +64,11 @@ class Graveyard(object):
         return self.stored[(color, kind)].pop()
 
     def printHi(self):
-        for k, v in self.stored:
+        print(self.stored)
+        for k, v in self.stored.items():
             if len(v) == 0:
                 continue
+            print("k is {}, v is {}".format(k, v))
             print('Color: {}, Type: {}'.format('White' if k[0] else 'Black', k[1]))
             for loc in v:
                 print('\t{}'.format(loc))

@@ -1,0 +1,3933 @@
+AI duel
+r n b q k b n r
+p p p p p p p p
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+P P P P P P P P
+R N B Q K B N R
+BestMove(bestmove=Move.from_uci('e2e4'), ponder=Move.from_uci('e7e5'))
+e2e4
+Hi is: e2e4
+Moves:
+[e2e4]
+e2e4
+Lowering the magnet!
+Moving to coordinates (22.5, 12.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 15.5)
+Moving to coordinates (22.5, 18.5)
+Lowering the magnet!
+r n b q k b n r
+p p p p p p p p
+. . . . . . . .
+. . . . . . . .
+. . . . P . . .
+. . . . . . . .
+P P P P . P P P
+R N B Q K B N R
+BestMove(bestmove=Move.from_uci('e7e5'), ponder=Move.from_uci('g1f3'))
+e7e5
+Hi is: e7e5
+Moves:
+[e7e5]
+e7e5
+Lowering the magnet!
+Moving to coordinates (22.5, 27.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 24.5)
+Moving to coordinates (22.5, 21.5)
+Lowering the magnet!
+r n b q k b n r
+p p p p . p p p
+. . . . . . . .
+. . . . p . . .
+. . . . P . . .
+. . . . . . . .
+P P P P . P P P
+R N B Q K B N R
+BestMove(bestmove=Move.from_uci('g1f3'), ponder=Move.from_uci('g8f6'))
+Ng1f3
+Hi is: g1f3
+Moves:
+[g1f3]
+g1f3
+Making way for [(6,0), (6,1), (5,2)]
+returning piece...
+Coords: [(6,2)] 
+Spaces: [(6,1)]
+Still have pieces to return: False 
+Piece moved to [] from []
+Lowering the magnet!
+Moving to coordinates (28.5, 9.5)
+Lifting the magnet!
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (28.5, 12.5)
+Lifting the magnet!
+Moving to coordinates (28.5, 15.5)
+Lowering the magnet!
+Moving to coordinates (28.5, 12.5)
+Moving to coordinates (25.5, 15.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (28.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (28.5, 12.5)
+Lowering the magnet!
+r n b q k b n r
+p p p p . p p p
+. . . . . . . .
+. . . . p . . .
+. . . . P . . .
+. . . . . N . .
+P P P P . P P P
+R N B Q K B . R
+BestMove(bestmove=Move.from_uci('g8f6'), ponder=Move.from_uci('f3e5'))
+Ng8f6
+Hi is: g8f6
+Moves:
+[g8f6]
+g8f6
+Making way for [(6,7), (6,6), (5,5)]
+returning piece...
+Coords: [(7,5)] 
+Spaces: [(6,6)]
+Still have pieces to return: False 
+Piece moved to [] from []
+Lowering the magnet!
+Moving to coordinates (28.5, 30.5)
+Lifting the magnet!
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (28.5, 27.5)
+Lifting the magnet!
+Moving to coordinates (31.5, 24.5)
+Lowering the magnet!
+Moving to coordinates (28.5, 27.5)
+Moving to coordinates (25.5, 24.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (31.5, 24.5)
+Lifting the magnet!
+Moving to coordinates (28.5, 27.5)
+Lowering the magnet!
+r n b q k b . r
+p p p p . p p p
+. . . . . n . .
+. . . . p . . .
+. . . . P . . .
+. . . . . N . .
+P P P P . P P P
+R N B Q K B . R
+BestMove(bestmove=Move.from_uci('f3e5'), ponder=Move.from_uci('d7d6'))
+Nf3e5
+Hi is: f3e5
+Attempted black graveyard move
+Sending piece  at (4, 4) to graveyard (9,7)
+Moves:
+[e5j8, f3e5]
+e5j8
+Lowering the magnet!
+Moving to coordinates (22.5, 21.5)
+Lifting the magnet!
+Moving to coordinates (25.5, 21.5)
+Moving to coordinates (28.5, 21.5)
+Moving to coordinates (31.5, 24.5)
+Moving to coordinates (34.5, 27.5)
+Moving to coordinates (37.5, 30.5)
+Lowering the magnet!
+f3e5
+Lowering the magnet!
+Moving to coordinates (25.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (25.5, 18.5)
+Moving to coordinates (22.5, 21.5)
+Lowering the magnet!
+r n b q k b . r
+p p p p . p p p
+. . . . . n . .
+. . . . N . . .
+. . . . P . . .
+. . . . . . . .
+P P P P . P P P
+R N B Q K B . R
+BestMove(bestmove=Move.from_uci('d7d6'), ponder=Move.from_uci('e5f3'))
+d7d6
+Hi is: d7d6
+Moves:
+[d7d6]
+d7d6
+Lowering the magnet!
+Moving to coordinates (19.5, 27.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 24.5)
+Lowering the magnet!
+r n b q k b . r
+p p p . . p p p
+. . . p . n . .
+. . . . N . . .
+. . . . P . . .
+. . . . . . . .
+P P P P . P P P
+R N B Q K B . R
+BestMove(bestmove=Move.from_uci('e5f3'), ponder=Move.from_uci('f6e4'))
+Ne5f3
+Hi is: e5f3
+Moves:
+[e5f3]
+e5f3
+Making way for [(4,4), (4,3), (5,2)]
+returning piece...
+Coords: [(3,2)] 
+Spaces: [(4,3)]
+Still have pieces to return: False 
+Piece moved to [] from []
+Lowering the magnet!
+Moving to coordinates (22.5, 21.5)
+Lifting the magnet!
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (22.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 15.5)
+Lowering the magnet!
+Moving to coordinates (22.5, 18.5)
+Moving to coordinates (25.5, 15.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (19.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 18.5)
+Lowering the magnet!
+r n b q k b . r
+p p p . . p p p
+. . . p . n . .
+. . . . . . . .
+. . . . P . . .
+. . . . . N . .
+P P P P . P P P
+R N B Q K B . R
+BestMove(bestmove=Move.from_uci('f6e4'), ponder=Move.from_uci('d2d4'))
+Nf6e4
+Hi is: f6e4
+Attempted white graveyard move
+Sending piece  at (4, 3) to graveyard (-2,7)
+Moves:
+[e4_8, f6e4]
+e4_8
+Lowering the magnet!
+Moving to coordinates (22.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 18.5)
+Moving to coordinates (16.5, 18.5)
+Moving to coordinates (13.5, 21.5)
+Moving to coordinates (10.5, 24.5)
+Moving to coordinates (7.5, 27.5)
+Moving to coordinates (4.5, 30.5)
+Lowering the magnet!
+f6e4
+Lowering the magnet!
+Moving to coordinates (25.5, 24.5)
+Lifting the magnet!
+Moving to coordinates (25.5, 21.5)
+Moving to coordinates (22.5, 18.5)
+Lowering the magnet!
+r n b q k b . r
+p p p . . p p p
+. . . p . . . .
+. . . . . . . .
+. . . . n . . .
+. . . . . N . .
+P P P P . P P P
+R N B Q K B . R
+BestMove(bestmove=Move.from_uci('d2d4'), ponder=Move.from_uci('d6d5'))
+d2d4
+Hi is: d2d4
+Moves:
+[d2d4]
+d2d4
+Lowering the magnet!
+Moving to coordinates (19.5, 12.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 15.5)
+Moving to coordinates (19.5, 18.5)
+Lowering the magnet!
+r n b q k b . r
+p p p . . p p p
+. . . p . . . .
+. . . . . . . .
+. . . P n . . .
+. . . . . N . .
+P P P . . P P P
+R N B Q K B . R
+BestMove(bestmove=Move.from_uci('d6d5'), ponder=Move.from_uci('f1d3'))
+d6d5
+Hi is: d6d5
+Moves:
+[d6d5]
+d6d5
+Lowering the magnet!
+Moving to coordinates (19.5, 24.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 21.5)
+Lowering the magnet!
+r n b q k b . r
+p p p . . p p p
+. . . . . . . .
+. . . p . . . .
+. . . P n . . .
+. . . . . N . .
+P P P . . P P P
+R N B Q K B . R
+BestMove(bestmove=Move.from_uci('f1d3'), ponder=Move.from_uci('c8f5'))
+Bf1d3
+Hi is: f1d3
+Moves:
+[f1d3]
+f1d3
+Lowering the magnet!
+Moving to coordinates (25.5, 9.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 12.5)
+Moving to coordinates (19.5, 15.5)
+Lowering the magnet!
+r n b q k b . r
+p p p . . p p p
+. . . . . . . .
+. . . p . . . .
+. . . P n . . .
+. . . B . N . .
+P P P . . P P P
+R N B Q K . . R
+BestMove(bestmove=Move.from_uci('b8c6'), ponder=Move.from_uci('e1g1'))
+Nb8c6
+Hi is: b8c6
+Moves:
+[b8c6]
+b8c6
+Making way for [(1,7), (1,6), (2,5)]
+returning piece...
+Coords: [(0,5)] 
+Spaces: [(1,6)]
+Still have pieces to return: False 
+Piece moved to [] from []
+Lowering the magnet!
+Moving to coordinates (13.5, 30.5)
+Lifting the magnet!
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (13.5, 27.5)
+Lifting the magnet!
+Moving to coordinates (10.5, 24.5)
+Lowering the magnet!
+Moving to coordinates (13.5, 27.5)
+Moving to coordinates (16.5, 24.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (10.5, 24.5)
+Lifting the magnet!
+Moving to coordinates (13.5, 27.5)
+Lowering the magnet!
+r . b q k b . r
+p p p . . p p p
+. . n . . . . .
+. . . p . . . .
+. . . P n . . .
+. . . B . N . .
+P P P . . P P P
+R N B Q K . . R
+BestMove(bestmove=Move.from_uci('e1g1'), ponder=Move.from_uci('f8e7'))
+Ke1g1
+Hi is: e1g1
+Moves:
+[h1f1, e1g1]
+h1f1
+Lowering the magnet!
+Moving to coordinates (31.5, 9.5)
+Lifting the magnet!
+Moving to coordinates (28.5, 9.5)
+Moving to coordinates (25.5, 9.5)
+Lowering the magnet!
+e1g1
+Making way for [(4,0), (5,0), (6,0)]
+returning piece...
+Coords: [(4,1)] 
+Spaces: [(5,0)]
+Still have pieces to return: False 
+Piece moved to [] from []
+Lowering the magnet!
+Moving to coordinates (22.5, 9.5)
+Lifting the magnet!
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (25.5, 9.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 12.5)
+Lowering the magnet!
+Moving to coordinates (25.5, 9.5)
+Moving to coordinates (28.5, 9.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (22.5, 12.5)
+Lifting the magnet!
+Moving to coordinates (25.5, 9.5)
+Lowering the magnet!
+r . b q k b . r
+p p p . . p p p
+. . n . . . . .
+. . . p . . . .
+. . . P n . . .
+. . . B . N . .
+P P P . . P P P
+R N B Q . R K .
+BestMove(bestmove=Move.from_uci('f8e7'), ponder=Move.from_uci('c2c4'))
+Bf8e7
+Hi is: f8e7
+Moves:
+[f8e7]
+f8e7
+Lowering the magnet!
+Moving to coordinates (25.5, 30.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 27.5)
+Lowering the magnet!
+r . b q k . . r
+p p p . b p p p
+. . n . . . . .
+. . . p . . . .
+. . . P n . . .
+. . . B . N . .
+P P P . . P P P
+R N B Q . R K .
+BestMove(bestmove=Move.from_uci('c2c4'), ponder=Move.from_uci('e4f6'))
+c2c4
+Hi is: c2c4
+Moves:
+[c2c4]
+c2c4
+Lowering the magnet!
+Moving to coordinates (16.5, 12.5)
+Lifting the magnet!
+Moving to coordinates (16.5, 15.5)
+Moving to coordinates (16.5, 18.5)
+Lowering the magnet!
+r . b q k . . r
+p p p . b p p p
+. . n . . . . .
+. . . p . . . .
+. . P P n . . .
+. . . B . N . .
+P P . . . P P P
+R N B Q . R K .
+BestMove(bestmove=Move.from_uci('e4f6'), ponder=Move.from_uci('b1c3'))
+Ne4f6
+Hi is: e4f6
+Moves:
+[e4f6]
+e4f6
+Lowering the magnet!
+Moving to coordinates (22.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 21.5)
+Moving to coordinates (25.5, 24.5)
+Lowering the magnet!
+r . b q k . . r
+p p p . b p p p
+. . n . . n . .
+. . . p . . . .
+. . P P . . . .
+. . . B . N . .
+P P . . . P P P
+R N B Q . R K .
+BestMove(bestmove=Move.from_uci('b1c3'), ponder=Move.from_uci('e8g8'))
+Nb1c3
+Hi is: b1c3
+Moves:
+[b1c3]
+b1c3
+Making way for [(1,0), (1,1), (2,2)]
+returning piece...
+Coords: [(1,2)] 
+Spaces: [(1,1)]
+Still have pieces to return: False 
+Piece moved to [] from []
+Lowering the magnet!
+Moving to coordinates (13.5, 9.5)
+Lifting the magnet!
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (13.5, 12.5)
+Lifting the magnet!
+Moving to coordinates (13.5, 15.5)
+Lowering the magnet!
+Moving to coordinates (13.5, 12.5)
+Moving to coordinates (16.5, 15.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (13.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (13.5, 12.5)
+Lowering the magnet!
+r . b q k . . r
+p p p . b p p p
+. . n . . n . .
+. . . p . . . .
+. . P P . . . .
+. . N B . N . .
+P P . . . P P P
+R . B Q . R K .
+BestMove(bestmove=Move.from_uci('e8g8'), ponder=Move.from_uci('f1e1'))
+Ke8g8
+Hi is: e8g8
+Moves:
+[h8f8, e8g8]
+h8f8
+Lowering the magnet!
+Moving to coordinates (31.5, 30.5)
+Lifting the magnet!
+Moving to coordinates (28.5, 30.5)
+Moving to coordinates (25.5, 30.5)
+Lowering the magnet!
+e8g8
+Making way for [(4,7), (5,7), (6,7)]
+Had to move (4,7)
+Making way for [(4,7), (5,7), (6,7)]
+(4,7) is not an occupied space
+returning piece...
+Coords: [(3,6), (4,7)] 
+Spaces: [(4,7), (5,7)]
+Still have pieces to return: True 
+Piece moved to [(3,6)] from [(4,7)]
+(4,7) is not an occupied space
+Lowering the magnet!
+Moving to coordinates (22.5, 30.5)
+Lifting the magnet!
+Lowering the magnet!
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (25.5, 30.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 30.5)
+Lowering the magnet!
+Moving to coordinates (25.5, 30.5)
+Moving to coordinates (28.5, 30.5)
+Lowering the magnet!
+r . b q . r k .
+p p p . b p p p
+. . n . . n . .
+. . . p . . . .
+. . P P . . . .
+. . N B . N . .
+P P . . . P P P
+R . B Q . R K .
+BestMove(bestmove=Move.from_uci('f1e1'), ponder=Move.from_uci('c8g4'))
+Rf1e1
+Hi is: f1e1
+Moves:
+[f1e1]
+f1e1
+returning piece...
+Coords: [(3,6)] 
+Spaces: [(4,7)]
+Still have pieces to return: False 
+Piece moved to [] from []
+(3,6) is not an occupied space
+Lowering the magnet!
+Moving to coordinates (25.5, 9.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 9.5)
+Lowering the magnet!
+r . b q . r k .
+p p p . b p p p
+. . n . . n . .
+. . . p . . . .
+. . P P . . . .
+. . N B . N . .
+P P . . . P P P
+R . B Q R . K .
+BestMove(bestmove=Move.from_uci('c8g4'), ponder=Move.from_uci('c4d5'))
+Bc8g4
+Hi is: c8g4
+Moves:
+[c8g4]
+c8g4
+Lowering the magnet!
+Moving to coordinates (16.5, 30.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 27.5)
+Moving to coordinates (22.5, 24.5)
+Moving to coordinates (25.5, 21.5)
+Moving to coordinates (28.5, 18.5)
+Lowering the magnet!
+r . . q . r k .
+p p p . b p p p
+. . n . . n . .
+. . . p . . . .
+. . P P . . b .
+. . N B . N . .
+P P . . . P P P
+R . B Q R . K .
+BestMove(bestmove=Move.from_uci('c4d5'), ponder=Move.from_uci('c6d4'))
+c4d5
+Hi is: c4d5
+Attempted black graveyard move
+Sending piece  at (3, 4) to graveyard (10,7)
+Moves:
+[d5k8, c4d5]
+d5k8
+Lowering the magnet!
+Moving to coordinates (19.5, 21.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 21.5)
+Moving to coordinates (25.5, 21.5)
+Moving to coordinates (28.5, 21.5)
+Moving to coordinates (31.5, 21.5)
+Moving to coordinates (34.5, 24.5)
+Moving to coordinates (37.5, 27.5)
+Moving to coordinates (40.5, 30.5)
+Lowering the magnet!
+c4d5
+Lowering the magnet!
+Moving to coordinates (16.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 21.5)
+Lowering the magnet!
+r . . q . r k .
+p p p . b p p p
+. . n . . n . .
+. . . P . . . .
+. . . P . . b .
+. . N B . N . .
+P P . . . P P P
+R . B Q R . K .
+BestMove(bestmove=Move.from_uci('c6d4'), ponder=Move.from_uci('d3h7'))
+Nc6d4
+Hi is: c6d4
+Attempted white graveyard move
+Sending piece  at (3, 3) to graveyard (-3,7)
+Moves:
+[d4^8, c6d4]
+d4^8
+Lowering the magnet!
+Moving to coordinates (19.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (16.5, 18.5)
+Moving to coordinates (13.5, 18.5)
+Moving to coordinates (10.5, 21.5)
+Moving to coordinates (7.5, 24.5)
+Moving to coordinates (4.5, 27.5)
+Moving to coordinates (1.5, 30.5)
+Lowering the magnet!
+c6d4
+Lowering the magnet!
+Moving to coordinates (16.5, 24.5)
+Lifting the magnet!
+Moving to coordinates (16.5, 21.5)
+Moving to coordinates (19.5, 18.5)
+Lowering the magnet!
+r . . q . r k .
+p p p . b p p p
+. . . . . n . .
+. . . P . . . .
+. . . n . . b .
+. . N B . N . .
+P P . . . P P P
+R . B Q R . K .
+BestMove(bestmove=Move.from_uci('d3h7'), ponder=Move.from_uci('f6h7'))
+Bd3h7
+Hi is: d3h7
+Attempted black graveyard move
+Sending piece  at (7, 6) to graveyard (9,6)
+Moves:
+[h7j7, d3h7]
+h7j7
+Lowering the magnet!
+Moving to coordinates (31.5, 27.5)
+Lifting the magnet!
+Moving to coordinates (34.5, 27.5)
+Moving to coordinates (37.5, 27.5)
+Lowering the magnet!
+d3h7
+Lowering the magnet!
+Moving to coordinates (19.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 18.5)
+Moving to coordinates (25.5, 21.5)
+Moving to coordinates (28.5, 24.5)
+Moving to coordinates (31.5, 27.5)
+Lowering the magnet!
+r . . q . r k .
+p p p . b p p B
+. . . . . n . .
+. . . P . . . .
+. . . n . . b .
+. . N . . N . .
+P P . . . P P P
+R . B Q R . K .
+BestMove(bestmove=Move.from_uci('f6h7'), ponder=Move.from_uci('d1d4'))
+Nf6h7
+Hi is: f6h7
+Attempted white graveyard move
+Sending piece B at (7, 6) to graveyard (-2,6)
+Moves:
+[h7_7, f6h7]
+h7_7
+Making way for [(7,6), (6,6), (5,6), (4,6), (3,6), (2,6), (1,6), (0,6), (-1,6), (-2,6)]
+Making way for [(7,6), (6,6), (5,6), (4,6), (3,6), (2,6), (1,6), (0,6), (-1,6), (-2,6)]
+returning piece...
+Coords: [(7,5)] 
+Spaces: [(6,6), (5,6)]
+Still have pieces to return: False 
+Piece moved to [] from [(6,6)]
+Making way for [(7,6), (6,6), (5,6), (4,6), (3,6), (2,6), (1,6), (0,6), (-1,6), (-2,6)]
+returning piece...
+Coords: [(4,7)] 
+Spaces: [(6,6), (4,6)]
+Still have pieces to return: False 
+Piece moved to [] from [(6,6)]
+Making way for [(7,6), (6,6), (5,6), (4,6), (3,6), (2,6), (1,6), (0,6), (-1,6), (-2,6)]
+returning piece...
+Coords: [(4,5)] 
+Spaces: [(6,6), (2,6)]
+Still have pieces to return: False 
+Piece moved to [] from [(6,6)]
+Making way for [(7,6), (6,6), (5,6), (4,6), (3,6), (2,6), (1,6), (0,6), (-1,6), (-2,6)]
+returning piece...
+Coords: [(2,7)] 
+Spaces: [(6,6), (1,6)]
+Still have pieces to return: False 
+Piece moved to [] from [(6,6)]
+Making way for [(7,6), (6,6), (5,6), (4,6), (3,6), (2,6), (1,6), (0,6), (-1,6), (-2,6)]
+returning piece...
+Coords: [(0,5)] 
+Spaces: [(6,6), (0,6)]
+Still have pieces to return: False 
+Piece moved to [] from [(6,6)]
+returning piece...
+Coords: [(1,5)] 
+Spaces: [(6,6)]
+Still have pieces to return: False 
+Piece moved to [] from []
+Making way for [(1,5), (2,5), (3,5), (4,5), (5,5), (6,6)]
+returning piece...
+Coords: [(5,4)] 
+Spaces: [(5,5)]
+Still have pieces to return: False 
+Piece moved to [] from []
+Lowering the magnet!
+Moving to coordinates (31.5, 27.5)
+Lifting the magnet!
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (28.5, 27.5)
+Lifting the magnet!
+Moving to coordinates (31.5, 24.5)
+Lowering the magnet!
+Moving to coordinates (28.5, 27.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (25.5, 27.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 30.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (31.5, 24.5)
+Lifting the magnet!
+Moving to coordinates (28.5, 24.5)
+Moving to coordinates (25.5, 27.5)
+Lowering the magnet!
+Moving to coordinates (25.5, 27.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (22.5, 27.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 24.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (22.5, 30.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 27.5)
+Lowering the magnet!
+Moving to coordinates (22.5, 27.5)
+Moving to coordinates (19.5, 27.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (16.5, 27.5)
+Lifting the magnet!
+Moving to coordinates (16.5, 30.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (22.5, 24.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 24.5)
+Moving to coordinates (16.5, 27.5)
+Lowering the magnet!
+Moving to coordinates (16.5, 27.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (13.5, 27.5)
+Lifting the magnet!
+Moving to coordinates (10.5, 24.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (16.5, 30.5)
+Lifting the magnet!
+Moving to coordinates (13.5, 27.5)
+Lowering the magnet!
+Moving to coordinates (13.5, 27.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (10.5, 27.5)
+Lifting the magnet!
+Moving to coordinates (13.5, 24.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (10.5, 24.5)
+Lifting the magnet!
+Moving to coordinates (10.5, 27.5)
+Lowering the magnet!
+Moving to coordinates (10.5, 27.5)
+Moving to coordinates (7.5, 27.5)
+Moving to coordinates (4.5, 27.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (13.5, 24.5)
+Lifting the magnet!
+Moving to coordinates (16.5, 24.5)
+Moving to coordinates (19.5, 24.5)
+Moving to coordinates (22.5, 24.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (25.5, 24.5)
+Lifting the magnet!
+Moving to coordinates (25.5, 21.5)
+Lowering the magnet!
+Moving to coordinates (25.5, 24.5)
+Moving to coordinates (28.5, 27.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (25.5, 21.5)
+Lifting the magnet!
+Moving to coordinates (25.5, 24.5)
+Lowering the magnet!
+f6h7
+Lowering the magnet!
+Moving to coordinates (25.5, 24.5)
+Lifting the magnet!
+Moving to coordinates (28.5, 24.5)
+Moving to coordinates (31.5, 27.5)
+Lowering the magnet!
+r . . q . r k .
+p p p . b p p n
+. . . . . . . .
+. . . P . . . .
+. . . n . . b .
+. . N . . N . .
+P P . . . P P P
+R . B Q R . K .
+BestMove(bestmove=Move.from_uci('d1d4'), ponder=Move.from_uci('g4f3'))
+Qd1d4
+Hi is: d1d4
+Attempted black graveyard move
+Sending piece n at (3, 3) to graveyard (10,6)
+Moves:
+[d4k7, d1d4]
+d4k7
+Making way for [(3,3), (4,3), (5,3), (6,3), (7,3), (8,4), (9,5), (10,6)]
+returning piece...
+Coords: [(7,4)] 
+Spaces: [(6,3)]
+Still have pieces to return: False 
+Piece moved to [] from []
+Lowering the magnet!
+Moving to coordinates (19.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 18.5)
+Moving to coordinates (25.5, 18.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (28.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (31.5, 21.5)
+Lowering the magnet!
+Moving to coordinates (28.5, 18.5)
+Moving to coordinates (31.5, 18.5)
+Moving to coordinates (34.5, 21.5)
+Moving to coordinates (37.5, 24.5)
+Moving to coordinates (40.5, 27.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (31.5, 21.5)
+Lifting the magnet!
+Moving to coordinates (28.5, 18.5)
+Lowering the magnet!
+d1d4
+Lowering the magnet!
+Moving to coordinates (19.5, 9.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 12.5)
+Moving to coordinates (19.5, 15.5)
+Moving to coordinates (19.5, 18.5)
+Lowering the magnet!
+r . . q . r k .
+p p p . b p p n
+. . . . . . . .
+. . . P . . . .
+. . . Q . . b .
+. . N . . N . .
+P P . . . P P P
+R . B . R . K .
+BestMove(bestmove=Move.from_uci('g4f3'), ponder=Move.from_uci('g2f3'))
+Bg4f3
+Hi is: g4f3
+Attempted white graveyard move
+Sending piece N at (5, 2) to graveyard (-3,6)
+Moves:
+[f3^7, g4f3]
+f3^7
+Making way for [(5,2), (4,2), (3,2), (2,2), (1,2), (0,3), (-1,4), (-2,5), (-3,6)]
+returning piece...
+Coords: [(1,3)] 
+Spaces: [(2,2)]
+Still have pieces to return: False 
+Piece moved to [] from []
+Lowering the magnet!
+Moving to coordinates (25.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 15.5)
+Moving to coordinates (19.5, 15.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (16.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (13.5, 18.5)
+Lowering the magnet!
+Moving to coordinates (16.5, 15.5)
+Moving to coordinates (13.5, 15.5)
+Moving to coordinates (10.5, 18.5)
+Moving to coordinates (7.5, 21.5)
+Moving to coordinates (4.5, 24.5)
+Moving to coordinates (1.5, 27.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (13.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (16.5, 15.5)
+Lowering the magnet!
+g4f3
+Lowering the magnet!
+Moving to coordinates (28.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (25.5, 15.5)
+Lowering the magnet!
+r . . q . r k .
+p p p . b p p n
+. . . . . . . .
+. . . P . . . .
+. . . Q . . . .
+. . N . . b . .
+P P . . . P P P
+R . B . R . K .
+BestMove(bestmove=Move.from_uci('g2f3'), ponder=Move.from_uci('a7a6'))
+g2f3
+Hi is: g2f3
+Attempted black graveyard move
+Sending piece b at (5, 2) to graveyard (9,5)
+Moves:
+[f3j6, g2f3]
+f3j6
+Lowering the magnet!
+Moving to coordinates (25.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (28.5, 15.5)
+Moving to coordinates (31.5, 18.5)
+Moving to coordinates (34.5, 21.5)
+Moving to coordinates (37.5, 24.5)
+Lowering the magnet!
+g2f3
+Lowering the magnet!
+Moving to coordinates (28.5, 12.5)
+Lifting the magnet!
+Moving to coordinates (25.5, 15.5)
+Lowering the magnet!
+r . . q . r k .
+p p p . b p p n
+. . . . . . . .
+. . . P . . . .
+. . . Q . . . .
+. . N . . P . .
+P P . . . P . P
+R . B . R . K .
+BestMove(bestmove=Move.from_uci('e7f6'), ponder=Move.from_uci('d4c4'))
+Be7f6
+Hi is: e7f6
+Moves:
+[e7f6]
+e7f6
+Lowering the magnet!
+Moving to coordinates (22.5, 27.5)
+Lifting the magnet!
+Moving to coordinates (25.5, 24.5)
+Lowering the magnet!
+r . . q . r k .
+p p p . . p p n
+. . . . . b . .
+. . . P . . . .
+. . . Q . . . .
+. . N . . P . .
+P P . . . P . P
+R . B . R . K .
+BestMove(bestmove=Move.from_uci('d4c4'), ponder=Move.from_uci('f6c3'))
+Qd4c4
+Hi is: d4c4
+Moves:
+[d4c4]
+d4c4
+Lowering the magnet!
+Moving to coordinates (19.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (16.5, 18.5)
+Lowering the magnet!
+r . . q . r k .
+p p p . . p p n
+. . . . . b . .
+. . . P . . . .
+. . Q . . . . .
+. . N . . P . .
+P P . . . P . P
+R . B . R . K .
+BestMove(bestmove=Move.from_uci('f6c3'), ponder=Move.from_uci('b2c3'))
+Bf6c3
+Hi is: f6c3
+Attempted white graveyard move
+Sending piece N at (2, 2) to graveyard (-2,5)
+Moves:
+[c3_6, f6c3]
+c3_6
+Lowering the magnet!
+Moving to coordinates (16.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (13.5, 15.5)
+Moving to coordinates (10.5, 18.5)
+Moving to coordinates (7.5, 21.5)
+Moving to coordinates (4.5, 24.5)
+Lowering the magnet!
+f6c3
+Lowering the magnet!
+Moving to coordinates (25.5, 24.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 21.5)
+Moving to coordinates (19.5, 18.5)
+Moving to coordinates (16.5, 15.5)
+Lowering the magnet!
+r . . q . r k .
+p p p . . p p n
+. . . . . . . .
+. . . P . . . .
+. . Q . . . . .
+. . b . . P . .
+P P . . . P . P
+R . B . R . K .
+BestMove(bestmove=Move.from_uci('b2c3'), ponder=Move.from_uci('c7c6'))
+b2c3
+Hi is: b2c3
+Attempted black graveyard move
+Sending piece b at (2, 2) to graveyard (10,5)
+Moves:
+[c3k6, b2c3]
+c3k6
+Making way for [(2,2), (3,2), (4,2), (5,2), (6,2), (7,2), (8,3), (9,4), (10,5)]
+returning piece...
+Coords: [(6,3)] 
+Spaces: [(5,2)]
+Still have pieces to return: False 
+Piece moved to [] from []
+Lowering the magnet!
+Moving to coordinates (16.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 15.5)
+Moving to coordinates (22.5, 15.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (25.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (28.5, 18.5)
+Lowering the magnet!
+Moving to coordinates (25.5, 15.5)
+Moving to coordinates (28.5, 15.5)
+Moving to coordinates (31.5, 15.5)
+Moving to coordinates (34.5, 18.5)
+Moving to coordinates (37.5, 21.5)
+Moving to coordinates (40.5, 24.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (28.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (25.5, 15.5)
+Lowering the magnet!
+b2c3
+Lowering the magnet!
+Moving to coordinates (13.5, 12.5)
+Lifting the magnet!
+Moving to coordinates (16.5, 15.5)
+Lowering the magnet!
+r . . q . r k .
+p p p . . p p n
+. . . . . . . .
+. . . P . . . .
+. . Q . . . . .
+. . P . . P . .
+P . . . . P . P
+R . B . R . K .
+BestMove(bestmove=Move.from_uci('c7c6'), ponder=Move.from_uci('c1e3'))
+c7c6
+Hi is: c7c6
+Moves:
+[c7c6]
+c7c6
+Lowering the magnet!
+Moving to coordinates (16.5, 27.5)
+Lifting the magnet!
+Moving to coordinates (16.5, 24.5)
+Lowering the magnet!
+r . . q . r k .
+p p . . . p p n
+. . p . . . . .
+. . . P . . . .
+. . Q . . . . .
+. . P . . P . .
+P . . . . P . P
+R . B . R . K .
+BestMove(bestmove=Move.from_uci('c1e3'), ponder=Move.from_uci('d8d5'))
+Bc1e3
+Hi is: c1e3
+Moves:
+[c1e3]
+c1e3
+Lowering the magnet!
+Moving to coordinates (16.5, 9.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 12.5)
+Moving to coordinates (22.5, 15.5)
+Lowering the magnet!
+r . . q . r k .
+p p . . . p p n
+. . p . . . . .
+. . . P . . . .
+. . Q . . . . .
+. . P . B P . .
+P . . . . P . P
+R . . . R . K .
+BestMove(bestmove=Move.from_uci('d8d5'), ponder=Move.from_uci('c4d5'))
+Qd8d5
+Hi is: d8d5
+Attempted white graveyard move
+Sending piece  at (3, 4) to graveyard (-3,5)
+Moves:
+[d5^6, d8d5]
+d5^6
+Lowering the magnet!
+Moving to coordinates (19.5, 21.5)
+Lifting the magnet!
+Moving to coordinates (16.5, 21.5)
+Moving to coordinates (13.5, 21.5)
+Moving to coordinates (10.5, 21.5)
+Moving to coordinates (7.5, 21.5)
+Moving to coordinates (4.5, 21.5)
+Moving to coordinates (1.5, 24.5)
+Lowering the magnet!
+d8d5
+Lowering the magnet!
+Moving to coordinates (19.5, 30.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 27.5)
+Moving to coordinates (19.5, 24.5)
+Moving to coordinates (19.5, 21.5)
+Lowering the magnet!
+r . . . . r k .
+p p . . . p p n
+. . p . . . . .
+. . . q . . . .
+. . Q . . . . .
+. . P . B P . .
+P . . . . P . P
+R . . . R . K .
+BestMove(bestmove=Move.from_uci('c4d5'), ponder=Move.from_uci('c6d5'))
+Qc4d5
+Hi is: c4d5
+Attempted black graveyard move
+Sending piece q at (3, 4) to graveyard (9,4)
+Moves:
+[d5j5, c4d5]
+d5j5
+Lowering the magnet!
+Moving to coordinates (19.5, 21.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 21.5)
+Moving to coordinates (25.5, 21.5)
+Moving to coordinates (28.5, 21.5)
+Moving to coordinates (31.5, 21.5)
+Moving to coordinates (34.5, 21.5)
+Moving to coordinates (37.5, 21.5)
+Lowering the magnet!
+c4d5
+Lowering the magnet!
+Moving to coordinates (16.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 21.5)
+Lowering the magnet!
+r . . . . r k .
+p p . . . p p n
+. . p . . . . .
+. . . Q . . . .
+. . . . . . . .
+. . P . B P . .
+P . . . . P . P
+R . . . R . K .
+BestMove(bestmove=Move.from_uci('c6d5'), ponder=Move.from_uci('e1b1'))
+c6d5
+Hi is: c6d5
+Attempted white graveyard move
+Sending piece Q at (3, 4) to graveyard (-2,4)
+Moves:
+[d5_5, c6d5]
+d5_5
+Lowering the magnet!
+Moving to coordinates (19.5, 21.5)
+Lifting the magnet!
+Moving to coordinates (16.5, 21.5)
+Moving to coordinates (13.5, 21.5)
+Moving to coordinates (10.5, 21.5)
+Moving to coordinates (7.5, 21.5)
+Moving to coordinates (4.5, 21.5)
+Lowering the magnet!
+c6d5
+Lowering the magnet!
+Moving to coordinates (16.5, 24.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 21.5)
+Lowering the magnet!
+r . . . . r k .
+p p . . . p p n
+. . . . . . . .
+. . . p . . . .
+. . . . . . . .
+. . P . B P . .
+P . . . . P . P
+R . . . R . K .
+BestMove(bestmove=Move.from_uci('e1b1'), ponder=Move.from_uci('b7b6'))
+Re1b1
+Hi is: e1b1
+Moves:
+[e1b1]
+e1b1
+Lowering the magnet!
+Moving to coordinates (22.5, 9.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 9.5)
+Moving to coordinates (16.5, 9.5)
+Moving to coordinates (13.5, 9.5)
+Lowering the magnet!
+r . . . . r k .
+p p . . . p p n
+. . . . . . . .
+. . . p . . . .
+. . . . . . . .
+. . P . B P . .
+P . . . . P . P
+R R . . . . K .
+BestMove(bestmove=Move.from_uci('b7b6'), ponder=Move.from_uci('a2a4'))
+b7b6
+Hi is: b7b6
+Moves:
+[b7b6]
+b7b6
+Lowering the magnet!
+Moving to coordinates (13.5, 27.5)
+Lifting the magnet!
+Moving to coordinates (13.5, 24.5)
+Lowering the magnet!
+r . . . . r k .
+p . . . . p p n
+. p . . . . . .
+. . . p . . . .
+. . . . . . . .
+. . P . B P . .
+P . . . . P . P
+R R . . . . K .
+BestMove(bestmove=Move.from_uci('a2a4'), ponder=Move.from_uci('a8c8'))
+a2a4
+Hi is: a2a4
+Moves:
+[a2a4]
+a2a4
+Lowering the magnet!
+Moving to coordinates (10.5, 12.5)
+Lifting the magnet!
+Moving to coordinates (10.5, 15.5)
+Moving to coordinates (10.5, 18.5)
+Lowering the magnet!
+r . . . . r k .
+p . . . . p p n
+. p . . . . . .
+. . . p . . . .
+P . . . . . . .
+. . P . B P . .
+. . . . . P . P
+R R . . . . K .
+BestMove(bestmove=Move.from_uci('a8c8'), ponder=Move.from_uci('a1a3'))
+Ra8c8
+Hi is: a8c8
+Moves:
+[a8c8]
+a8c8
+Lowering the magnet!
+Moving to coordinates (10.5, 30.5)
+Lifting the magnet!
+Moving to coordinates (13.5, 30.5)
+Moving to coordinates (16.5, 30.5)
+Lowering the magnet!
+. . r . . r k .
+p . . . . p p n
+. p . . . . . .
+. . . p . . . .
+P . . . . . . .
+. . P . B P . .
+. . . . . P . P
+R R . . . . K .
+BestMove(bestmove=Move.from_uci('a1a3'), ponder=Move.from_uci('f8d8'))
+Ra1a3
+Hi is: a1a3
+Moves:
+[a1a3]
+a1a3
+Lowering the magnet!
+Moving to coordinates (10.5, 9.5)
+Lifting the magnet!
+Moving to coordinates (10.5, 12.5)
+Moving to coordinates (10.5, 15.5)
+Lowering the magnet!
+. . r . . r k .
+p . . . . p p n
+. p . . . . . .
+. . . p . . . .
+P . . . . . . .
+R . P . B P . .
+. . . . . P . P
+. R . . . . K .
+BestMove(bestmove=Move.from_uci('f8e8'), ponder=Move.from_uci('a4a5'))
+Rf8e8
+Hi is: f8e8
+Moves:
+[f8e8]
+f8e8
+(5,7) is not an occupied space
+. . r . r . k .
+p . . . . p p n
+. p . . . . . .
+. . . p . . . .
+P . . . . . . .
+R . P . B P . .
+. . . . . P . P
+. R . . . . K .
+BestMove(bestmove=Move.from_uci('a4a5'), ponder=Move.from_uci('h7f8'))
+a4a5
+Hi is: a4a5
+Moves:
+[a4a5]
+a4a5
+Lowering the magnet!
+Moving to coordinates (10.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (10.5, 21.5)
+Lowering the magnet!
+. . r . r . k .
+p . . . . p p n
+. p . . . . . .
+P . . p . . . .
+. . . . . . . .
+R . P . B P . .
+. . . . . P . P
+. R . . . . K .
+BestMove(bestmove=Move.from_uci('h7f8'), ponder=Move.from_uci('a5b6'))
+Nh7f8
+Hi is: h7f8
+Moves:
+[h7f8]
+h7f8
+Making way for [(7,6), (6,6), (5,7)]
+returning piece...
+Coords: [(7,5)] 
+Spaces: [(6,6)]
+Still have pieces to return: False 
+Piece moved to [] from []
+Lowering the magnet!
+Moving to coordinates (31.5, 27.5)
+Lifting the magnet!
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (28.5, 27.5)
+Lifting the magnet!
+Moving to coordinates (31.5, 24.5)
+Lowering the magnet!
+Moving to coordinates (28.5, 27.5)
+Moving to coordinates (25.5, 30.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (31.5, 24.5)
+Lifting the magnet!
+Moving to coordinates (28.5, 27.5)
+Lowering the magnet!
+. . r . r n k .
+p . . . . p p .
+. p . . . . . .
+P . . p . . . .
+. . . . . . . .
+R . P . B P . .
+. . . . . P . P
+. R . . . . K .
+BestMove(bestmove=Move.from_uci('a5b6'), ponder=Move.from_uci('a7b6'))
+a5b6
+Hi is: a5b6
+Attempted black graveyard move
+Sending piece  at (1, 5) to graveyard (10,4)
+Moves:
+[b6k5, a5b6]
+b6k5
+Making way for [(1,5), (2,5), (3,5), (4,5), (5,5), (6,5), (7,5), (8,5), (9,5), (10,4)]
+returning piece...
+Coords: [(8,6)] 
+Spaces: [(9,5)]
+Still have pieces to return: False 
+Piece moved to [] from []
+Lowering the magnet!
+Moving to coordinates (13.5, 24.5)
+Lifting the magnet!
+Moving to coordinates (16.5, 24.5)
+Moving to coordinates (19.5, 24.5)
+Moving to coordinates (22.5, 24.5)
+Moving to coordinates (25.5, 24.5)
+Moving to coordinates (28.5, 24.5)
+Moving to coordinates (31.5, 24.5)
+Moving to coordinates (34.5, 24.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (37.5, 24.5)
+Lifting the magnet!
+Moving to coordinates (34.5, 27.5)
+Lowering the magnet!
+Moving to coordinates (37.5, 24.5)
+Moving to coordinates (40.5, 21.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (34.5, 27.5)
+Lifting the magnet!
+Moving to coordinates (37.5, 24.5)
+Lowering the magnet!
+a5b6
+Lowering the magnet!
+Moving to coordinates (10.5, 21.5)
+Lifting the magnet!
+Moving to coordinates (13.5, 24.5)
+Lowering the magnet!
+. . r . r n k .
+p . . . . p p .
+. P . . . . . .
+. . . p . . . .
+. . . . . . . .
+R . P . B P . .
+. . . . . P . P
+. R . . . . K .
+BestMove(bestmove=Move.from_uci('a7b6'), ponder=Move.from_uci('b1b6'))
+a7b6
+Hi is: a7b6
+Attempted white graveyard move
+Sending piece  at (1, 5) to graveyard (-3,4)
+Moves:
+[b6^5, a7b6]
+b6^5
+Making way for [(1,5), (0,5), (-1,5), (-2,5), (-3,4)]
+returning piece...
+Coords: [(-1,4)] 
+Spaces: [(-2,5)]
+Still have pieces to return: False 
+Piece moved to [] from []
+Lowering the magnet!
+Moving to coordinates (13.5, 24.5)
+Lifting the magnet!
+Moving to coordinates (10.5, 24.5)
+Moving to coordinates (7.5, 24.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (4.5, 24.5)
+Lifting the magnet!
+Moving to coordinates (7.5, 21.5)
+Lowering the magnet!
+Moving to coordinates (4.5, 24.5)
+Moving to coordinates (1.5, 21.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (7.5, 21.5)
+Lifting the magnet!
+Moving to coordinates (4.5, 24.5)
+Lowering the magnet!
+a7b6
+Lowering the magnet!
+Moving to coordinates (10.5, 27.5)
+Lifting the magnet!
+Moving to coordinates (13.5, 24.5)
+Lowering the magnet!
+. . r . r n k .
+. . . . . p p .
+. p . . . . . .
+. . . p . . . .
+. . . . . . . .
+R . P . B P . .
+. . . . . P . P
+. R . . . . K .
+BestMove(bestmove=Move.from_uci('b1b5'), ponder=Move.from_uci('f8g6'))
+Rb1b5
+Hi is: b1b5
+Moves:
+[b1b5]
+b1b5
+Lowering the magnet!
+Moving to coordinates (13.5, 9.5)
+Lifting the magnet!
+Moving to coordinates (13.5, 12.5)
+Moving to coordinates (13.5, 15.5)
+Moving to coordinates (13.5, 18.5)
+Moving to coordinates (13.5, 21.5)
+Lowering the magnet!
+. . r . r n k .
+. . . . . p p .
+. p . . . . . .
+. R . p . . . .
+. . . . . . . .
+R . P . B P . .
+. . . . . P . P
+. . . . . . K .
+BestMove(bestmove=Move.from_uci('f8g6'), ponder=Move.from_uci('b5d5'))
+Nf8g6
+Hi is: f8g6
+Moves:
+[f8g6]
+f8g6
+Making way for [(5,7), (5,6), (6,5)]
+returning piece...
+Coords: [(4,7)] 
+Spaces: [(5,6)]
+Still have pieces to return: False 
+Piece moved to [] from []
+Lowering the magnet!
+Moving to coordinates (25.5, 30.5)
+Lifting the magnet!
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (25.5, 27.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 30.5)
+Lowering the magnet!
+Moving to coordinates (25.5, 27.5)
+Moving to coordinates (28.5, 24.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (22.5, 30.5)
+Lifting the magnet!
+Moving to coordinates (25.5, 27.5)
+Lowering the magnet!
+. . r . r . k .
+. . . . . p p .
+. p . . . . n .
+. R . p . . . .
+. . . . . . . .
+R . P . B P . .
+. . . . . P . P
+. . . . . . K .
+BestMove(bestmove=Move.from_uci('b5d5'), ponder=Move.from_uci('g6e5'))
+Rb5d5
+Hi is: b5d5
+Attempted black graveyard move
+Sending piece  at (3, 4) to graveyard (9,3)
+Moves:
+[d5j4, b5d5]
+d5j4
+Lowering the magnet!
+Moving to coordinates (19.5, 21.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 21.5)
+Moving to coordinates (25.5, 21.5)
+Moving to coordinates (28.5, 21.5)
+Moving to coordinates (31.5, 21.5)
+Moving to coordinates (34.5, 21.5)
+Moving to coordinates (37.5, 18.5)
+Lowering the magnet!
+b5d5
+Lowering the magnet!
+Moving to coordinates (13.5, 21.5)
+Lifting the magnet!
+Moving to coordinates (16.5, 21.5)
+Moving to coordinates (19.5, 21.5)
+Lowering the magnet!
+. . r . r . k .
+. . . . . p p .
+. p . . . . n .
+. . . R . . . .
+. . . . . . . .
+R . P . B P . .
+. . . . . P . P
+. . . . . . K .
+BestMove(bestmove=Move.from_uci('g6e5'), ponder=Move.from_uci('a3a7'))
+Ng6e5
+Hi is: g6e5
+Moves:
+[g6e5]
+g6e5
+Lowering the magnet!
+Moving to coordinates (28.5, 24.5)
+Lifting the magnet!
+Moving to coordinates (25.5, 24.5)
+Moving to coordinates (22.5, 21.5)
+Lowering the magnet!
+. . r . r . k .
+. . . . . p p .
+. p . . . . . .
+. . . R n . . .
+. . . . . . . .
+R . P . B P . .
+. . . . . P . P
+. . . . . . K .
+BestMove(bestmove=Move.from_uci('a3a7'), ponder=Move.from_uci('e5f3'))
+Ra3a7
+Hi is: a3a7
+Moves:
+[a3a7]
+a3a7
+Lowering the magnet!
+Moving to coordinates (10.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (10.5, 18.5)
+Moving to coordinates (10.5, 21.5)
+Moving to coordinates (10.5, 24.5)
+Moving to coordinates (10.5, 27.5)
+Lowering the magnet!
+. . r . r . k .
+R . . . . p p .
+. p . . . . . .
+. . . R n . . .
+. . . . . . . .
+. . P . B P . .
+. . . . . P . P
+. . . . . . K .
+BestMove(bestmove=Move.from_uci('e5f3'), ponder=Move.from_uci('g1g2'))
+Ne5f3
+Hi is: e5f3
+Attempted white graveyard move
+Sending piece  at (5, 2) to graveyard (-2,3)
+Moves:
+[f3_4, e5f3]
+f3_4
+Making way for [(5,2), (4,2), (3,2), (2,2), (1,2), (0,2), (-1,2), (-2,3)]
+Making way for [(5,2), (4,2), (3,2), (2,2), (1,2), (0,2), (-1,2), (-2,3)]
+returning piece...
+Coords: [(3,3)] 
+Spaces: [(4,2), (2,2)]
+Still have pieces to return: False 
+Piece moved to [] from [(4,2)]
+returning piece...
+Coords: [(1,3)] 
+Spaces: [(4,2)]
+Still have pieces to return: False 
+Piece moved to [] from []
+Lowering the magnet!
+Moving to coordinates (25.5, 15.5)
+Lifting the magnet!
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (22.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 18.5)
+Lowering the magnet!
+Moving to coordinates (22.5, 15.5)
+Moving to coordinates (19.5, 15.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (16.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (13.5, 18.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (19.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (16.5, 15.5)
+Lowering the magnet!
+Moving to coordinates (16.5, 15.5)
+Moving to coordinates (13.5, 15.5)
+Moving to coordinates (10.5, 15.5)
+Moving to coordinates (7.5, 15.5)
+Moving to coordinates (4.5, 18.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (13.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (16.5, 18.5)
+Moving to coordinates (19.5, 18.5)
+Moving to coordinates (22.5, 15.5)
+Lowering the magnet!
+e5f3
+Lowering the magnet!
+Moving to coordinates (22.5, 21.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 18.5)
+Moving to coordinates (25.5, 15.5)
+Lowering the magnet!
+. . r . r . k .
+R . . . . p p .
+. p . . . . . .
+. . . R . . . .
+. . . . . . . .
+. . P . B n . .
+. . . . . P . P
+. . . . . . K .
+BestMove(bestmove=Move.from_uci('g1g2'), ponder=Move.from_uci('f3e1'))
+Kg1g2
+Hi is: g1g2
+Moves:
+[g1g2]
+g1g2
+Lowering the magnet!
+Moving to coordinates (28.5, 9.5)
+Lifting the magnet!
+Moving to coordinates (28.5, 12.5)
+Lowering the magnet!
+. . r . r . k .
+R . . . . p p .
+. p . . . . . .
+. . . R . . . .
+. . . . . . . .
+. . P . B n . .
+. . . . . P K P
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('f3e1'), ponder=Move.from_uci('g2f1'))
+Nf3e1
+Hi is: f3e1
+Moves:
+[f3e1]
+f3e1
+Making way for [(5,2), (5,1), (4,0)]
+returning piece...
+Coords: [(6,2)] 
+Spaces: [(5,1)]
+Still have pieces to return: False 
+Piece moved to [] from []
+Lowering the magnet!
+Moving to coordinates (25.5, 15.5)
+Lifting the magnet!
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (25.5, 12.5)
+Lifting the magnet!
+Moving to coordinates (28.5, 15.5)
+Lowering the magnet!
+Moving to coordinates (25.5, 12.5)
+Moving to coordinates (22.5, 9.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (28.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (25.5, 12.5)
+Lowering the magnet!
+. . r . r . k .
+R . . . . p p .
+. p . . . . . .
+. . . R . . . .
+. . . . . . . .
+. . P . B . . .
+. . . . . P K P
+. . . . n . . .
+BestMove(bestmove=Move.from_uci('g2f1'), ponder=Move.from_uci('e1f3'))
+Kg2f1
+Hi is: g2f1
+Moves:
+[g2f1]
+g2f1
+Lowering the magnet!
+Moving to coordinates (28.5, 12.5)
+Lifting the magnet!
+Moving to coordinates (25.5, 9.5)
+Lowering the magnet!
+. . r . r . k .
+R . . . . p p .
+. p . . . . . .
+. . . R . . . .
+. . . . . . . .
+. . P . B . . .
+. . . . . P . P
+. . . . n K . .
+BestMove(bestmove=Move.from_uci('e1f3'), ponder=Move.from_uci('d5d7'))
+Ne1f3
+Hi is: e1f3
+Moves:
+[e1f3]
+e1f3
+Lowering the magnet!
+Moving to coordinates (22.5, 9.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 12.5)
+Moving to coordinates (25.5, 15.5)
+Lowering the magnet!
+. . r . r . k .
+R . . . . p p .
+. p . . . . . .
+. . . R . . . .
+. . . . . . . .
+. . P . B n . .
+. . . . . P . P
+. . . . . K . .
+BestMove(bestmove=Move.from_uci('d5d7'), ponder=Move.from_uci('f3h2'))
+Rd5d7
+Hi is: d5d7
+Moves:
+[d5d7]
+d5d7
+Lowering the magnet!
+Moving to coordinates (19.5, 21.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 24.5)
+Moving to coordinates (19.5, 27.5)
+Lowering the magnet!
+. . r . r . k .
+R . . R . p p .
+. p . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . P . B n . .
+. . . . . P . P
+. . . . . K . .
+BestMove(bestmove=Move.from_uci('f3h2'), ponder=Move.from_uci('f1e2'))
+Nf3h2
+Hi is: f3h2
+Attempted white graveyard move
+Sending piece  at (7, 1) to graveyard (-3,3)
+Moves:
+[h2^4, f3h2]
+h2^4
+Making way for [(7,1), (6,1), (5,1), (4,1), (3,1), (2,1), (1,1), (0,1), (-1,1), (-2,2), (-3,3)]
+returning piece...
+Coords: [(6,2)] 
+Spaces: [(5,1)]
+Still have pieces to return: False 
+Piece moved to [] from []
+Lowering the magnet!
+Moving to coordinates (31.5, 12.5)
+Lifting the magnet!
+Moving to coordinates (28.5, 12.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (25.5, 12.5)
+Lifting the magnet!
+Moving to coordinates (28.5, 15.5)
+Lowering the magnet!
+Moving to coordinates (25.5, 12.5)
+Moving to coordinates (22.5, 12.5)
+Moving to coordinates (19.5, 12.5)
+Moving to coordinates (16.5, 12.5)
+Moving to coordinates (13.5, 12.5)
+Moving to coordinates (10.5, 12.5)
+Moving to coordinates (7.5, 12.5)
+Moving to coordinates (4.5, 15.5)
+Moving to coordinates (1.5, 18.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (28.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (25.5, 12.5)
+Lowering the magnet!
+f3h2
+Lowering the magnet!
+Moving to coordinates (25.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (28.5, 15.5)
+Moving to coordinates (31.5, 12.5)
+Lowering the magnet!
+. . r . r . k .
+R . . R . p p .
+. p . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . P . B . . .
+. . . . . P . n
+. . . . . K . .
+BestMove(bestmove=Move.from_uci('f1e2'), ponder=Move.from_uci('e8f8'))
+Kf1e2
+Hi is: f1e2
+Moves:
+[f1e2]
+f1e2
+Lowering the magnet!
+Moving to coordinates (25.5, 9.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 12.5)
+Lowering the magnet!
+. . r . r . k .
+R . . R . p p .
+. p . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . P . B . . .
+. . . . K P . n
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('e8f8'), ponder=Move.from_uci('d7c7'))
+Re8f8
+Hi is: e8f8
+Moves:
+[e8f8]
+e8f8
+(4,7) is not an occupied space
+. . r . . r k .
+R . . R . p p .
+. p . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . P . B . . .
+. . . . K P . n
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('a7a4'), ponder=Move.from_uci('c8a8'))
+Ra7a4
+Hi is: a7a4
+Moves:
+[a7a4]
+a7a4
+Lowering the magnet!
+Moving to coordinates (10.5, 27.5)
+Lifting the magnet!
+Moving to coordinates (10.5, 24.5)
+Moving to coordinates (10.5, 21.5)
+Moving to coordinates (10.5, 18.5)
+Lowering the magnet!
+. . r . . r k .
+. . . R . p p .
+. p . . . . . .
+. . . . . . . .
+R . . . . . . .
+. . P . B . . .
+. . . . K P . n
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('c8a8'), ponder=Move.from_uci('a4a8'))
+Rc8a8
+Hi is: c8a8
+Moves:
+[c8a8]
+c8a8
+Lowering the magnet!
+Moving to coordinates (16.5, 30.5)
+Lifting the magnet!
+Moving to coordinates (13.5, 30.5)
+Moving to coordinates (10.5, 30.5)
+Lowering the magnet!
+r . . . . r k .
+. . . R . p p .
+. p . . . . . .
+. . . . . . . .
+R . . . . . . .
+. . P . B . . .
+. . . . K P . n
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('a4a8'), ponder=Move.from_uci('f8a8'))
+Ra4a8
+Hi is: a4a8
+Attempted black graveyard move
+Sending piece r at (0, 7) to graveyard (10,3)
+Moves:
+[a8k4, a4a8]
+a8k4
+Making way for [(0,7), (1,7), (2,7), (3,7), (4,7), (5,7), (6,7), (7,6), (8,5), (9,4), (10,3)]
+Making way for [(0,7), (1,7), (2,7), (3,7), (4,7), (5,7), (6,7), (7,6), (8,5), (9,4), (10,3)]
+returning piece...
+Coords: [(7,7)] 
+Spaces: [(6,7), (9,4)]
+Still have pieces to return: False 
+Piece moved to [] from [(6,7)]
+returning piece...
+Coords: [(8,3)] 
+Spaces: [(6,7)]
+Still have pieces to return: False 
+Piece moved to [] from []
+Lowering the magnet!
+Moving to coordinates (10.5, 30.5)
+Lifting the magnet!
+Moving to coordinates (13.5, 30.5)
+Moving to coordinates (16.5, 30.5)
+Moving to coordinates (19.5, 30.5)
+Moving to coordinates (22.5, 30.5)
+Moving to coordinates (25.5, 30.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (28.5, 30.5)
+Lifting the magnet!
+Moving to coordinates (31.5, 30.5)
+Lowering the magnet!
+Moving to coordinates (28.5, 30.5)
+Moving to coordinates (31.5, 27.5)
+Moving to coordinates (34.5, 24.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (37.5, 21.5)
+Lifting the magnet!
+Moving to coordinates (34.5, 18.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (31.5, 30.5)
+Lifting the magnet!
+Moving to coordinates (31.5, 27.5)
+Moving to coordinates (34.5, 24.5)
+Moving to coordinates (37.5, 21.5)
+Lowering the magnet!
+Moving to coordinates (37.5, 21.5)
+Moving to coordinates (40.5, 18.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (34.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (34.5, 21.5)
+Moving to coordinates (34.5, 24.5)
+Moving to coordinates (31.5, 27.5)
+Moving to coordinates (28.5, 30.5)
+Lowering the magnet!
+a4a8
+Lowering the magnet!
+Moving to coordinates (10.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (10.5, 21.5)
+Moving to coordinates (10.5, 24.5)
+Moving to coordinates (10.5, 27.5)
+Moving to coordinates (10.5, 30.5)
+Lowering the magnet!
+R . . . . r k .
+. . . R . p p .
+. p . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . P . B . . .
+. . . . K P . n
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('f8a8'), ponder=Move.from_uci('f2f3'))
+Rf8a8
+Hi is: f8a8
+Attempted white graveyard move
+Sending piece R at (0, 7) to graveyard (-2,2)
+Moves:
+[a8_3, f8a8]
+a8_3
+Lowering the magnet!
+Moving to coordinates (10.5, 30.5)
+Lifting the magnet!
+Moving to coordinates (10.5, 27.5)
+Moving to coordinates (10.5, 24.5)
+Moving to coordinates (10.5, 21.5)
+Moving to coordinates (7.5, 18.5)
+Moving to coordinates (4.5, 15.5)
+Lowering the magnet!
+f8a8
+(5,7) is not an occupied space
+r . . . . . k .
+. . . R . p p .
+. p . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . P . B . . .
+. . . . K P . n
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('f2f3'), ponder=Move.from_uci('a8a3'))
+f2f3
+Hi is: f2f3
+Moves:
+[f2f3]
+f2f3
+Lowering the magnet!
+Moving to coordinates (25.5, 12.5)
+Lifting the magnet!
+Moving to coordinates (25.5, 15.5)
+Lowering the magnet!
+r . . . . . k .
+. . . R . p p .
+. p . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . P . B P . .
+. . . . K . . n
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('a8a3'), ponder=Move.from_uci('e3f4'))
+Ra8a3
+Hi is: a8a3
+Moves:
+[a8a3]
+a8a3
+(0,7) is not an occupied space
+. . . . . . k .
+. . . R . p p .
+. p . . . . . .
+. . . . . . . .
+. . . . . . . .
+r . P . B P . .
+. . . . K . . n
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('e3f4'), ponder=Move.from_uci('h2f3'))
+Be3f4
+Hi is: e3f4
+Moves:
+[e3f4]
+e3f4
+Lowering the magnet!
+Moving to coordinates (22.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (25.5, 18.5)
+Lowering the magnet!
+. . . . . . k .
+. . . R . p p .
+. p . . . . . .
+. . . . . . . .
+. . . . . B . .
+r . P . . P . .
+. . . . K . . n
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('h2f3'), ponder=Move.from_uci('e2f3'))
+Nh2f3
+Hi is: h2f3
+Attempted white graveyard move
+Sending piece  at (5, 2) to graveyard (-3,2)
+Moves:
+[f3^3, h2f3]
+f3^3
+Making way for [(5,2), (4,2), (3,2), (2,2), (1,2), (0,2), (-1,2), (-2,2), (-3,2)]
+Making way for [(5,2), (4,2), (3,2), (2,2), (1,2), (0,2), (-1,2), (-2,2), (-3,2)]
+returning piece...
+Coords: [(1,3)] 
+Spaces: [(2,2), (-2,2)]
+Still have pieces to return: False 
+Piece moved to [] from [(2,2)]
+returning piece...
+Coords: [(-3,1)] 
+Spaces: [(2,2)]
+Still have pieces to return: False 
+Piece moved to [] from []
+Lowering the magnet!
+Moving to coordinates (25.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 15.5)
+Moving to coordinates (19.5, 15.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (16.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (13.5, 18.5)
+Lowering the magnet!
+Moving to coordinates (16.5, 15.5)
+Moving to coordinates (13.5, 15.5)
+Moving to coordinates (10.5, 15.5)
+Moving to coordinates (7.5, 15.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (4.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (1.5, 12.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (13.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (10.5, 18.5)
+Moving to coordinates (7.5, 18.5)
+Moving to coordinates (4.5, 15.5)
+Lowering the magnet!
+Moving to coordinates (4.5, 15.5)
+Moving to coordinates (1.5, 15.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (1.5, 12.5)
+Lifting the magnet!
+Moving to coordinates (4.5, 12.5)
+Moving to coordinates (7.5, 12.5)
+Moving to coordinates (10.5, 12.5)
+Moving to coordinates (13.5, 12.5)
+Moving to coordinates (16.5, 15.5)
+Lowering the magnet!
+h2f3
+Lowering the magnet!
+Moving to coordinates (31.5, 12.5)
+Lifting the magnet!
+Moving to coordinates (28.5, 12.5)
+Moving to coordinates (25.5, 15.5)
+Lowering the magnet!
+. . . . . . k .
+. . . R . p p .
+. p . . . . . .
+. . . . . . . .
+. . . . . B . .
+r . P . . n . .
+. . . . K . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('e2f3'), ponder=Move.from_uci('a3c3'))
+Ke2f3
+Hi is: e2f3
+Attempted black graveyard move
+Sending piece n at (5, 2) to graveyard (9,2)
+Moves:
+[f3j3, e2f3]
+f3j3
+Lowering the magnet!
+Moving to coordinates (25.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (28.5, 15.5)
+Moving to coordinates (31.5, 15.5)
+Moving to coordinates (34.5, 15.5)
+Moving to coordinates (37.5, 15.5)
+Lowering the magnet!
+e2f3
+Lowering the magnet!
+Moving to coordinates (22.5, 12.5)
+Lifting the magnet!
+Moving to coordinates (25.5, 15.5)
+Lowering the magnet!
+. . . . . . k .
+. . . R . p p .
+. p . . . . . .
+. . . . . . . .
+. . . . . B . .
+r . P . . K . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('a3c3'), ponder=Move.from_uci('f4e3'))
+Ra3c3
+Hi is: a3c3
+Attempted white graveyard move
+Sending piece  at (2, 2) to graveyard (-2,1)
+Moves:
+[c3_2, a3c3]
+c3_2
+Lowering the magnet!
+Moving to coordinates (16.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (13.5, 15.5)
+Moving to coordinates (10.5, 15.5)
+Moving to coordinates (7.5, 15.5)
+Moving to coordinates (4.5, 12.5)
+Lowering the magnet!
+a3c3
+(0,2) is not an occupied space
+. . . . . . k .
+. . . R . p p .
+. p . . . . . .
+. . . . . . . .
+. . . . . B . .
+. . r . . K . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('f4e3'), ponder=Move.from_uci('c3b3'))
+Bf4e3
+Hi is: f4e3
+Moves:
+[f4e3]
+f4e3
+Lowering the magnet!
+Moving to coordinates (25.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 15.5)
+Lowering the magnet!
+. . . . . . k .
+. . . R . p p .
+. p . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . r . B K . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('c3b3'), ponder=Move.from_uci('f3e4'))
+Rc3b3
+Hi is: c3b3
+Moves:
+[c3b3]
+c3b3
+(2,2) is not an occupied space
+. . . . . . k .
+. . . R . p p .
+. p . . . . . .
+. . . . . . . .
+. . . . . . . .
+. r . . B K . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('f3e4'), ponder=Move.from_uci('b3b4'))
+Kf3e4
+Hi is: f3e4
+Moves:
+[f3e4]
+f3e4
+Lowering the magnet!
+Moving to coordinates (25.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 18.5)
+Lowering the magnet!
+. . . . . . k .
+. . . R . p p .
+. p . . . . . .
+. . . . . . . .
+. . . . K . . .
+. r . . B . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('f7f6'), ponder=Move.from_uci('d7b7'))
+f7f6
+Hi is: f7f6
+Moves:
+[f7f6]
+f7f6
+Lowering the magnet!
+Moving to coordinates (25.5, 27.5)
+Lifting the magnet!
+Moving to coordinates (25.5, 24.5)
+Lowering the magnet!
+. . . . . . k .
+. . . R . . p .
+. p . . . p . .
+. . . . . . . .
+. . . . K . . .
+. r . . B . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('d7b7'), ponder=Move.from_uci('b3b1'))
+Rd7b7
+Hi is: d7b7
+Moves:
+[d7b7]
+d7b7
+Lowering the magnet!
+Moving to coordinates (19.5, 27.5)
+Lifting the magnet!
+Moving to coordinates (16.5, 27.5)
+Moving to coordinates (13.5, 27.5)
+Lowering the magnet!
+. . . . . . k .
+. R . . . . p .
+. p . . . p . .
+. . . . . . . .
+. . . . K . . .
+. r . . B . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('b3b1'), ponder=Move.from_uci('e4d5'))
+Rb3b1
+Hi is: b3b1
+Moves:
+[b3b1]
+b3b1
+(1,2) is not an occupied space
+. . . . . . k .
+. R . . . . p .
+. p . . . p . .
+. . . . . . . .
+. . . . K . . .
+. . . . B . . .
+. . . . . . . .
+. r . . . . . .
+BestMove(bestmove=Move.from_uci('e4d5'), ponder=Move.from_uci('b6b5'))
+Ke4d5
+Hi is: e4d5
+Moves:
+[e4d5]
+e4d5
+Lowering the magnet!
+Moving to coordinates (22.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 21.5)
+Lowering the magnet!
+. . . . . . k .
+. R . . . . p .
+. p . . . p . .
+. . . K . . . .
+. . . . . . . .
+. . . . B . . .
+. . . . . . . .
+. r . . . . . .
+BestMove(bestmove=Move.from_uci('b6b5'), ponder=Move.from_uci('d5e4'))
+b6b5
+Hi is: b6b5
+Moves:
+[b6b5]
+b6b5
+Lowering the magnet!
+Moving to coordinates (13.5, 24.5)
+Lifting the magnet!
+Moving to coordinates (13.5, 21.5)
+Lowering the magnet!
+. . . . . . k .
+. R . . . . p .
+. . . . . p . .
+. p . K . . . .
+. . . . . . . .
+. . . . B . . .
+. . . . . . . .
+. r . . . . . .
+BestMove(bestmove=Move.from_uci('d5e4'), ponder=Move.from_uci('b1b4'))
+Kd5e4
+Hi is: d5e4
+Moves:
+[d5e4]
+d5e4
+Lowering the magnet!
+Moving to coordinates (19.5, 21.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 18.5)
+Lowering the magnet!
+. . . . . . k .
+. R . . . . p .
+. . . . . p . .
+. p . . . . . .
+. . . . K . . .
+. . . . B . . .
+. . . . . . . .
+. r . . . . . .
+BestMove(bestmove=Move.from_uci('g8h7'), ponder=Move.from_uci('e4d3'))
+Kg8h7
+Hi is: g8h7
+Moves:
+[g8h7]
+g8h7
+Lowering the magnet!
+Moving to coordinates (28.5, 30.5)
+Lifting the magnet!
+Moving to coordinates (31.5, 27.5)
+Lowering the magnet!
+. . . . . . . .
+. R . . . . p k
+. . . . . p . .
+. p . . . . . .
+. . . . K . . .
+. . . . B . . .
+. . . . . . . .
+. r . . . . . .
+BestMove(bestmove=Move.from_uci('e3c5'), ponder=Move.from_uci('b1e1'))
+Be3c5
+Hi is: e3c5
+Moves:
+[e3c5]
+e3c5
+Lowering the magnet!
+Moving to coordinates (22.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 18.5)
+Moving to coordinates (16.5, 21.5)
+Lowering the magnet!
+. . . . . . . .
+. R . . . . p k
+. . . . . p . .
+. p B . . . . .
+. . . . K . . .
+. . . . . . . .
+. . . . . . . .
+. r . . . . . .
+BestMove(bestmove=Move.from_uci('b1e1'), ponder=Move.from_uci('e4d5'))
+Rb1e1
+Hi is: b1e1
+Moves:
+[b1e1]
+b1e1
+(1,0) is not an occupied space
+. . . . . . . .
+. R . . . . p k
+. . . . . p . .
+. p B . . . . .
+. . . . K . . .
+. . . . . . . .
+. . . . . . . .
+. . . . r . . .
+BestMove(bestmove=Move.from_uci('e4f3'), ponder=Move.from_uci('e1d1'))
+Ke4f3
+Hi is: e4f3
+Moves:
+[e4f3]
+e4f3
+Lowering the magnet!
+Moving to coordinates (22.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (25.5, 15.5)
+Lowering the magnet!
+. . . . . . . .
+. R . . . . p k
+. . . . . p . .
+. p B . . . . .
+. . . . . . . .
+. . . . . K . .
+. . . . . . . .
+. . . . r . . .
+BestMove(bestmove=Move.from_uci('e1f1'), ponder=Move.from_uci('f3e2'))
+Re1f1
+Hi is: e1f1
+Moves:
+[e1f1]
+e1f1
+(4,0) is not an occupied space
+. . . . . . . .
+. R . . . . p k
+. . . . . p . .
+. p B . . . . .
+. . . . . . . .
+. . . . . K . .
+. . . . . . . .
+. . . . . r . .
+BestMove(bestmove=Move.from_uci('f3e2'), ponder=Move.from_uci('f1f5'))
+Kf3e2
+Hi is: f3e2
+Moves:
+[f3e2]
+f3e2
+Lowering the magnet!
+Moving to coordinates (25.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 12.5)
+Lowering the magnet!
+. . . . . . . .
+. R . . . . p k
+. . . . . p . .
+. p B . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . K . . .
+. . . . . r . .
+BestMove(bestmove=Move.from_uci('f1f5'), ponder=Move.from_uci('c5f8'))
+Rf1f5
+Hi is: f1f5
+Moves:
+[f1f5]
+f1f5
+(5,0) is not an occupied space
+. . . . . . . .
+. R . . . . p k
+. . . . . p . .
+. p B . . r . .
+. . . . . . . .
+. . . . . . . .
+. . . . K . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('c5f8'), ponder=Move.from_uci('f5e5'))
+Bc5f8
+Hi is: c5f8
+Moves:
+[c5f8]
+c5f8
+Lowering the magnet!
+Moving to coordinates (16.5, 21.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 24.5)
+Moving to coordinates (22.5, 27.5)
+Moving to coordinates (25.5, 30.5)
+Lowering the magnet!
+. . . . . B . .
+. R . . . . p k
+. . . . . p . .
+. p . . . r . .
+. . . . . . . .
+. . . . . . . .
+. . . . K . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('f5e5'), ponder=Move.from_uci('e2f3'))
+Rf5e5
+Hi is: f5e5
+Moves:
+[f5e5]
+f5e5
+(5,4) is not an occupied space
+. . . . . B . .
+. R . . . . p k
+. . . . . p . .
+. p . . r . . .
+. . . . . . . .
+. . . . . . . .
+. . . . K . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('e2f3'), ponder=Move.from_uci('e5f5'))
+Ke2f3
+Hi is: e2f3
+Moves:
+[e2f3]
+e2f3
+Lowering the magnet!
+Moving to coordinates (22.5, 12.5)
+Lifting the magnet!
+Moving to coordinates (25.5, 15.5)
+Lowering the magnet!
+. . . . . B . .
+. R . . . . p k
+. . . . . p . .
+. p . . r . . .
+. . . . . . . .
+. . . . . K . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('e5f5'), ponder=Move.from_uci('f3e4'))
+Re5f5
+Hi is: e5f5
+Moves:
+[e5f5]
+e5f5
+(4,4) is not an occupied space
+. . . . . B . .
+. R . . . . p k
+. . . . . p . .
+. p . . . r . .
+. . . . . . . .
+. . . . . K . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('f3e4'), ponder=Move.from_uci('f5e5'))
+Kf3e4
+Hi is: f3e4
+Moves:
+[f3e4]
+f3e4
+Lowering the magnet!
+Moving to coordinates (25.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 18.5)
+Lowering the magnet!
+. . . . . B . .
+. R . . . . p k
+. . . . . p . .
+. p . . . r . .
+. . . . K . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('f5e5'), ponder=Move.from_uci('e4d3'))
+Rf5e5
+Hi is: f5e5
+Moves:
+[f5e5]
+f5e5
+(5,4) is not an occupied space
+. . . . . B . .
+. R . . . . p k
+. . . . . p . .
+. p . . r . . .
+. . . . K . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('e4d3'), ponder=Move.from_uci('e5e8'))
+Ke4d3
+Hi is: e4d3
+Moves:
+[e4d3]
+e4d3
+Lowering the magnet!
+Moving to coordinates (22.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 15.5)
+Lowering the magnet!
+. . . . . B . .
+. R . . . . p k
+. . . . . p . .
+. p . . r . . .
+. . . . . . . .
+. . . K . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('e5e8'), ponder=Move.from_uci('f8c5'))
+Re5e8
+Hi is: e5e8
+Moves:
+[e5e8]
+e5e8
+(4,4) is not an occupied space
+. . . . r B . .
+. R . . . . p k
+. . . . . p . .
+. p . . . . . .
+. . . . . . . .
+. . . K . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('f8c5'), ponder=Move.from_uci('e8e5'))
+Bf8c5
+Hi is: f8c5
+Moves:
+[f8c5]
+f8c5
+Lowering the magnet!
+Moving to coordinates (25.5, 30.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 27.5)
+Moving to coordinates (19.5, 24.5)
+Moving to coordinates (16.5, 21.5)
+Lowering the magnet!
+. . . . r . . .
+. R . . . . p k
+. . . . . p . .
+. p B . . . . .
+. . . . . . . .
+. . . K . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('e8e5'), ponder=Move.from_uci('c5d4'))
+Re8e5
+Hi is: e8e5
+Moves:
+[e8e5]
+e8e5
+(4,7) is not an occupied space
+. . . . . . . .
+. R . . . . p k
+. . . . . p . .
+. p B . r . . .
+. . . . . . . .
+. . . K . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('c5d4'), ponder=Move.from_uci('e5e6'))
+Bc5d4
+Hi is: c5d4
+Moves:
+[c5d4]
+c5d4
+Lowering the magnet!
+Moving to coordinates (16.5, 21.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 18.5)
+Lowering the magnet!
+. . . . . . . .
+. R . . . . p k
+. . . . . p . .
+. p . . r . . .
+. . . B . . . .
+. . . K . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('e5e6'), ponder=Move.from_uci('d4e3'))
+Re5e6
+Hi is: e5e6
+Moves:
+[e5e6]
+e5e6
+(4,4) is not an occupied space
+. . . . . . . .
+. R . . . . p k
+. . . . r p . .
+. p . . . . . .
+. . . B . . . .
+. . . K . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('d4e3'), ponder=Move.from_uci('e6e5'))
+Bd4e3
+Hi is: d4e3
+Moves:
+[d4e3]
+d4e3
+Lowering the magnet!
+Moving to coordinates (19.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 15.5)
+Lowering the magnet!
+. . . . . . . .
+. R . . . . p k
+. . . . r p . .
+. p . . . . . .
+. . . . . . . .
+. . . K B . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('e6e5'), ponder=Move.from_uci('d3d4'))
+Re6e5
+Hi is: e6e5
+Moves:
+[e6e5]
+e6e5
+(4,5) is not an occupied space
+. . . . . . . .
+. R . . . . p k
+. . . . . p . .
+. p . . r . . .
+. . . . . . . .
+. . . K B . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('d3d4'), ponder=Move.from_uci('h7g6'))
+Kd3d4
+Hi is: d3d4
+Moves:
+[d3d4]
+d3d4
+Lowering the magnet!
+Moving to coordinates (19.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 18.5)
+Lowering the magnet!
+. . . . . . . .
+. R . . . . p k
+. . . . . p . .
+. p . . r . . .
+. . . K . . . .
+. . . . B . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('h7g6'), ponder=Move.from_uci('e3f4'))
+Kh7g6
+Hi is: h7g6
+Moves:
+[h7g6]
+h7g6
+Lowering the magnet!
+Moving to coordinates (31.5, 27.5)
+Lifting the magnet!
+Moving to coordinates (28.5, 24.5)
+Lowering the magnet!
+. . . . . . . .
+. R . . . . p .
+. . . . . p k .
+. p . . r . . .
+. . . K . . . .
+. . . . B . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('e3c1'), ponder=Move.from_uci('e5e8'))
+Be3c1
+Hi is: e3c1
+Moves:
+[e3c1]
+e3c1
+Lowering the magnet!
+Moving to coordinates (22.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 12.5)
+Moving to coordinates (16.5, 9.5)
+Lowering the magnet!
+. . . . . . . .
+. R . . . . p .
+. . . . . p k .
+. p . . r . . .
+. . . K . . . .
+. . . . . . . .
+. . . . . . . .
+. . B . . . . .
+BestMove(bestmove=Move.from_uci('e5e8'), ponder=Move.from_uci('d4d3'))
+Re5e8
+Hi is: e5e8
+Moves:
+[e5e8]
+e5e8
+(4,4) is not an occupied space
+. . . . r . . .
+. R . . . . p .
+. . . . . p k .
+. p . . . . . .
+. . . K . . . .
+. . . . . . . .
+. . . . . . . .
+. . B . . . . .
+BestMove(bestmove=Move.from_uci('d4d3'), ponder=Move.from_uci('e8e5'))
+Kd4d3
+Hi is: d4d3
+Moves:
+[d4d3]
+d4d3
+Lowering the magnet!
+Moving to coordinates (19.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 15.5)
+Lowering the magnet!
+. . . . r . . .
+. R . . . . p .
+. . . . . p k .
+. p . . . . . .
+. . . . . . . .
+. . . K . . . .
+. . . . . . . .
+. . B . . . . .
+BestMove(bestmove=Move.from_uci('e8e5'), ponder=Move.from_uci('c1f4'))
+Re8e5
+Hi is: e8e5
+Moves:
+[e8e5]
+e8e5
+(4,7) is not an occupied space
+. . . . . . . .
+. R . . . . p .
+. . . . . p k .
+. p . . r . . .
+. . . . . . . .
+. . . K . . . .
+. . . . . . . .
+. . B . . . . .
+BestMove(bestmove=Move.from_uci('c1f4'), ponder=Move.from_uci('e5e8'))
+Bc1f4
+Hi is: c1f4
+Moves:
+[c1f4]
+c1f4
+Lowering the magnet!
+Moving to coordinates (16.5, 9.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 12.5)
+Moving to coordinates (22.5, 15.5)
+Moving to coordinates (25.5, 18.5)
+Lowering the magnet!
+. . . . . . . .
+. R . . . . p .
+. . . . . p k .
+. p . . r . . .
+. . . . . B . .
+. . . K . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('e5e6'), ponder=Move.from_uci('f4e3'))
+Re5e6
+Hi is: e5e6
+Moves:
+[e5e6]
+e5e6
+(4,4) is not an occupied space
+. . . . . . . .
+. R . . . . p .
+. . . . r p k .
+. p . . . . . .
+. . . . . B . .
+. . . K . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('f4e3'), ponder=Move.from_uci('e6e5'))
+Bf4e3
+Hi is: f4e3
+Moves:
+[f4e3]
+f4e3
+Lowering the magnet!
+Moving to coordinates (25.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 15.5)
+Lowering the magnet!
+. . . . . . . .
+. R . . . . p .
+. . . . r p k .
+. p . . . . . .
+. . . . . . . .
+. . . K B . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('e6e5'), ponder=Move.from_uci('d3d4'))
+Re6e5
+Hi is: e6e5
+Moves:
+[e6e5]
+e6e5
+(4,5) is not an occupied space
+. . . . . . . .
+. R . . . . p .
+. . . . . p k .
+. p . . r . . .
+. . . . . . . .
+. . . K B . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('d3d4'), ponder=Move.from_uci('e5e8'))
+Kd3d4
+Hi is: d3d4
+Moves:
+[d3d4]
+d3d4
+Lowering the magnet!
+Moving to coordinates (19.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 18.5)
+Lowering the magnet!
+. . . . . . . .
+. R . . . . p .
+. . . . . p k .
+. p . . r . . .
+. . . K . . . .
+. . . . B . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('e5e8'), ponder=Move.from_uci('e3d2'))
+Re5e8
+Hi is: e5e8
+Moves:
+[e5e8]
+e5e8
+(4,4) is not an occupied space
+. . . . r . . .
+. R . . . . p .
+. . . . . p k .
+. p . . . . . .
+. . . K . . . .
+. . . . B . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('e3c1'), ponder=Move.from_uci('e8e5'))
+Be3c1
+Hi is: e3c1
+Moves:
+[e3c1]
+e3c1
+Lowering the magnet!
+Moving to coordinates (22.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 12.5)
+Moving to coordinates (16.5, 9.5)
+Lowering the magnet!
+. . . . r . . .
+. R . . . . p .
+. . . . . p k .
+. p . . . . . .
+. . . K . . . .
+. . . . . . . .
+. . . . . . . .
+. . B . . . . .
+BestMove(bestmove=Move.from_uci('e8e5'), ponder=Move.from_uci('c1f4'))
+Re8e5
+Hi is: e8e5
+Moves:
+[e8e5]
+e8e5
+(4,7) is not an occupied space
+. . . . . . . .
+. R . . . . p .
+. . . . . p k .
+. p . . r . . .
+. . . K . . . .
+. . . . . . . .
+. . . . . . . .
+. . B . . . . .
+BestMove(bestmove=Move.from_uci('c1d2'), ponder=Move.from_uci('e5h5'))
+Bc1d2
+Hi is: c1d2
+Moves:
+[c1d2]
+c1d2
+Lowering the magnet!
+Moving to coordinates (16.5, 9.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 12.5)
+Lowering the magnet!
+. . . . . . . .
+. R . . . . p .
+. . . . . p k .
+. p . . r . . .
+. . . K . . . .
+. . . . . . . .
+. . . B . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('e5h5'), ponder=Move.from_uci('d4e4'))
+Re5h5
+Hi is: e5h5
+Moves:
+[e5h5]
+e5h5
+(4,4) is not an occupied space
+. . . . . . . .
+. R . . . . p .
+. . . . . p k .
+. p . . . . . r
+. . . K . . . .
+. . . . . . . .
+. . . B . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('d4e4'), ponder=Move.from_uci('h5e5'))
+Kd4e4
+Hi is: d4e4
+Moves:
+[d4e4]
+d4e4
+Lowering the magnet!
+Moving to coordinates (19.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 18.5)
+Lowering the magnet!
+. . . . . . . .
+. R . . . . p .
+. . . . . p k .
+. p . . . . . r
+. . . . K . . .
+. . . . . . . .
+. . . B . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('h5e5'), ponder=Move.from_uci('e4f3'))
+Rh5e5
+Hi is: h5e5
+Moves:
+[h5e5]
+h5e5
+(7,4) is not an occupied space
+. . . . . . . .
+. R . . . . p .
+. . . . . p k .
+. p . . r . . .
+. . . . K . . .
+. . . . . . . .
+. . . B . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('e4f3'), ponder=Move.from_uci('e5f5'))
+Ke4f3
+Hi is: e4f3
+Moves:
+[e4f3]
+e4f3
+Lowering the magnet!
+Moving to coordinates (22.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (25.5, 15.5)
+Lowering the magnet!
+. . . . . . . .
+. R . . . . p .
+. . . . . p k .
+. p . . r . . .
+. . . . . . . .
+. . . . . K . .
+. . . B . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('e5f5'), ponder=Move.from_uci('f3g4'))
+Re5f5
+Hi is: e5f5
+Moves:
+[e5f5]
+e5f5
+(4,4) is not an occupied space
+. . . . . . . .
+. R . . . . p .
+. . . . . p k .
+. p . . . r . .
+. . . . . . . .
+. . . . . K . .
+. . . B . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('d2f4'), ponder=Move.from_uci('f5c5'))
+Bd2f4
+Hi is: d2f4
+Moves:
+[d2f4]
+d2f4
+Lowering the magnet!
+Moving to coordinates (19.5, 12.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 15.5)
+Moving to coordinates (25.5, 18.5)
+Lowering the magnet!
+. . . . . . . .
+. R . . . . p .
+. . . . . p k .
+. p . . . r . .
+. . . . . B . .
+. . . . . K . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('f5c5'), ponder=Move.from_uci('f4d6'))
+Rf5c5
+Hi is: f5c5
+Moves:
+[f5c5]
+f5c5
+(5,4) is not an occupied space
+. . . . . . . .
+. R . . . . p .
+. . . . . p k .
+. p r . . . . .
+. . . . . B . .
+. . . . . K . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('f4d6'), ponder=Move.from_uci('c5d5'))
+Bf4d6
+Hi is: f4d6
+Moves:
+[f4d6]
+f4d6
+Lowering the magnet!
+Moving to coordinates (25.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 21.5)
+Moving to coordinates (19.5, 24.5)
+Lowering the magnet!
+. . . . . . . .
+. R . . . . p .
+. . . B . p k .
+. p r . . . . .
+. . . . . . . .
+. . . . . K . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('c5d5'), ponder=Move.from_uci('d6f8'))
+Rc5d5
+Hi is: c5d5
+Moves:
+[c5d5]
+c5d5
+(2,4) is not an occupied space
+. . . . . . . .
+. R . . . . p .
+. . . B . p k .
+. p . r . . . .
+. . . . . . . .
+. . . . . K . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('d6f8'), ponder=Move.from_uci('d5d8'))
+Bd6f8
+Hi is: d6f8
+Moves:
+[d6f8]
+d6f8
+Lowering the magnet!
+Moving to coordinates (19.5, 24.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 27.5)
+Moving to coordinates (25.5, 30.5)
+Lowering the magnet!
+. . . . . B . .
+. R . . . . p .
+. . . . . p k .
+. p . r . . . .
+. . . . . . . .
+. . . . . K . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('d5d8'), ponder=Move.from_uci('f8b4'))
+Rd5d8
+Hi is: d5d8
+Moves:
+[d5d8]
+d5d8
+(3,4) is not an occupied space
+. . . r . B . .
+. R . . . . p .
+. . . . . p k .
+. p . . . . . .
+. . . . . . . .
+. . . . . K . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('f8b4'), ponder=Move.from_uci('d8d5'))
+Bf8b4
+Hi is: f8b4
+Moves:
+[f8b4]
+f8b4
+Lowering the magnet!
+Moving to coordinates (25.5, 30.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 27.5)
+Moving to coordinates (19.5, 24.5)
+Moving to coordinates (16.5, 21.5)
+Moving to coordinates (13.5, 18.5)
+Lowering the magnet!
+. . . r . . . .
+. R . . . . p .
+. . . . . p k .
+. p . . . . . .
+. B . . . . . .
+. . . . . K . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('d8d5'), ponder=Move.from_uci('f3e4'))
+Rd8d5
+Hi is: d8d5
+Moves:
+[d8d5]
+d8d5
+(3,7) is not an occupied space
+. . . . . . . .
+. R . . . . p .
+. . . . . p k .
+. p . r . . . .
+. B . . . . . .
+. . . . . K . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('f3e4'), ponder=Move.from_uci('d5e5'))
+Kf3e4
+Hi is: f3e4
+Moves:
+[f3e4]
+f3e4
+Lowering the magnet!
+Moving to coordinates (25.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 18.5)
+Lowering the magnet!
+. . . . . . . .
+. R . . . . p .
+. . . . . p k .
+. p . r . . . .
+. B . . K . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('d5e5'), ponder=Move.from_uci('e4d4'))
+Rd5e5
+Hi is: d5e5
+Moves:
+[d5e5]
+d5e5
+(3,4) is not an occupied space
+. . . . . . . .
+. R . . . . p .
+. . . . . p k .
+. p . . r . . .
+. B . . K . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('e4d3'), ponder=Move.from_uci('e5d5'))
+Ke4d3
+Hi is: e4d3
+Moves:
+[e4d3]
+e4d3
+Lowering the magnet!
+Moving to coordinates (22.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 15.5)
+Lowering the magnet!
+. . . . . . . .
+. R . . . . p .
+. . . . . p k .
+. p . . r . . .
+. B . . . . . .
+. . . K . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('e5d5'), ponder=Move.from_uci('d3e3'))
+Re5d5
+Hi is: e5d5
+Moves:
+[e5d5]
+e5d5
+(4,4) is not an occupied space
+. . . . . . . .
+. R . . . . p .
+. . . . . p k .
+. p . r . . . .
+. B . . . . . .
+. . . K . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('d3e3'), ponder=Move.from_uci('d5e5'))
+Kd3e3
+Hi is: d3e3
+Moves:
+[d3e3]
+d3e3
+Lowering the magnet!
+Moving to coordinates (19.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 15.5)
+Lowering the magnet!
+. . . . . . . .
+. R . . . . p .
+. . . . . p k .
+. p . r . . . .
+. B . . . . . .
+. . . . K . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('d5e5'), ponder=Move.from_uci('e3d4'))
+Rd5e5
+Hi is: d5e5
+Moves:
+[d5e5]
+d5e5
+(3,4) is not an occupied space
+. . . . . . . .
+. R . . . . p .
+. . . . . p k .
+. p . . r . . .
+. B . . . . . .
+. . . . K . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('e3d4'), ponder=Move.from_uci('g6h6'))
+Ke3d4
+Hi is: e3d4
+Moves:
+[e3d4]
+e3d4
+Lowering the magnet!
+Moving to coordinates (22.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 18.5)
+Lowering the magnet!
+. . . . . . . .
+. R . . . . p .
+. . . . . p k .
+. p . . r . . .
+. B . K . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('g6h6'), ponder=Move.from_uci('b7b6'))
+Kg6h6
+Hi is: g6h6
+Moves:
+[g6h6]
+g6h6
+Lowering the magnet!
+Moving to coordinates (28.5, 24.5)
+Lifting the magnet!
+Moving to coordinates (31.5, 24.5)
+Lowering the magnet!
+. . . . . . . .
+. R . . . . p .
+. . . . . p . k
+. p . . r . . .
+. B . K . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('b4f8'), ponder=Move.from_uci('e5e8'))
+Bb4f8
+Hi is: b4f8
+Moves:
+[b4f8]
+b4f8
+Lowering the magnet!
+Moving to coordinates (13.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (16.5, 21.5)
+Moving to coordinates (19.5, 24.5)
+Moving to coordinates (22.5, 27.5)
+Moving to coordinates (25.5, 30.5)
+Lowering the magnet!
+. . . . . B . .
+. R . . . . p .
+. . . . . p . k
+. p . . r . . .
+. . . K . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('e5e8'), ponder=Move.from_uci('f8e7'))
+Re5e8
+Hi is: e5e8
+Moves:
+[e5e8]
+e5e8
+(4,4) is not an occupied space
+. . . . r B . .
+. R . . . . p .
+. . . . . p . k
+. p . . . . . .
+. . . K . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('f8e7'), ponder=Move.from_uci('h6h5'))
+Bf8e7
+Hi is: f8e7
+Moves:
+[f8e7]
+f8e7
+Lowering the magnet!
+Moving to coordinates (25.5, 30.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 27.5)
+Lowering the magnet!
+. . . . r . . .
+. R . . B . p .
+. . . . . p . k
+. p . . . . . .
+. . . K . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('h6h5'), ponder=Move.from_uci('d4d5'))
+Kh6h5
+Hi is: h6h5
+Moves:
+[h6h5]
+h6h5
+Lowering the magnet!
+Moving to coordinates (31.5, 24.5)
+Lifting the magnet!
+Moving to coordinates (31.5, 21.5)
+Lowering the magnet!
+. . . . r . . .
+. R . . B . p .
+. . . . . p . .
+. p . . . . . k
+. . . K . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('d4d5'), ponder=Move.from_uci('f6f5'))
+Kd4d5
+Hi is: d4d5
+Moves:
+[d4d5]
+d4d5
+Lowering the magnet!
+Moving to coordinates (19.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 21.5)
+Lowering the magnet!
+. . . . r . . .
+. R . . B . p .
+. . . . . p . .
+. p . K . . . k
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('f6f5'), ponder=Move.from_uci('d5e6'))
+f6f5
+Hi is: f6f5
+Moves:
+[f6f5]
+f6f5
+Lowering the magnet!
+Moving to coordinates (25.5, 24.5)
+Lifting the magnet!
+Moving to coordinates (25.5, 21.5)
+Lowering the magnet!
+. . . . r . . .
+. R . . B . p .
+. . . . . . . .
+. p . K . p . k
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('d5e6'), ponder=Move.from_uci('h5g4'))
+Kd5e6
+Hi is: d5e6
+Moves:
+[d5e6]
+d5e6
+Lowering the magnet!
+Moving to coordinates (19.5, 21.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 24.5)
+Lowering the magnet!
+. . . . r . . .
+. R . . B . p .
+. . . . K . . .
+. p . . . p . k
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('h5g4'), ponder=Move.from_uci('b7b5'))
+Kh5g4
+Hi is: h5g4
+Moves:
+[h5g4]
+h5g4
+Lowering the magnet!
+Moving to coordinates (31.5, 21.5)
+Lifting the magnet!
+Moving to coordinates (28.5, 18.5)
+Lowering the magnet!
+. . . . r . . .
+. R . . B . p .
+. . . . K . . .
+. p . . . p . .
+. . . . . . k .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('b7b5'), ponder=Move.from_uci('f5f4'))
+Rb7b5
+Hi is: b7b5
+Attempted black graveyard move
+Sending piece  at (1, 4) to graveyard (10,2)
+Moves:
+[b5k3, b7b5]
+b5k3
+Making way for [(1,4), (2,4), (3,4), (4,4), (5,4), (6,4), (7,4), (8,4), (9,3), (10,2)]
+Making way for [(1,4), (2,4), (3,4), (4,4), (5,4), (6,4), (7,4), (8,4), (9,3), (10,2)]
+returning piece...
+Coords: [(5,5)] 
+Spaces: [(5,4), (9,3)]
+Still have pieces to return: False 
+Piece moved to [] from [(5,4)]
+returning piece...
+Coords: [(8,3)] 
+Spaces: [(5,4)]
+Still have pieces to return: False 
+Piece moved to [] from []
+Making way for [(8,3), (7,3), (6,3), (5,4)]
+returning piece...
+Coords: [(7,4)] 
+Spaces: [(6,3)]
+Still have pieces to return: False 
+Piece moved to [] from []
+Lowering the magnet!
+Moving to coordinates (13.5, 21.5)
+Lifting the magnet!
+Moving to coordinates (16.5, 21.5)
+Moving to coordinates (19.5, 21.5)
+Moving to coordinates (22.5, 21.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (25.5, 21.5)
+Lifting the magnet!
+Moving to coordinates (25.5, 24.5)
+Lowering the magnet!
+Moving to coordinates (25.5, 21.5)
+Moving to coordinates (28.5, 21.5)
+Moving to coordinates (31.5, 21.5)
+Moving to coordinates (34.5, 21.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (37.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (34.5, 18.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (25.5, 24.5)
+Lifting the magnet!
+Moving to coordinates (28.5, 24.5)
+Moving to coordinates (31.5, 24.5)
+Moving to coordinates (34.5, 21.5)
+Moving to coordinates (37.5, 18.5)
+Lowering the magnet!
+Moving to coordinates (37.5, 18.5)
+Moving to coordinates (40.5, 15.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (34.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (31.5, 18.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (28.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (31.5, 21.5)
+Lowering the magnet!
+Moving to coordinates (28.5, 18.5)
+Moving to coordinates (25.5, 21.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (31.5, 21.5)
+Lifting the magnet!
+Moving to coordinates (28.5, 18.5)
+Lowering the magnet!
+b7b5
+Lowering the magnet!
+Moving to coordinates (13.5, 27.5)
+Lifting the magnet!
+Moving to coordinates (13.5, 24.5)
+Moving to coordinates (13.5, 21.5)
+Lowering the magnet!
+. . . . r . . .
+. . . . B . p .
+. . . . K . . .
+. R . . . p . .
+. . . . . . k .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('f5f4'), ponder=Move.from_uci('b5g5'))
+f5f4
+Hi is: f5f4
+Moves:
+[f5f4]
+f5f4
+Lowering the magnet!
+Moving to coordinates (25.5, 21.5)
+Lifting the magnet!
+Moving to coordinates (25.5, 18.5)
+Lowering the magnet!
+. . . . r . . .
+. . . . B . p .
+. . . . K . . .
+. R . . . . . .
+. . . . . p k .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('e6f7'), ponder=Move.from_uci('e8e7'))
+Ke6f7
+Hi is: e6f7
+Moves:
+[e6f7]
+e6f7
+Lowering the magnet!
+Moving to coordinates (22.5, 24.5)
+Lifting the magnet!
+Moving to coordinates (25.5, 27.5)
+Lowering the magnet!
+. . . . r . . .
+. . . . B K p .
+. . . . . . . .
+. R . . . . . .
+. . . . . p k .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('e8e7'), ponder=Move.from_uci('f7e7'))
+Re8e7
+Hi is: e8e7
+Attempted white graveyard move
+Sending piece B at (4, 6) to graveyard (-3,1)
+Moves:
+[e7^2, e8e7]
+e7^2
+Making way for [(4,6), (3,6), (2,6), (1,5), (0,4), (-1,3), (-2,2), (-3,1)]
+returning piece...
+Coords: [(-1,2)] 
+Spaces: [(-2,2)]
+Still have pieces to return: False 
+Piece moved to [] from []
+Lowering the magnet!
+Moving to coordinates (22.5, 27.5)
+Lifting the magnet!
+Moving to coordinates (19.5, 27.5)
+Moving to coordinates (16.5, 27.5)
+Moving to coordinates (13.5, 24.5)
+Moving to coordinates (10.5, 21.5)
+Moving to coordinates (7.5, 18.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (4.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (7.5, 15.5)
+Lowering the magnet!
+Moving to coordinates (4.5, 15.5)
+Moving to coordinates (1.5, 12.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (7.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (4.5, 15.5)
+Lowering the magnet!
+e8e7
+(4,7) is not an occupied space
+. . . . . . . .
+. . . . r K p .
+. . . . . . . .
+. R . . . . . .
+. . . . . p k .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('f7e7'), ponder=Move.from_uci('f4f3'))
+Kf7e7
+Hi is: f7e7
+Attempted black graveyard move
+Sending piece r at (4, 6) to graveyard (9,1)
+Moves:
+[e7j2, f7e7]
+e7j2
+(4,6) is not an occupied space
+f7e7
+Lowering the magnet!
+Moving to coordinates (25.5, 27.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 27.5)
+Lowering the magnet!
+. . . . . . . .
+. . . . K . p .
+. . . . . . . .
+. R . . . . . .
+. . . . . p k .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('f4f3'), ponder=Move.from_uci('b5b1'))
+f4f3
+Hi is: f4f3
+Moves:
+[f4f3]
+f4f3
+Lowering the magnet!
+Moving to coordinates (25.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (25.5, 15.5)
+Lowering the magnet!
+. . . . . . . .
+. . . . K . p .
+. . . . . . . .
+. R . . . . . .
+. . . . . . k .
+. . . . . p . .
+. . . . . . . .
+. . . . . . . .
+BestMove(bestmove=Move.from_uci('b5b1'), ponder=Move.from_uci('f3f2'))
+Rb5b1
+Hi is: b5b1
+Moves:
+[b5b1]
+b5b1
+Lowering the magnet!
+Moving to coordinates (13.5, 21.5)
+Lifting the magnet!
+Moving to coordinates (13.5, 18.5)
+Moving to coordinates (13.5, 15.5)
+Moving to coordinates (13.5, 12.5)
+Moving to coordinates (13.5, 9.5)
+Lowering the magnet!
+. . . . . . . .
+. . . . K . p .
+. . . . . . . .
+. . . . . . . .
+. . . . . . k .
+. . . . . p . .
+. . . . . . . .
+. R . . . . . .
+BestMove(bestmove=Move.from_uci('f3f2'), ponder=Move.from_uci('e7f7'))
+f3f2
+Hi is: f3f2
+Moves:
+[f3f2]
+f3f2
+Lowering the magnet!
+Moving to coordinates (25.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (25.5, 12.5)
+Lowering the magnet!
+. . . . . . . .
+. . . . K . p .
+. . . . . . . .
+. . . . . . . .
+. . . . . . k .
+. . . . . . . .
+. . . . . p . .
+. R . . . . . .
+BestMove(bestmove=Move.from_uci('b1a1'), ponder=Move.from_uci('g4g3'))
+Rb1a1
+Hi is: b1a1
+Moves:
+[b1a1]
+b1a1
+Lowering the magnet!
+Moving to coordinates (13.5, 9.5)
+Lifting the magnet!
+Moving to coordinates (10.5, 9.5)
+Lowering the magnet!
+. . . . . . . .
+. . . . K . p .
+. . . . . . . .
+. . . . . . . .
+. . . . . . k .
+. . . . . . . .
+. . . . . p . .
+R . . . . . . .
+BestMove(bestmove=Move.from_uci('g4g3'), ponder=Move.from_uci('a1b1'))
+Kg4g3
+Hi is: g4g3
+Moves:
+[g4g3]
+g4g3
+Lowering the magnet!
+Moving to coordinates (28.5, 18.5)
+Lifting the magnet!
+Moving to coordinates (28.5, 15.5)
+Lowering the magnet!
+. . . . . . . .
+. . . . K . p .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . k .
+. . . . . p . .
+R . . . . . . .
+BestMove(bestmove=Move.from_uci('a1b1'), ponder=Move.from_uci('g3g2'))
+Ra1b1
+Hi is: a1b1
+Moves:
+[a1b1]
+a1b1
+Lowering the magnet!
+Moving to coordinates (10.5, 9.5)
+Lifting the magnet!
+Moving to coordinates (13.5, 9.5)
+Lowering the magnet!
+. . . . . . . .
+. . . . K . p .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . k .
+. . . . . p . .
+. R . . . . . .
+BestMove(bestmove=Move.from_uci('g3g2'), ponder=Move.from_uci('e7e6'))
+Kg3g2
+Hi is: g3g2
+Moves:
+[g3g2]
+g3g2
+Lowering the magnet!
+Moving to coordinates (28.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (28.5, 12.5)
+Lowering the magnet!
+. . . . . . . .
+. . . . K . p .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . p k .
+. R . . . . . .
+BestMove(bestmove=Move.from_uci('e7e6'), ponder=Move.from_uci('f2f1q'))
+Ke7e6
+Hi is: e7e6
+Moves:
+[e7e6]
+e7e6
+Lowering the magnet!
+Moving to coordinates (22.5, 27.5)
+Lifting the magnet!
+Moving to coordinates (22.5, 24.5)
+Lowering the magnet!
+. . . . . . . .
+. . . . . . p .
+. . . . K . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . p k .
+. R . . . . . .
+BestMove(bestmove=Move.from_uci('f2f1q'), ponder=Move.from_uci('b1f1'))
+f2f1Q
+Hi is: f2f1q
+Moves:
+[]
+test1ai
+Sending piece  at (5, 1) to graveyard (10,1)
+test2ai
+[f2k2] 
+ q
+The source is (9,4)
+Loc1 is a <class 'datatypes.PieceCoord'> 
+Loc2 is a <class 'str'>
+test3ai
+Moves:
+[f2k2, j5i50]
+f2k2
+Making way for [(5,1), (6,1), (7,1), (8,1), (9,1), (10,1)]
+returning piece...
+Coords: [(6,2)] 
+Spaces: [(6,1)]
+Still have pieces to return: False 
+Piece moved to [] from []
+Lowering the magnet!
+Moving to coordinates (25.5, 12.5)
+Lifting the magnet!
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (28.5, 12.5)
+Lifting the magnet!
+Moving to coordinates (28.5, 15.5)
+Lowering the magnet!
+Moving to coordinates (28.5, 12.5)
+Moving to coordinates (31.5, 12.5)
+Moving to coordinates (34.5, 12.5)
+Moving to coordinates (37.5, 12.5)
+Moving to coordinates (40.5, 12.5)
+Lowering the magnet!
+Lowering the magnet!
+Moving to coordinates (28.5, 15.5)
+Lifting the magnet!
+Moving to coordinates (28.5, 12.5)
+Lowering the magnet!
+j5i50
