@@ -17,8 +17,8 @@ class RobotPosition(object):
 
 
 class Controller(object):
-    UP_POS = 30
-    DOWN_POS = 100
+    UP_POS = 46
+    DOWN_POS = 70
 
     def __init__(self, simulation=True, square_size=3.0, center=(30.0, 20.0), speed=100):
         self.speed = speed  # In mm/sec
