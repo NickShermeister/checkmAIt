@@ -171,8 +171,6 @@ def attempt_command_string(feed):
     # Go through the feedlist, converting to chess notation
     if 'exit' in feed_list:
     	return 'exit'
-    if 'reset' in feed_list:
-    	return 'r'
     command_string += ""
     if len(feed_list) < 2:
         print("String is too short")

@@ -122,14 +122,9 @@ class Game(object):
                 hi = self.board.push_san(command)
                 #Send current pawn to graveyardMove
                 #Revive queen...
-                print("test1")
                 tempmove = self.graveyardMove(command[0:2])
                 moves.append(tempmove)
-                print("test2")
                 moves.append(self.reviveFromGraveyard(command[2:4], pieceRevived))
-                print("test3")
-                print("Moves:")
-                print(str(moves))
                 return moves
             else:
                 hi = self.board.push_san(command)
@@ -249,8 +244,7 @@ class Game(object):
         if source is not None:
 
             (self.whiteLocations if is_white else self.blackLocations)[temp].append(dest)
-
-            print("The source is %s" % str(source))
+            
             return self.convertMoves(source, dest)
         return None
 
@@ -304,19 +298,14 @@ class Game(object):
         toRevive['b'] = ['c8', 'f8']
         toRevive['k'] = ['e8']
         toRevive['q'] = ['d8']
-
-        print("Revive Dict:", toRevive)
+        
         #Actually revive the pieces
-        print("Pieces still on the board")
-        print(self.whiteLocations)
-        print(self.blackLocations)
         for piece in toRevive:
             for locs in toRevive[piece]:
                 rev_move = self.reviveFromGraveyard(locs, piece)
                 if rev_move is not None:
                     moves.append(rev_move)
                 else:
-                    print("There is still a {} on the board?".format(piece))
                     is_white = piece.isupper()
                     if piece.lower() == 'p':
                         temp = ''
@@ -327,9 +316,6 @@ class Game(object):
 
                     print("The source is %s" % str(source))
                     moves.append(self.convertMoves(source, locs))
-        print("BOARD RESET")
-        print(self.whiteLocations)
-        print(self.blackLocations)
 
         #Make the board in the computer know it's reset.
         self.board.reset()
