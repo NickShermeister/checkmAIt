@@ -134,6 +134,7 @@ class MotionPlanner(object):
 			self.occupied_spaces.add(move.end)
 			if self.made_way_flag:
 				print("returning piece...")
+				print("Coords:", self.made_way_coord, "\nSpaces:", self.contested_space)
 				instruction_list = instruction_list + self.return_moved()
 		else:
 			raise Exception("Recursion limit reached; no path available")
@@ -177,7 +178,7 @@ class MotionPlanner(object):
 		move = PieceMove(self.made_way_coord[-1], self.contested_space[-1])
 		self.made_way_coord = self.made_way_coord[:-1]
 		self.contested_space = self.contested_space[:-1]
-		self.made_way_flag = (len(self.made_way_coord) > 0) and len(self.contested_space) > 0
+		self.made_way_flag = (len(self.made_way_coord) > 0) and (len(self.contested_space) > 0)
 
 		return self.make_command_list(move)
 
