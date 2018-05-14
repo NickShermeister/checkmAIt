@@ -3,6 +3,7 @@ from time import sleep
 from typing import List
 
 import chess
+import sys
 
 from ai import aiController
 from speech import SpeechInput
@@ -10,6 +11,7 @@ from game import Game
 from motionPlanner import MotionPlanner
 from controller import Controller
 from game import Game
+
 
 from datatypes import *
 
@@ -24,9 +26,10 @@ def main():
     attempt = 0
 
     game = Game()
-
-    hi = input("AI? (1/0): \t")
-
+    try:
+        hi = sys.argv[1]
+    except:
+        hi = input("What debug mode? 0 = 2 players, 1 = 1 ai, 2 = 2 ai:  ")
     if(hi == "1"):
         print("Player vs. AI")
         while True:
@@ -92,6 +95,7 @@ def main():
                 attempt = 0
                 if aiMove:
                     for m in implementation:
+                        print(m)
                         steps = planner.make_command_list(m)  # type:List[Action]
 
                         for step in steps:

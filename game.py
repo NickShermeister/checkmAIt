@@ -127,6 +127,7 @@ class Game(object):
                 print("test2")
                 moves.append(self.reviveFromGraveyard(command[2:4], pieceRevived))
                 print("test3")
+                print("Moves:")
                 print(str(moves))
                 return moves
             else:
@@ -138,13 +139,28 @@ class Game(object):
         print("Hi is: " + str(hi))
         stripped_command = ''.join(l for l in hi.uci() if l in '12345678abcdefgh')  #Strip the command so that it only has the before and after coordinates.
         #make sure that the uci is correct.
-        assert (len(hi.uci()) == 4)
-
+        # assert (len(hi.uci()) == 4)
+        if(len(hi.uci()) == 4):
         #get the before/after coordinates
-        loc1 = stripped_command[0:2]
-        loc2 = stripped_command[2:]
+            loc1 = stripped_command[0:2]
+            loc2 = stripped_command[2:]
 
-        moves = moves + self.updateLocations(loc1, loc2)    #Updates the location of PIECES
+            moves = moves + self.updateLocations(loc1, loc2)    #Updates the location of PIECES
+        elif(len(hi.uci()) == 5):
+            print("Moves:")
+            print(str(moves))
+            if(not self.board.turn):
+                pieceRevived = stripped_command[-1].upper()
+            else:
+                pieceRevived = stripped_command[-1].lower()
+            #Send current pawn to graveyardMove
+            #Revive queen...
+            print("test1ai")
+            tempmove = self.graveyardMove(stripped_command[0:2])
+            moves.append(tempmove)
+            print("test2ai")
+            moves.append(self.reviveFromGraveyard(stripped_command[2:4], pieceRevived))
+            print("test3ai")
         print("Moves:")
         print(str(moves))
         return moves
@@ -221,9 +237,9 @@ class Game(object):
         is_white = piece.isupper()
         source = self.graveyard.retrievePiece(is_white, piece)
         # assert source is not None, "Tried to revive piece not in graveyard"
-        if(source == None):
-            source = self.graveyard.retrievePiece(is_white, '')
-            piece = ''
+        # if(source == None):
+        #     source = self.graveyard.retrievePiece(is_white, '')
+        #     piece = ''
 
         if piece.lower() == 'p':
             piece = ''
