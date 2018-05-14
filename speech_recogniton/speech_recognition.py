@@ -3,6 +3,7 @@
 from __future__ import division
 import re
 import sys
+
 from google.cloud import speech
 from google.cloud.speech import enums
 from google.cloud.speech import types
@@ -61,8 +62,8 @@ class MicrophoneStream(object):
 
     def __exit__(self, type, value, traceback):
         """
-        Closes stream when complete.
-        """
+        Closes stream when complete!
+       """
         self._audio_stream.stop_stream()
         self._audio_stream.close()
         self.closed = True
