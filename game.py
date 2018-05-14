@@ -159,6 +159,7 @@ class Game(object):
             tempmove = self.graveyardMove(stripped_command[0:2])
             moves.append(tempmove)
             print("test2ai")
+            print(str(moves), '\n', pieceRevived)
             moves.append(self.reviveFromGraveyard(stripped_command[2:4], pieceRevived))
             print("test3ai")
         print("Moves:")
