@@ -1,0 +1,19 @@
+[[source]]
+name = "pypi"
+verify_ssl = true
+url = "https://pypi.python.org/simple"
+
+[requires]
+python_version = "3.5"
+
+[packages]
+python-chess = "*"
+networkx = "*"
+numpy = "*"
+requests = "*"
+google-api-python-client = "*"
+google-cloud = "*"
+pyaudio = "*"
+typing = "*"
+
+[dev-packages]

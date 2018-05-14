@@ -79,7 +79,7 @@ class Action(object):
         return action
 
     @classmethod
-    def GotoCoord(cls, coord):
+    def GotoCoord(cls, coord: PieceCoord):
         action = cls()
         action.coord = coord
         return action
