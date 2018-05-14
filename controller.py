@@ -86,6 +86,7 @@ class Controller(object):
             command = 'G0 Y{y} Z{z} E{e} F{f}'.format(y=pos.y, z=pos.x, e=dist, f=self.speed)
             self.write_serial(self.CALIB)
             self.write_serial(command)
+            time.sleep(dist / self.speed * 60)
             self.lastpos = pos
 
     def _convert_coord(self, coord: PieceCoord):
