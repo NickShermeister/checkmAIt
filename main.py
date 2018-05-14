@@ -29,14 +29,19 @@ def main():
     game = Game()
     try:
         hi = sys.argv[1]
+        speech_input = sys.argv[2]
     except:
         hi = input("What debug mode? 0 = 2 players, 1 = 1 ai, 2 = 2 ai:  ")
+        speech_input = input("Do you want to verbally  give commands? (y/n):\t")
     if(hi == "1"):
         print("Player vs. AI")
         while True:
             if game.board.turn == chess.WHITE and not debugFlag:
                 print(game.board)
-                command = speech.speechCommand()
+                if(speech_input == "y"):
+                		command = speech.speechCommand()
+                else:
+                		command = speech.getCommand()
                 try:
                     debugMoves = int(command)
                     debugFlag = True
@@ -110,7 +115,10 @@ def main():
         print("Player v. Player")
         while True:
             print(game.board)
-            command = speech.getCommand()
+            if(speech_input == "y"):
+                		command = speech.speechCommand()
+            else:
+                		command = speech.getCommand()
 
             if command == 'show':
                 print(game.board)

@@ -3,13 +3,30 @@
 from __future__ import division
 import re
 import sys
+import os
 
 from google.cloud import speech
 from google.cloud.speech import enums
 from google.cloud.speech import types
 import pyaudio
+from ctypes import *
+from contextlib import contextmanager
 from six.moves import queue
 
+ERROR_HANDLER_FUNC = CFUNCTYPE(None, c_char_p, c_int, c_char_p, c_int, c_char_p)
+
+def py_error_handler(filename, line, function, err, fmt):
+	pass
+	
+c_error_handler = ERROR_HANDLER_FUNC(py_error_handler)
+
+@contextmanager
+def noalsaerr():
+	asound = cdll.LoadLibrary('libasound.so')
+	asound.snd_lib_error_set_handler(c_error_handler)
+	yield
+	asound.snd_lib_error_set_handler(None)
+	
 # Audio recording parameters
 RATE = 16000
 CHUNK = int(RATE / 10)  # 100ms
@@ -46,7 +63,8 @@ class MicrophoneStream(object):
 
         Returns MicrophoneStream with proper configurations and instance vars.
         """
-        self._audio_interface = pyaudio.PyAudio()
+        with noalsaerr():
+        	self._audio_interface = pyaudio.PyAudio()
         self._audio_stream = self._audio_interface.open(
             format=pyaudio.paInt16,
             # The API currently only supports 1-channel (mono) audio
@@ -194,8 +212,8 @@ def attempt_command_string(feed):
             command_string += piece[0].upper()
             
     full_string = ''.join(feed_list)
-    for bad, good in [('to','2'),('six','6'),('sex','6')]:
-    	full_string.replace(bad, good)
+    for bad, good in [('to','2'),('six','6'),('sex','6'), ('for','4')]:
+    	full_string = full_string.replace(bad, good)
     list_locs = re.findall('[a-hA-H][1-8]', full_string)
     print("This is what I get: {}".format(list_locs))
     command_string += ''.join(list_locs).lower()
@@ -239,6 +257,7 @@ def  setup_and_run():
     streaming_config = types.StreamingRecognitionConfig(
         config=config,
         interim_results=True)
+    os.system('omxplayer speech_recogniton/Twinkle-sound-effect.mp3')
     with MicrophoneStream(RATE, CHUNK) as stream:
         audio_generator = stream.generator()
         requests = (types.StreamingRecognizeRequest(audio_content=content)
