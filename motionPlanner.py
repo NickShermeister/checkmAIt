@@ -173,15 +173,13 @@ class MotionPlanner(object):
 
 	def return_moved(self) -> [Action]:
 		""" Returns a moved piece to its starting position """
-		if len(self.made_way_coord) > 0 and len(self.contested_space) > 0:
-			move = PieceMove(self.made_way_coord[-1], self.contested_space[-1])
-			self.made_way_coord = self.made_way_coord[:-1]
-			self.contested_space = self.contested_space[:-1]
-			self.made_way_flag = (len(self.made_way_coord) > 0) and len(self.contested_space) > 0
+		# if len(self.made_way_coord) > 0 and len(self.contested_space) > 0:
+		move = PieceMove(self.made_way_coord[-1], self.contested_space[-1])
+		self.made_way_coord = self.made_way_coord[:-1]
+		self.contested_space = self.contested_space[:-1]
+		self.made_way_flag = (len(self.made_way_coord) > 0) and len(self.contested_space) > 0
 
-			return self.make_command_list(move)
-		print("No piece to return")
-		return None
+		return self.make_command_list(move)
 
 	# def capture(self, move:PieceMove):
 	# 	""" Not sure what this is for """
