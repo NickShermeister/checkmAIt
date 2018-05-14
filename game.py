@@ -127,6 +127,7 @@ class Game(object):
                 print("test2")
                 moves.append(self.reviveFromGraveyard(command[2:4], pieceRevived))
                 print("test3")
+                print(str(moves))
                 return moves
             else:
                 hi = self.board.push_san(command)
@@ -144,6 +145,7 @@ class Game(object):
         loc2 = stripped_command[2:]
 
         moves = moves + self.updateLocations(loc1, loc2)    #Updates the location of PIECES
+        print("Moves:")
         print(str(moves))
         return moves
 
