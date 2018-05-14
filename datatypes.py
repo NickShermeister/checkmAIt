@@ -29,8 +29,8 @@ class PieceCoord(object):
             x=0 is leftmost square in graveyard, x=3 is the leftmost square on the board
         :param int y: y-coordinate on the play field
         """
-        if x % 1 != 0 or y % 1 != 0:
-            raise Exception("Need integers for PieceCoord!")
+        # if x % 1 != 0 or y % 1 != 0:
+        #     raise Exception("Need integers for PieceCoord!")
         self.y = int(y)
         self.x = int(x)
 

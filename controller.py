@@ -19,8 +19,9 @@ class RobotPosition(object):
 class Controller(object):
     UP_POS = 46
     DOWN_POS = 70
+    CALIB = 'M92 Y50 Z50'
 
-    def __init__(self, simulation=True, square_size=3.0, center=(30.0, 20.0), speed=100):
+    def __init__(self, simulation=True, square_size=2.54, center=(18.0, 10.0), speed=500):
         self.speed = speed  # In mm/sec
         self.square_size = square_size
         self.center = center
@@ -74,6 +75,7 @@ class Controller(object):
         else:
             dist = np.sqrt((pos.x - self.lastpos.x)**2 + (pos.y - self.lastpos.y)**2)
             command = 'G0 Y{y} Z{z} E{e} F{f}'.format(y=pos.y, z=pos.x, e=dist, f=self.speed)
+            self.write_serial(self.CALIB)
             self.write_serial(command)
             self.lastpos = pos
 
@@ -92,7 +94,7 @@ class Controller(object):
 def key_control():
     c = Controller(simulation=False)
 
-    print('Input: "x y" or "u" or "d": ')
+    print('Input: "x y" or "r x y" or "u" or "d": ')
 
     while True:
         try:
@@ -109,13 +111,24 @@ def key_control():
             c.mag_down()
             continue
 
+        if s and s.lower()[0] == 'r':
+            try:
+                l = s[1:].strip().split(' ')
+                pos = RobotPosition(float(l[0]), float(l[1]))
+
+                c.goto_raw_coord(pos)
+
+            except Exception as e:
+                print('Input two numbers separated by a space', e)
+            continue
+
         try:
             l = s.split(' ')
             pos = PieceCoord(float(l[0]), float(l[1]))
 
             c.goto_coord(pos)
 
-        except Exception:
+        except Exception as e:
             print('Input two numbers separated by a space')
 
 
