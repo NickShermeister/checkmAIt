@@ -14,6 +14,6 @@ requests = "*"
 google-api-python-client = "*"
 google-cloud = "*"
 pyaudio = "*"
-pyserial = "*"
+typing = "*"
 
 [dev-packages]
