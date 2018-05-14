@@ -53,8 +53,11 @@ class Controller(object):
         # TODO: remove this once we trust the system
         if True:
             time.sleep(1)
-            response = self.serial.read_all().decode().strip()
-            print("Got response: '{}'".format(response))
+            try:
+                response = self.serial.read_all().decode().strip()
+                print("Got response: '{}'".format(response))
+            except Exception:
+                print("Issue reading response!")
 
     def mag_up(self):
         if self.simulation:
@@ -71,6 +74,7 @@ class Controller(object):
             self.write_serial(command)
 
     def goto_coord(self, coord: PieceCoord):
+        coord.x += 3
         print("Moving to PieceCoord:", coord)
         self.goto_raw_coord(self._convert_coord(coord))
 
