@@ -414,20 +414,27 @@ class Game(object):
         #a is 97 in ascii, we're ofsetting by 3 in the long-direction (x)
         # print("convertMoves")
         print("Loc1 is a", type(loc1), "\nLoc2 is a", type(loc2))
+        print("Loc1: ", str(loc1), "\nLoc2: ", str(loc2))
 
         if(type(loc1)!=PieceCoord):
             move1 = (ord(loc1[0]) - 97 + 3, ord(loc1[1]))
+            if(move1[1] > 15):
+                move1 = (move1[0], move1[1] - 49)
+            print("Move 1:\n", move1)
             one = PieceCoord(move1[0], move1[1])
         else:
             one = loc1
 
         if(type(loc2)!=PieceCoord):
             move2 = (ord(loc2[0]) - 97 + 3, ord(loc2[1]))
+            if(move2[1] > 15):
+                move2 = (move2[0], move2[1] - 49)
+            print("Move 2:\n", move2)
             two = PieceCoord(move2[0], move2[1])
         else:
             two = loc2
 
-
+        print(str(PieceMove))
         return PieceMove(one, two)
 
     def implementMove(self, command):

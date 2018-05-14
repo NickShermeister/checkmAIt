@@ -159,7 +159,7 @@ def attempt_command_string(feed):
     """
     # Make an informed guess on what the command is.
     pieces = ["knight", "queen", "king", "pawn", "bishop", "rook", "work", \
-              "night", "Night", "brooke"]
+              "night", "Night", "brooke", 'look']
     rows = ["1", "2", "3", "4", "5", "6", "7", "8"]
     cols = ["B", "C", "D", "F", "G", "H", "A", "E", "b", "c", "a", "d", "e", "f"]
     command_string = ""
@@ -183,24 +183,29 @@ def attempt_command_string(feed):
         if piece == "knight" or piece == "Knight" or \
            piece == "night" or piece == "Night":
             command_string += "N"
-        elif piece == "work" or piece == "brooke":
+        elif piece == "work" or piece == "brooke" or piece == 'look':
             command_string += "R"
         else:
             command_string += piece[0].upper()
+	
+    #if feed_list[1] == "from":
+     #   command_string += make_string(feed_list[2],rows, cols)
+       #command_string += make_string(feed_list[-1],rows, cols)
 
-    if feed_list[1] == "from":
-        command_string += make_string(feed_list[2],rows, cols)
-        command_string += make_string(feed_list[-1],rows, cols)
-
-    else:
-        command_string += make_string(feed_list[-1],rows, cols)
-
+    #else:
+    #    command_string += make_string(feed_list[-1],rows, cols)
+    full_string = ''.join(feed_list)
+    for bad, good in [('to','2'),('six','6'),('sex','6')]:
+    	full_string.replace(bad, good)
+    list_locs = re.findall('[a-hA-H][1-8]', full_string)
+    print("This is what I get: {}".format(list_locs))
+    command_string += ''.join(list_locs).lower()
     # Hardcoding in whether or not this is chess notation. Can be changed.
-    if len(command_string) not in [3, 5]:
+    if len(command_string) not in [3, 4, 5]:
         print("Failed.")
         return
 
-    # print(command_string)
+    print(command_string)
     return command_string
 
 def make_string(string, rows, cols):

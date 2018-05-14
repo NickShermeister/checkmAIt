@@ -36,7 +36,7 @@ def main():
         while True:
             if game.board.turn == chess.WHITE and not debugFlag:
                 print(game.board)
-                command = speech.getCommand()
+                command = speech.speechCommand()
                 try:
                     debugMoves = int(command)
                     debugFlag = True
