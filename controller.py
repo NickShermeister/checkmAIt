@@ -21,7 +21,7 @@ class Controller(object):
     DOWN_POS = 70
     CALIB = 'M92 Y50 Z50'
 
-    def __init__(self, simulation=True, square_size=2.54, center=(18.0, 10.0), speed=500):
+    def __init__(self, simulation=False, square_size=2.54, center=(18.0, 10.0), speed=500):
         self.speed = speed  # In mm/sec
         self.square_size = square_size
         self.center = center
@@ -31,7 +31,11 @@ class Controller(object):
         self.lastpos = RobotPosition(0, 0)
 
         if not simulation:
-            self.serial = serial.serial_for_url('/dev/ttyACM0', baudrate=115200)
+            try:
+                self.serial = serial.serial_for_url('/dev/ttyACM0', baudrate=115200)
+            except serial.serialutil.SerialException:
+                print("Unable to initialize serial! Falling back to simulation mode!")
+                self.simulation = True
 
     def makeMove(self, step: Action):
         if step.up:
