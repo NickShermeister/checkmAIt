@@ -3,6 +3,7 @@
 import time
 
 from datatypes import *
+import serial
 
 
 class RobotPosition(object):
@@ -15,11 +16,17 @@ class RobotPosition(object):
 
 
 class Controller(object):
+    UP_POS = 30
+    DOWN_POS = 100
+
     def __init__(self, simulation=True, square_size=3.0, center=(30.0, 20.0)):
         self.square_size = square_size
         self.center = center
 
         self.simulation = simulation
+
+        if not simulation:
+            self.serial = serial.serial_for_url('/dev/ttyACM0', baudrate=115200)
 
     def makeMove(self, step: Action):
         if step.up:
@@ -31,17 +38,28 @@ class Controller(object):
         elif step.coord:
             self.goto_coord(step.coord)
 
+    def write_serial(self, data: str):
+        self.serial.write((data+'\n').encode())
+        print("Sent command: '{}'".format(data))
+        # TODO: remove this once we trust the system
+        if True:
+            time.sleep(1)
+            response = self.serial.read_all().decode().strip()
+            print("Got response: '{}'".format(response))
+
     def mag_up(self):
         if self.simulation:
             print("Lifting the magnet!")
         else:
-            raise NotImplementedError()
+            command = 'M280 P0 S{}'.format(self.UP_POS)
+            self.write_serial(command)
 
     def mag_down(self):
         if self.simulation:
             print("Lowering the magnet!")
         else:
-            raise NotImplementedError()
+            command = 'M280 P0 S{}'.format(self.DOWN_POS)
+            self.write_serial(command)
 
     def goto_coord(self, coord: PieceCoord):
         self.goto_raw_coord(self._convert_coord(coord))
@@ -60,15 +78,12 @@ class Controller(object):
     def run_test(self):
         self.mag_down()
         for x in range(0, 10, 0.1):
-
             self.goto_raw_coord(RobotPosition(x, 0))
             time.sleep(.1)
 
 
 def key_control():
-    c = Controller()
-
-    c.mag_down()
+    c = Controller(simulation=False)
 
     print('Input: "x y" or "u" or "d": ')
 
